@@ -1,0 +1,3 @@
+[submodule "external/spelling"]
+	path = external/spelling
+	url = git@github.com:eitsl/spelling.git

@@ -1,0 +1,19 @@
+{
+    "presets": {
+        "drag": {
+            "default": true,
+            "displayName": "DRAG",
+            "description": "Vocabulario do dicionario da Real Academia Galega e regras de suxestión de diversas fontes.",
+            "aff": ["norma", "rag/gl"],
+            "dic": ["norma", "rag/gl"],
+            "rep": ["*"]
+        },
+        "comunidade": {
+            "displayName": "Comunidade",
+            "description": "Vocabulario e suxestións de diversas fontes. Inclúe vocabulario non presente no dicionario da Real Academia Galega.",
+            "aff": ["*"],
+            "dic": ["*"],
+            "rep": ["*"]
+        }
+    }
+}
