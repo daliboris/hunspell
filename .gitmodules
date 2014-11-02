@@ -4,3 +4,6 @@
 [submodule "external/lexicon"]
 	path = external/lexicon
 	url = git@github.com:eitsl/lexicon.git
+[submodule "external/pydiomatic"]
+	path = external/pydiomatic
+	url = git@github.com:eitsl/pydiomatic.git
