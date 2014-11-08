@@ -5,7 +5,7 @@ python:
   - "2.7"
 before_install:
   - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
-  - git submodule update --init --recursive
+  - git submodule update --init
 install:
   - pip install pep8 --use-mirrors
   - pip install https://github.com/pyflakes/pyflakes/tarball/master
