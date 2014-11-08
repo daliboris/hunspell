@@ -4,13 +4,14 @@ import textwrap
 
 import codecs
 
-from common import formatEntriesAndCommentsForDictionary, ContentCache, PdfParser
+from common import formatEntriesAndCommentsForDictionary, ContentCache, \
+    PdfParser
 import generator
 
 
-
 contentCache = ContentCache("microsoft")
-styleGuidePdfUrl = u"http://download.microsoft.com/download/D/7/2/D72521AC-634E-41B1-8431-6F75C29CAE84/glg-esp-StyleGuide.pdf"
+styleGuidePdfUrl = u"http://download.microsoft.com/download/D/7/2/" \
+    u"D72521AC-634E-41B1-8431-6F75C29CAE84/glg-esp-StyleGuide.pdf"
 
 
 class AbbreviationsGenerator(generator.Generator):
@@ -19,7 +20,6 @@ class AbbreviationsGenerator(generator.Generator):
         super(AbbreviationsGenerator, self).__init__()
         self.resource = u"microsoft/abreviaturas.dic"
 
-
     def parseSubEntries(self, entry):
         if u" / " in entry:
             for subentry in entry.split(u" / "):
@@ -27,10 +27,10 @@ class AbbreviationsGenerator(generator.Generator):
         else:
             yield entry
 
-
     def generateFileContent(self):
 
-        filePath = contentCache.downloadFileIfNeededAndGetLocalPath(styleGuidePdfUrl)
+        filePath = contentCache.downloadFileIfNeededAndGetLocalPath(
+            styleGuidePdfUrl)
         pdfParser = PdfParser(filePath)
 
         entries = {}
@@ -53,7 +53,8 @@ class AbbreviationsGenerator(generator.Generator):
 
             # Yes, I know, ugliest decoding ever… It looks like different parts
             # of the PDF use different encoding, so… bare with me.
-            line = line.replace(u"ñ", u"ó").replace(u"ð", u"ñ").replace(u"ö", u"ú")
+            line = line.replace(u"ñ", u"ó").replace(
+                u"ð", u"ñ").replace(u"ö", u"ú")
 
             if line.startswith(u"(+)"):
                 comment = previousLine
@@ -64,10 +65,11 @@ class AbbreviationsGenerator(generator.Generator):
 
             previousLine = line
 
-        dictionary  = u"# Relación de abreviaturas máis frecuentes\n"
+        dictionary = u"# Relación de abreviaturas máis frecuentes\n"
         dictionary += u"# {}\n".format(styleGuidePdfUrl)
         dictionary += u"\n"
-        for entry in formatEntriesAndCommentsForDictionary(entries, u"abreviatura"):
+        for entry in formatEntriesAndCommentsForDictionary(entries,
+                                                           u"abreviatura"):
             dictionary += entry
         return dictionary
 

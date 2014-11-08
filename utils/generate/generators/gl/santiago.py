@@ -4,13 +4,14 @@ import textwrap
 
 import codecs
 
-from common import formatEntriesAndCommentsForDictionary, ContentCache, PdfParser
+from common import formatEntriesAndCommentsForDictionary, ContentCache, \
+    PdfParser
 import generator
 
 
-
 contentCache = ContentCache("santiago")
-styleGuidePdfUrl = u"http://www.v1deputacionlugo.org/media/documentos/Libro_de_estilo_Concello_Santiago.pdf"
+styleGuidePdfUrl = u"http://www.v1deputacionlugo.org/media/documentos/" \
+    u"Libro_de_estilo_Concello_Santiago.pdf"
 
 
 class AbbreviationsGenerator(generator.Generator):
@@ -18,7 +19,6 @@ class AbbreviationsGenerator(generator.Generator):
     def __init__(self):
         super(AbbreviationsGenerator, self).__init__()
         self.resource = u"santiago/abreviaturas.dic"
-
 
     def parseEntry(self, entry):
         if u"./" in entry:
@@ -39,10 +39,10 @@ class AbbreviationsGenerator(generator.Generator):
         elif entry:
             yield entry
 
-
     def generateFileContent(self):
 
-        filePath = contentCache.downloadFileIfNeededAndGetLocalPath(styleGuidePdfUrl)
+        filePath = contentCache.downloadFileIfNeededAndGetLocalPath(
+            styleGuidePdfUrl)
         pdfParser = PdfParser(filePath)
 
         entries = {}
@@ -50,7 +50,8 @@ class AbbreviationsGenerator(generator.Generator):
         continuesInTheNextLine = False
         previousLine = None
 
-        import re, string
+        import re
+        import string
 
         plural = re.compile(u"\(plural ([^)]+)\)")
         fem = re.compile(u"\(fem. ([^)]+)\)")
@@ -104,7 +105,8 @@ class AbbreviationsGenerator(generator.Generator):
                 for subentry in self.parseEntry(match.group(1)):
                     subentries.add(subentry)
 
-            entry = re.sub(parenthesis, u"", entry) # Eliminar contido entre parénteses.
+            # Eliminar contido entre parénteses.
+            entry = re.sub(parenthesis, u"", entry)
             entry = entry.strip()
 
             for subentry in self.parseEntry(entry):
@@ -113,10 +115,12 @@ class AbbreviationsGenerator(generator.Generator):
             for subentry in subentries:
                 entries[subentry] = comment
 
-        dictionary  = u"# Relación de abreviaturas máis frecuentes na linguaxe administrativa\n"
+        dictionary = u"# Relación de abreviaturas máis frecuentes na " \
+            u"linguaxe administrativa\n"
         dictionary += u"# {}\n".format(styleGuidePdfUrl)
         dictionary += u"\n"
-        for entry in formatEntriesAndCommentsForDictionary(entries, u"abreviatura"):
+        for entry in formatEntriesAndCommentsForDictionary(entries,
+                                                           u"abreviatura"):
             dictionary += entry
         return dictionary
 
@@ -127,10 +131,10 @@ class AcronymsGenerator(generator.Generator):
         super(AcronymsGenerator, self).__init__()
         self.resource = u"santiago/siglas.dic"
 
-
     def generateFileContent(self):
 
-        filePath = contentCache.downloadFileIfNeededAndGetLocalPath(styleGuidePdfUrl)
+        filePath = contentCache.downloadFileIfNeededAndGetLocalPath(
+            styleGuidePdfUrl)
         pdfParser = PdfParser(filePath)
 
         entries = {}
@@ -184,7 +188,7 @@ class AcronymsGenerator(generator.Generator):
 
             entries[entry.strip()] = comment
 
-        dictionary  = u"# Relación de siglas máis frecuentes\n"
+        dictionary = u"# Relación de siglas máis frecuentes\n"
         dictionary += u"# {}\n".format(styleGuidePdfUrl)
         dictionary += u"\n"
         for entry in formatEntriesAndCommentsForDictionary(entries, u"sigla"):
@@ -198,9 +202,10 @@ class SymbolsGenerator(generator.Generator):
         super(SymbolsGenerator, self).__init__()
         self.resource = u"santiago/símbolos.dic"
 
-
     def parseEntry(self, entry):
-        entry = u''.join(dict(zip(u"0123456789", u"⁰¹²³⁴⁵⁶⁷⁸⁹")).get(c, c) for c in entry) # http://stackoverflow.com/a/13875688/939364
+        # http://stackoverflow.com/a/13875688/939364
+        entry = u''.join(
+            dict(zip(u"0123456789", u"⁰¹²³⁴⁵⁶⁷⁸⁹")).get(c, c) for c in entry)
         if u" ou " in entry:
             for subentry in entry.split(u" ou "):
                 subentry = subentry.strip()
@@ -212,14 +217,14 @@ class SymbolsGenerator(generator.Generator):
                 if subentry:
                     yield subentry
         elif entry.endswith(u"-") or entry.startswith(u"-"):
-            pass # Prefixo ou sufixo.
+            pass  # Prefixo ou sufixo.
         elif entry:
             yield entry
 
-
     def generateFileContent(self):
 
-        filePath = contentCache.downloadFileIfNeededAndGetLocalPath(styleGuidePdfUrl)
+        filePath = contentCache.downloadFileIfNeededAndGetLocalPath(
+            styleGuidePdfUrl)
         pdfParser = PdfParser(filePath)
 
         entries = {}
@@ -271,10 +276,11 @@ class SymbolsGenerator(generator.Generator):
             for subentry in self.parseEntry(entry):
                 entries[subentry] = comment
 
-        dictionary  = u"# Relación de símbolos máis frecuentes\n"
+        dictionary = u"# Relación de símbolos máis frecuentes\n"
         dictionary += u"# {}\n".format(styleGuidePdfUrl)
         dictionary += u"\n"
-        for entry in formatEntriesAndCommentsForDictionary(entries, u"símbolo"):
+        for entry in formatEntriesAndCommentsForDictionary(entries,
+                                                           u"símbolo"):
             dictionary += entry
         return dictionary
 

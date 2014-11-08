@@ -4,13 +4,14 @@ import textwrap
 
 import codecs
 
-from common import formatEntriesAndCommentsForDictionary, ContentCache, PdfParser
+from common import formatEntriesAndCommentsForDictionary, ContentCache, \
+    PdfParser
 import generator
 
 
-
 contentCache = ContentCache("usc")
-pdfUrl = u"http://www.usc.es/export/sites/default/gl/servizos/snl/asesoramento/fundamentos/descargas/abreviaturassiglassimboloslexico.pdf"
+pdfUrl = u"http://www.usc.es/export/sites/default/gl/servizos/snl/" \
+    u"asesoramento/fundamentos/descargas/abreviaturassiglassimboloslexico.pdf"
 
 
 class AbbreviationsGenerator(generator.Generator):
@@ -18,7 +19,6 @@ class AbbreviationsGenerator(generator.Generator):
     def __init__(self):
         super(AbbreviationsGenerator, self).__init__()
         self.resource = u"usc/abreviaturas.dic"
-
 
     def parseEntry(self, entry):
         if u"./" in entry:
@@ -33,7 +33,6 @@ class AbbreviationsGenerator(generator.Generator):
                     yield subentry
         elif entry:
             yield entry
-
 
     def generateFileContent(self):
 
@@ -78,11 +77,11 @@ class AbbreviationsGenerator(generator.Generator):
             else:
                 comment = line
 
-
-        dictionary  = u"# Relación de abreviaturas máis frecuentes\n"
+        dictionary = u"# Relación de abreviaturas máis frecuentes\n"
         dictionary += u"# {}\n".format(pdfUrl)
         dictionary += u"\n"
-        for entry in formatEntriesAndCommentsForDictionary(entries, u"abreviatura"):
+        for entry in formatEntriesAndCommentsForDictionary(entries,
+                                                           u"abreviatura"):
             dictionary += entry
         return dictionary
 
@@ -92,7 +91,6 @@ class AcronymsGenerator(generator.Generator):
     def __init__(self):
         super(AcronymsGenerator, self).__init__()
         self.resource = u"usc/siglas.dic"
-
 
     def generateFileContent(self):
 
@@ -111,7 +109,8 @@ class AcronymsGenerator(generator.Generator):
             line = line.strip()
 
             if parsingStage == 0:
-                if line == u"Asociación Española de Normalización e Certificación":
+                if line == u"Asociación Española de Normalización e " \
+                        u"Certificación":
                     parsingStage += 1
                 else:
                     continue
@@ -134,8 +133,7 @@ class AcronymsGenerator(generator.Generator):
             else:
                 comment = line
 
-
-        dictionary  = u"# Relación de siglas e acrónimos máis frecuentes\n"
+        dictionary = u"# Relación de siglas e acrónimos máis frecuentes\n"
         dictionary += u"# {}\n".format(pdfUrl)
         dictionary += u"\n"
         for entry in formatEntriesAndCommentsForDictionary(entries, u"sigla"):
@@ -148,7 +146,6 @@ class SymbolsGenerator(generator.Generator):
     def __init__(self):
         super(SymbolsGenerator, self).__init__()
         self.resource = u"usc/símbolos.dic"
-
 
     def parseEntry(self, entry):
         if u"./" in entry:
@@ -163,7 +160,6 @@ class SymbolsGenerator(generator.Generator):
                     yield subentry
         elif entry:
             yield entry
-
 
     def generateFileContent(self):
 
@@ -200,18 +196,18 @@ class SymbolsGenerator(generator.Generator):
                 continue
 
             if comment:
-                if not comment.endswith("-"): # Saltarse os prefixos.
+                if not comment.endswith("-"):  # Saltarse os prefixos.
                     for subentry in self.parseEntry(line):
                         entries[subentry] = comment
                 comment = None
             else:
                 comment = line
 
-
-        dictionary  = u"# Relación de símbolos máis frecuentes\n"
+        dictionary = u"# Relación de símbolos máis frecuentes\n"
         dictionary += u"# {}\n".format(pdfUrl)
         dictionary += u"\n"
-        for entry in formatEntriesAndCommentsForDictionary(entries, u"símbolo"):
+        for entry in formatEntriesAndCommentsForDictionary(entries,
+                                                           u"símbolo"):
             dictionary += entry
         return dictionary
 

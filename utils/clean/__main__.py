@@ -1,16 +1,16 @@
 # -*- coding:utf-8 -*-
 
-import os, sys
-import codecs, locale
+import os
+import sys
+import codecs
+import locale
 
 # See http://stackoverflow.com/a/4546129/939364
 sys.stdout = codecs.getwriter(locale.getpreferredencoding())(sys.stdout)
 
 
-
 def getModulesSourcePath():
     return os.path.join(os.path.dirname(os.path.realpath(__file__)).decode("utf-8"), u"../../src")
-
 
 
 # Program starts.

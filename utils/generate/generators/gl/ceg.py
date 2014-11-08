@@ -4,13 +4,14 @@ import textwrap
 
 import codecs
 
-from common import formatEntriesAndCommentsForDictionary, ContentCache, PdfParser
+from common import formatEntriesAndCommentsForDictionary, ContentCache, \
+    PdfParser
 import generator
 
 
-
 contentCache = ContentCache("ceg")
-pdfUrl = u"http://www.normalizacion.ceg.es/attachments/article/71/siglaspdf.pdf"
+pdfUrl = u"http://www.normalizacion.ceg.es/attachments/article/71/" \
+    u"siglaspdf.pdf"
 
 
 class AbbreviationsGenerator(generator.Generator):
@@ -18,7 +19,6 @@ class AbbreviationsGenerator(generator.Generator):
     def __init__(self):
         super(AbbreviationsGenerator, self).__init__()
         self.resource = u"ceg/abreviaturas.dic"
-
 
     def parseEntry(self, entry):
         if u"./" in entry:
@@ -38,7 +38,6 @@ class AbbreviationsGenerator(generator.Generator):
                     yield subentry
         elif entry:
             yield entry
-
 
     def generateFileContent(self):
 
@@ -81,7 +80,8 @@ class AbbreviationsGenerator(generator.Generator):
                 for subentry in self.parseEntry(match.group(1)):
                     subentries.add(subentry)
 
-            entry = re.sub(parenthesis, u"", entry) # Eliminar contido entre parénteses.
+            # Eliminar contido entre parénteses.
+            entry = re.sub(parenthesis, u"", entry)
             entry = entry.strip()
 
             for subentry in self.parseEntry(entry):
@@ -94,10 +94,11 @@ class AbbreviationsGenerator(generator.Generator):
             for subentry in subentries:
                 entries[subentry] = comment
 
-        dictionary  = u"# Relación de abreviaturas máis frecuentes\n"
+        dictionary = u"# Relación de abreviaturas máis frecuentes\n"
         dictionary += u"# {}\n".format(pdfUrl)
         dictionary += u"\n"
-        for entry in formatEntriesAndCommentsForDictionary(entries, u"abreviatura"):
+        for entry in formatEntriesAndCommentsForDictionary(entries,
+                                                           u"abreviatura"):
             dictionary += entry
         return dictionary
 
@@ -107,7 +108,6 @@ class AcronymsGenerator(generator.Generator):
     def __init__(self):
         super(AcronymsGenerator, self).__init__()
         self.resource = u"ceg/siglas.dic"
-
 
     def generateFileContent(self):
 
@@ -145,7 +145,7 @@ class AcronymsGenerator(generator.Generator):
                 comment = u":".join(parts[1:]).strip()
                 entries[entry] = comment
 
-        dictionary  = u"# Relación de siglas e acrónimos máis frecuentes\n"
+        dictionary = u"# Relación de siglas e acrónimos máis frecuentes\n"
         dictionary += u"# {}\n".format(pdfUrl)
         dictionary += u"\n"
         for entry in formatEntriesAndCommentsForDictionary(entries, u"sigla"):
@@ -158,7 +158,6 @@ class SymbolsGenerator(generator.Generator):
     def __init__(self):
         super(SymbolsGenerator, self).__init__()
         self.resource = u"ceg/símbolos.dic"
-
 
     def generateFileContent(self):
 
@@ -189,7 +188,7 @@ class SymbolsGenerator(generator.Generator):
             parts = line.split(u":")
             comment = parts[0].strip()
             entry = u":".join(parts[1:]).strip()
-            if comment in [u"FM"]: # Entradas invertidas.
+            if comment in [u"FM"]:  # Entradas invertidas.
                 temporary = comment
                 comment = entry
                 entry = temporary
@@ -199,11 +198,11 @@ class SymbolsGenerator(generator.Generator):
             else:
                 entries[entry] = comment
 
-
-        dictionary  = u"# Relación de símbolos máis frecuentes\n"
+        dictionary = u"# Relación de símbolos máis frecuentes\n"
         dictionary += u"# {}\n".format(pdfUrl)
         dictionary += u"\n"
-        for entry in formatEntriesAndCommentsForDictionary(entries, u"símbolo"):
+        for entry in formatEntriesAndCommentsForDictionary(entries,
+                                                           u"símbolo"):
             dictionary += entry
         return dictionary
 

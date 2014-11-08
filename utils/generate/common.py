@@ -2,7 +2,13 @@
 
 from __future__ import print_function
 
-import os, pickle, re, requests, sys, time, urllib
+import os
+import pickle
+import re
+import requests
+import sys
+import time
+import urllib
 from datetime import datetime, timedelta
 from xdg.BaseDirectory import save_cache_path
 import PyICU
@@ -10,49 +16,45 @@ import PyICU
 from generator import output, wordsToIgnore
 
 
-
 numberPattern = re.compile(u"^[0-9-]*[0-9]+(\.?[ºª]|[.°:])?$")
 
 
 def getModulesSourcePath():
-    return os.path.join(os.path.dirname(os.path.realpath(__file__)).decode("utf-8"), u"../../data")
-
+    return os.path.join(
+        os.path.dirname(os.path.realpath(__file__)).decode("utf-8"),
+        u"../../data")
 
 
 class CacheManager(object):
 
     _instance = None
+
     def __new__(cls, *args, **kwargs):
         if not cls._instance:
             cls._instance = super(CacheManager, cls).__new__(
-                                cls, *args, **kwargs)
+                cls, *args, **kwargs)
         return cls._instance
-
 
     def __init__(self):
         self.cacheFolder = save_cache_path(u"hunspell-gl")
         self.pickleFolder = os.path.join(self.cacheFolder, u"pickle")
 
-
     def cachePath(self, resourcePath, objectName):
         return os.path.join(self.pickleFolder, resourcePath, objectName)
-
 
     def exists(self, resourcePath, objectName):
         cachePath = self.cachePath(resourcePath, objectName)
         if not os.path.exists(cachePath):
             return False
         fileData = os.stat(cachePath)
-        if (time.time() - fileData.st_mtime) > 86400: # Older than 24h.
+        if (time.time() - fileData.st_mtime) > 86400:  # Older than 24h.
             return False
         return True
-
 
     def load(self, resourcePath, objectName):
         cachePath = self.cachePath(resourcePath, objectName)
         with open(cachePath, "r") as fileObject:
             return pickle.load(fileObject)
-
 
     def save(self, resourcePath, objectName, objectData):
         cachePath = self.cachePath(resourcePath, objectName)
@@ -68,13 +70,12 @@ class ProgressReporter(object):
 
     def report(self):
         output(u"{}→ {}… {}/{} ({}%)\r".format(
-            u" "*self.indent,
+            u" " * self.indent,
             self.statement,
             self.processed,
             self.total,
-            self.processed*100/self.total,
+            self.processed * 100 / self.total,
         ))
-
 
     def __init__(self, statement, total, indent=0):
         self.statement = statement
@@ -91,34 +92,31 @@ class ProgressReporter(object):
     def done(self):
         if self.total:
             output(u"{}✓ {}. {}/{} ({}%)\n".format(
-                u" "*self.indent,
+                u" " * self.indent,
                 self.statement,
                 self.processed,
                 self.total,
-                self.processed*100/self.total,
+                self.processed * 100 / self.total,
             ))
 
 
 class TaskInProgressReporter(object):
 
     def report(self):
-        output(u"{}→ {}…\r".format(u" "*self.indent, self.statement))
-
+        output(u"{}→ {}…\r".format(u" " * self.indent, self.statement))
 
     def __init__(self, statement, indent=0):
         self.statement = statement
         self.indent = indent
         self.report()
 
-
     def done(self):
-        output(u"{}✓ {}.\n".format(u" "*self.indent, self.statement))
-
+        output(u"{}✓ {}.\n".format(u" " * self.indent, self.statement))
 
 
 def formatEntriesForDictionary(entries, partOfSpeech):
-    return formatEntriesAndCommentsForDictionary(dict.fromkeys(entries, None), partOfSpeech)
-
+    return formatEntriesAndCommentsForDictionary(dict.fromkeys(entries, None),
+                                                 partOfSpeech)
 
 
 def escapeSpecialEntryCharacters(entry):
@@ -126,32 +124,51 @@ def escapeSpecialEntryCharacters(entry):
 
 
 def formatEntriesAndCommentsForDictionary(entries, partOfSpeech):
-    reporter = ProgressReporter(u"Adaptando as entradas ao formato do dicionario", len(entries))
+    reporter = ProgressReporter(
+        u"Adaptando as entradas ao formato do dicionario", len(entries))
     collator = PyICU.Collator.createInstance(PyICU.Locale('gl.UTF-8'))
     for entry in sorted(entries, cmp=collator.compare):
-        if " " in entry: # Se o nome contén espazos, usarase unha sintaxe especial no ficheiro .dic.
+        if " " in entry:  # Use special syntax in .dic if there are spaces.
             ngramas = set()
             for ngrama in entry.split(u" "):
                 ngrama = ngrama.strip(",")
-                if ngrama == u"/": # e.g. «Alianza 90 / Os Verdes».
+                if ngrama == u"/":  # e.g. «Alianza 90 / Os Verdes».
                     continue
-                if ngrama not in wordsToIgnore:  # N-gramas innecesarios por ser vocabulario galego xeral.
-                    if ngrama not in ngramas:  # Non é necesario repetir ngramas dentro da mesma entrada
-                        if not numberPattern.match(ngrama):  # Hunspell sempre acepta números.
+                # Ignore general vocabulary.
+                if ngrama not in wordsToIgnore:
+                    # Do not repeat ngrams within the same entry.
+                    if ngrama not in ngramas:
+                        # Hunspell always allows numbers.
+                        if not numberPattern.match(ngrama):
                             ngramas.add(ngrama)
-                            if entries[entry]: # A entrada ten comentario.
-                                yield u"{ngrama} po:{partOfSpeech} [n-grama: {entry}]  # {comment}\n".format(ngrama=escapeSpecialEntryCharacters(ngrama), entry=entry, partOfSpeech=partOfSpeech, comment=entries[entry])
+                            if entries[entry]:  # Entry has a comment.
+                                yield u"{ngrama} po:{partOfSpeech} " \
+                                      u"[n-grama: {entry}]  " \
+                                      u"# {comment}\n".format(
+                                          ngrama=escapeSpecialEntryCharacters(
+                                              ngrama),
+                                          entry=entry,
+                                          partOfSpeech=partOfSpeech,
+                                          comment=entries[entry])
                             else:
-                                yield u"{ngrama} po:{partOfSpeech} [n-grama: {entry}]\n".format(ngrama=escapeSpecialEntryCharacters(ngrama), entry=entry, partOfSpeech=partOfSpeech)
+                                yield u"{ngrama} po:{partOfSpeech} " \
+                                      u"[n-grama: {entry}]\n".format(
+                                          ngrama=escapeSpecialEntryCharacters(
+                                              ngrama),
+                                          entry=entry,
+                                          partOfSpeech=partOfSpeech)
         else:
-            if entry not in wordsToIgnore and not numberPattern.match(entry):  # Hunspell sempre acepta números.
-                if entries[entry]: # A entrada ten comentario.
-                    yield u"{entry} po:{partOfSpeech}  # {comment}\n".format(entry=escapeSpecialEntryCharacters(entry), partOfSpeech=partOfSpeech, comment=entries[entry])
+            if entry not in wordsToIgnore and not numberPattern.match(entry):
+                if entries[entry]:  # Entry has a comment.
+                    yield u"{entry} po:{partOfSpeech}  # {comment}\n".format(
+                        entry=escapeSpecialEntryCharacters(entry),
+                        partOfSpeech=partOfSpeech, comment=entries[entry])
                 else:
-                    yield u"{entry} po:{partOfSpeech}\n".format(entry=escapeSpecialEntryCharacters(entry), partOfSpeech=partOfSpeech)
+                    yield u"{entry} po:{partOfSpeech}\n".format(
+                        entry=escapeSpecialEntryCharacters(entry),
+                        partOfSpeech=partOfSpeech)
         reporter.increase()
     reporter.done()
-
 
 
 class ContentCache(object):
@@ -162,7 +179,6 @@ class ContentCache(object):
         self.cacheFolder = os.path.join(cacheManager.cacheFolder, cacheFolder)
         if not os.path.exists(self.cacheFolder):
             os.makedirs(self.cacheFolder)
-
 
     def downloadFileIfNeededAndGetLocalPath(self, url, fileName=None):
 
@@ -175,17 +191,19 @@ class ContentCache(object):
             return localPath
 
         request = requests.head(url)
-        localFileDate = datetime.strptime(time.ctime(os.path.getmtime(localPath)), "%a %b %d %H:%M:%S %Y")
+        localFileDate = datetime.strptime(
+            time.ctime(os.path.getmtime(localPath)), "%a %b %d %H:%M:%S %Y")
 
-        # Cache for at least 24 hours. This is specially important for URLs that do not provide a
-        # last modified time.
+        # Cache for at least 24 hours. This is specially important for URLs
+        # that do not provide a last modified time.
         yesterday = datetime.now() - timedelta(days=1)
         if localFileDate >= yesterday:
             return localPath
 
         lastModified = request.headers.get("Last-Modified")
         if lastModified:
-            remoteFileDate = datetime.strptime(lastModified, '%a, %d %b %Y %H:%M:%S GMT')
+            remoteFileDate = datetime.strptime(lastModified,
+                                               '%a, %d %b %Y %H:%M:%S GMT')
             if localFileDate >= remoteFileDate:
                 return localPath
 
@@ -193,12 +211,10 @@ class ContentCache(object):
         return localPath
 
 
-
 class PdfParser(object):
 
     def __init__(self, filePath):
         self.filePath = filePath
-
 
     def lines(self):
 
@@ -218,7 +234,8 @@ class PdfParser(object):
         for page in PDFPage.create_pages(document):
             interpreter.process_page(page)
             layout = device.get_result()
-            objects = [object for object in layout if isinstance(object, LTChar)]
+            objects = [object for object in layout
+                       if isinstance(object, LTChar)]
             if objects:
                 params = LAParams()
                 for line in layout.group_objects(params, objects):

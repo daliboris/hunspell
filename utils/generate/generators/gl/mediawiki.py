@@ -1,6 +1,14 @@
 # -*- coding:utf-8 -*-
 
-import codecs, json, os, requests, sys, tempfile, time, unicodedata, urllib
+import codecs
+import json
+import os
+import requests
+import sys
+import tempfile
+import time
+import unicodedata
+import urllib
 import urllib2
 import regex as re
 
@@ -9,12 +17,13 @@ from bs4 import BeautifulSoup
 import pywikibot
 from pywikibot.xmlreader import XmlDump
 
-from common import CacheManager, ProgressReporter, TaskInProgressReporter, formatEntriesForDictionary
+from common import CacheManager, ProgressReporter, TaskInProgressReporter, \
+    formatEntriesForDictionary
 from generator import Generator, output, wordsToIgnore
 
 
-
-fileTagPattern = re.compile(u"(?i)\[\[ *(File|Image|Ficheiro|Imaxe):([^][]|\[\[[^][]+\]\])+\]\] *")
+fileTagPattern = re.compile(
+    u"(?i)\[\[ *(File|Image|Ficheiro|Imaxe):([^][]|\[\[[^][]+\]\])+\]\] *")
 htmlStartTagPattern = re.compile(u"< *(\w+)[^>]*?(?<!/)>")
 htmlEndTagPattern = re.compile(u"</ *(\w+) *>")
 tagsToSkip = [u"br", "hr"]
@@ -27,36 +36,49 @@ sep = u"(?:[-,;]| e ) *"
 colon = u"(?:[:,] *)?"
 nexo = u"(?:do|en) *"
 
-term = u"(?:\'\'\'\'\' *[^)]*? *\'\'\'\'\'|\'\'\' *[^)]*? *\'\'\'|\'\' *[^)]*? *\'\'|\{\{ *nihongo *\|.*?\}\}) *"
+term = u"(?:\'\'\'\'\' *[^)]*? *\'\'\'\'\'|\'\'\' *[^)]*? *\'\'\'|" \
+    u"\'\' *[^)]*? *\'\'|\{\{ *nihongo *\|.*?\}\}) *"
 thisOrThat = u"(?:abreviado *)?{term}(?: *ou *{term})? *".format(term=term)
 language = u"(?:\w+|\[\[[^]|]+\|[^]]+\]\]) *"
 
-termo = u"(?:\'\'\'\'\' *([^)]*?) *\'\'\'\'\'|\'\'\' *([^)]*?) *\'\'\'|\'\' *([^)]*?) *\'\'|\{\{ *nihongo *\| *(.*?) *\|.*?\}\}) *"
+termo = u"(?:\'\'\'\'\' *([^)]*?) *\'\'\'\'\'|\'\'\' *([^)]*?) *\'\'\'|" \
+    u"\'\' *([^)]*?) *\'\'|\{\{ *nihongo *\| *(.*?) *\|.*?\}\}) *"
 istoOuAquilo = u"(?:abreviado *)?{term}(?: *ou *{term})? *".format(term=termo)
 galego = u"(?:galego|\[\[[^]|]+\| *galego *\]\]) *"
 
-friends = u"(?:(?:(?:{frase1}|{frase2})(?:{sep}{istoOuAquilo})?)|(?:(?:{phrase1}|{phrase2}|{phrase4})(?:{sep}{thisOrThat})?))" \
-         u"(?:{sep}(?:(?:(?:{frase1}|{frase2}|{frase3})(?:{sep}{istoOuAquilo})?)|(?:(?:{phrase1}|{phrase2}|{phrase3}|{phrase4})(?:{sep}{thisOrThat})?)))*".format(
-    frase1=nexo+galego+colon+istoOuAquilo,
-    frase2=istoOuAquilo+nexo+galego,
-    frase3=galego+colon+istoOuAquilo,
-    phrase1=nexo+language+colon+thisOrThat,
-    phrase2=thisOrThat+nexo+language,
-    phrase3=language+colon+thisOrThat,
-    phrase4=u"\{{\{{ *lang-[^|]+\|{}\}}\}}".format(term),
-    sep=sep,
-    istoOuAquilo=istoOuAquilo,
-    thisOrThat=thisOrThat,
-)
+friends = u"(?:(?:(?:{frase1}|{frase2})(?:{sep}{istoOuAquilo})?)|" \
+    u"(?:(?:{phrase1}|{phrase2}|{phrase4})(?:{sep}{thisOrThat})?))" \
+    u"(?:{sep}(?:(?:(?:{frase1}|{frase2}|{frase3})(?:{sep}{istoOuAquilo})?)|" \
+    u"(?:(?:{phrase1}|{phrase2}|{phrase3}|{phrase4})" \
+    u"(?:{sep}{thisOrThat})?)))*".format(
+        frase1=nexo + galego + colon + istoOuAquilo,
+        frase2=istoOuAquilo + nexo + galego,
+        frase3=galego + colon + istoOuAquilo,
+        phrase1=nexo + language + colon + thisOrThat,
+        phrase2=thisOrThat + nexo + language,
+        phrase3=language + colon + thisOrThat,
+        phrase4=u"\{{\{{ *lang-[^|]+\|{}\}}\}}".format(term),
+        sep=sep,
+        istoOuAquilo=istoOuAquilo,
+        thisOrThat=thisOrThat)
 
-siglasWasp = u"\'\'\'\w\'\'\'\'\'\w*\'\'(?:[\w, -]+\'\'\'\w\'\'\'\'\'\w*\'\')*"  # e.g. https://gl.wikipedia.org/wiki/WASP
-siglasAbap = u"\'\'\'\'\'\w\'\'\'\w*(?:[\w, -]+\'\'\'\w\'\'\'\w*)*\'\'"  # e.g. https://gl.wikipedia.org/wiki/ABAP
-siglasPl1 = u"\'\'\'\w\'\'\'\w*(?:[\w, -]+\'\'\'\w\'\'\'\w*)*"  # e.g. https://gl.wikipedia.org/wiki/PL/1
+# e.g. https://gl.wikipedia.org/wiki/WASP
+siglasWasp = u"\'\'\'\w\'\'\'\'\'\w*\'\'(?:[\w, -]+\'\'\'\w\'\'\'\'\'\w*\'\')*"
+
+# e.g. https://gl.wikipedia.org/wiki/ABAP
+siglasAbap = u"\'\'\'\'\'\w\'\'\'\w*(?:[\w, -]+\'\'\'\w\'\'\'\w*)*\'\'"
+
+# e.g. https://gl.wikipedia.org/wiki/PL/1
+siglasPl1 = u"\'\'\'\w\'\'\'\w*(?:[\w, -]+\'\'\'\w\'\'\'\w*)*"
 
 highlightedPatternStrings = [
     u"\( *\'\'\' *\[[^ ]+\.ogg +\'\' *[^)]+ *\'\' *\] *\'\'\' *\)",
-    u"\( *{term}, *(?:.*?, *)*literalmente *{term} *\)".format(term=term),  # e.g. https://gl.wikipedia.org/wiki/O_Correcami%C3%B1os
-    u"\( *{thisOrThat}{sep}{friends}(?:{sep}{friends})* *\)".format(thisOrThat=istoOuAquilo, sep=sep, friends=friends),
+
+    # e.g. https://gl.wikipedia.org/wiki/O_Correcami%C3%B1os
+    u"\( *{term}, *(?:.*?, *)*literalmente *{term} *\)".format(term=term),
+
+    u"\( *{thisOrThat}{sep}{friends}(?:{sep}{friends})* *\)".format(
+        thisOrThat=istoOuAquilo, sep=sep, friends=friends),
     u"\( *{}\)".format(friends),
     u"\( *{term}{sep}na *actualidade *{term}\)".format(term=termo, sep=sep),
     u"\( *{term},? *ou *{term}\)".format(term=termo),
@@ -68,7 +90,8 @@ highlightedPatternStrings = [
     u"\'\'\' *\{\{ *nihongo *\| *(.*?) *\|.*?\}\} *\'\'\'",
     u"\'\'\' *(.*?) *\'\'\'",
 ]
-highlightedPatterns = [re.compile(patternString, re.UNICODE) for patternString in highlightedPatternStrings]
+highlightedPatterns = [re.compile(patternString, re.UNICODE)
+                       for patternString in highlightedPatternStrings]
 
 
 parenthesis = re.compile(u" *\([^)]*\)")
@@ -76,10 +99,10 @@ reference = re.compile(u"< *ref[^>]*>.*?< */ *ref *>")
 sentenceSeparatorPattern = re.compile(u"(?<!(a\.C|..D|d\.C|.St|..[A-Z]))\. ")
 
 
-
 # Helpers.
 
 _regexType = type(re.compile(u"."))
+
 
 def parsePattern(pattern):
     if not pattern:
@@ -89,13 +112,12 @@ def parsePattern(pattern):
     return pattern
 
 
-
 # Dictionary generators.
 
 class MediaWikiGenerator(Generator):
 
-
-    def __init__(self, siteName, languageCode, resource, partOfSpeech, entryGenerators):
+    def __init__(self, siteName, languageCode, resource, partOfSpeech,
+                 entryGenerators):
 
         super(MediaWikiGenerator, self).__init__()
 
@@ -106,7 +128,6 @@ class MediaWikiGenerator(Generator):
         for entryGenerator in entryGenerators:
             entryGenerator.setSite(site)
         self.entryGenerators = entryGenerators
-
 
     def evaluateNoCacheParameters(self):
         # No-cache parameters parsing.
@@ -142,20 +163,23 @@ class MediaWikiGenerator(Generator):
 
                     if pieces[1].isdigit():
 
-                        if "pageGenerators" in noCache and noCache["pageGenerators"] != True:
+                        if "pageGenerators" in noCache \
+                                and noCache["pageGenerators"] is not True:
                             noCache["pageGenerators"].append(int(pieces[1]))
                         else:
-                            noCache["pageGenerators"] = [int(pieces[1]),]
+                            noCache["pageGenerators"] = [int(pieces[1]), ]
 
-                        if "pageParser" in noCache and noCache["pageParser"] != True:
+                        if "pageParser" in noCache \
+                                and noCache["pageParser"] is not True:
                             noCache["pageParser"].append(int(pieces[1]))
                         else:
-                            noCache["pageParser"] = [int(pieces[1]),]
+                            noCache["pageParser"] = [int(pieces[1]), ]
 
-                        if "entryParser" in noCache and noCache["entryParser"] != True:
+                        if "entryParser" in noCache \
+                                and noCache["entryParser"] is not True:
                             noCache["entryParser"].append(int(pieces[1]))
                         else:
-                            noCache["entryParser"] = [int(pieces[1]),]
+                            noCache["entryParser"] = [int(pieces[1]), ]
 
                     elif pieces[1] == u"pageGenerators":
 
@@ -176,42 +200,47 @@ class MediaWikiGenerator(Generator):
 
                     if pieces[1] == u"pageGenerators":
 
-                        if "pageGenerators" in noCache and noCache["pageGenerators"] != True:
+                        if "pageGenerators" in noCache \
+                                and noCache["pageGenerators"] is not True:
                             noCache["pageGenerators"].append(int(pieces[2]))
                         else:
-                            noCache["pageGenerators"] = [int(pieces[2]),]
+                            noCache["pageGenerators"] = [int(pieces[2]), ]
 
-                        if "pageParser" in noCache and noCache["pageParser"] != True:
+                        if "pageParser" in noCache \
+                                and noCache["pageParser"] is not True:
                             noCache["pageParser"].append(int(pieces[2]))
                         else:
-                            noCache["pageParser"] = [int(pieces[2]),]
+                            noCache["pageParser"] = [int(pieces[2]), ]
 
-                        if "entryParser" in noCache and noCache["entryParser"] != True:
+                        if "entryParser" in noCache \
+                                and noCache["entryParser"] is not True:
                             noCache["entryParser"].append(int(pieces[2]))
                         else:
-                            noCache["entryParser"] = [int(pieces[2]),]
+                            noCache["entryParser"] = [int(pieces[2]), ]
 
                     elif pieces[1] == u"pageParser":
 
-                        if "pageParser" in noCache and noCache["pageParser"] != True:
+                        if "pageParser" in noCache \
+                                and noCache["pageParser"] is not True:
                             noCache["pageParser"].append(int(pieces[2]))
                         else:
-                            noCache["pageParser"] = [int(pieces[2]),]
+                            noCache["pageParser"] = [int(pieces[2]), ]
 
-                        if "entryParser" in noCache and noCache["entryParser"] != True:
+                        if "entryParser" in noCache \
+                                and noCache["entryParser"] is not True:
                             noCache["entryParser"].append(int(pieces[2]))
                         else:
-                            noCache["entryParser"] = [int(pieces[2]),]
+                            noCache["entryParser"] = [int(pieces[2]), ]
 
                     elif pieces[1] == u"entryParser":
 
-                        if "entryParser" in noCache and noCache["entryParser"] != True:
+                        if "entryParser" in noCache \
+                                and noCache["entryParser"] is not True:
                             noCache["entryParser"].append(int(pieces[2]))
                         else:
-                            noCache["entryParser"] = [int(pieces[2]),]
+                            noCache["entryParser"] = [int(pieces[2]), ]
 
         return noCache
-
 
     def generateFileContent(self):
 
@@ -224,18 +253,27 @@ class MediaWikiGenerator(Generator):
 
             # Obtaining a list of pages to parse.
             cacheName = u"pageNames" + unicode(index)
-            if cacheManager.exists(self.resource, cacheName) and ("pageGenerators" not in noCache or (noCache["pageGenerators"] is not True and index not in noCache["pageGenerators"])):
-                pages = [pywikibot.Page(entryGenerator.site, pageName) for pageName in cacheManager.load(self.resource, cacheName)]
+            if cacheManager.exists(self.resource, cacheName) \
+                    and ("pageGenerators" not in noCache
+                         or (noCache["pageGenerators"] is not True
+                             and index not in noCache["pageGenerators"])):
+                pages = [pywikibot.Page(entryGenerator.site, pageName)
+                         for pageName in cacheManager.load(
+                             self.resource, cacheName)]
             else:
                 pages = set()
                 for pageGenerator in entryGenerator.pageGenerators:
                     for page in pageGenerator.run():
                         pages.add(page)
-                cacheManager.save(self.resource, cacheName, [page.title() for page in pages])
+                cacheManager.save(
+                    self.resource, cacheName, [page.title()for page in pages])
 
             # Parsing the pages to obtain a list of entries.
             cacheName = u"entries" + unicode(index)
-            if cacheManager.exists(self.resource, cacheName) and ("pageParser" not in noCache or (noCache["pageParser"] is not True and index not in noCache["pageParser"])):
+            if cacheManager.exists(self.resource, cacheName) \
+                    and ("pageParser" not in noCache
+                         or (noCache["pageParser"] is not True
+                             and index not in noCache["pageParser"])):
                 entries = cacheManager.load(self.resource, cacheName)
             else:
                 entries = set()
@@ -245,7 +283,10 @@ class MediaWikiGenerator(Generator):
 
             # Parsing the entries.
             cacheName = u"parsedEntries" + unicode(index)
-            if cacheManager.exists(self.resource, cacheName) and ("entryParser" not in noCache or (noCache["entryParser"] is not True and index not in noCache["entryParser"])):
+            if cacheManager.exists(self.resource, cacheName) \
+                    and ("entryParser" not in noCache
+                         or (noCache["entryParser"] is not True
+                             and index not in noCache["entryParser"])):
                 parsedEntries = cacheManager.load(self.resource, cacheName)
             else:
                 parsedEntries = set()
@@ -257,7 +298,8 @@ class MediaWikiGenerator(Generator):
 
         # Formatting the entries for the dictionary.
         dictionary = u""
-        for dictionaryEntry in formatEntriesForDictionary(totalEntries, self.partOfSpeech):
+        for dictionaryEntry in formatEntriesForDictionary(totalEntries,
+                                                          self.partOfSpeech):
             dictionary += dictionaryEntry
 
         return dictionary
@@ -267,7 +309,8 @@ class MediaWikiGenerator(Generator):
 
 class EntryGenerator(object):
 
-    def __init__(self, site=None, pageGenerators=[], pageParser=None, entryParser=None):
+    def __init__(self, site=None, pageGenerators=[], pageParser=None,
+                 entryParser=None):
 
         self.site = site
         self.pageGenerators = pageGenerators
@@ -280,18 +323,16 @@ class EntryGenerator(object):
             entryParser = EntryParser()
         self.entryParser = entryParser
 
-
     def setSite(self, site):
         self.site = site
         for pageGenerator in self.pageGenerators:
             pageGenerator.setSite(self.site)
 
 
-
-
 # Page generators.
 
 class PageGenerator(object):
+
     def run(self):
         raise Exception("Abstract method")
 
@@ -299,7 +340,8 @@ class PageGenerator(object):
 class CategoryBrowser(PageGenerator):
 
     def __init__(self, site=None,
-                 categoryNames=[], ignoreCategoryNames=[], categoryOfCategoriesNames=[],
+                 categoryNames=[], ignoreCategoryNames=[],
+                 categoryOfCategoriesNames=[],
                  categoryOfPagesNames=[],
                  validPagePattern=None, invalidPagePattern=None,
                  validCategoryPattern=None, invalidCategoryPattern=None,
@@ -319,20 +361,19 @@ class CategoryBrowser(PageGenerator):
         self.invalidPagePattern = parsePattern(invalidPagePattern)
         self.validCategoryPattern = parsePattern(validCategoryPattern)
         self.invalidCategoryPattern = parsePattern(invalidCategoryPattern)
-        self.invalidCategoryAsPagePattern = parsePattern(invalidCategoryAsPagePattern)
+        self.invalidCategoryAsPagePattern = parsePattern(
+            invalidCategoryAsPagePattern)
 
         # Internal.
         self.visitedCategoryNames = set()
         self.pagesNamesToIgnore = set()
 
-
     def setSite(self, site):
         self.site = site
 
-
     def pageTitleMatchesPattern(self, page, pattern):
-        return pattern is not None and pattern.match(page.title(withNamespace=False))
-
+        return pattern is not None and pattern.match(
+            page.title(withNamespace=False))
 
     def pageIsValid(self, page):
         if page.title(withNamespace=False) in self.pagesNamesToIgnore:
@@ -343,18 +384,17 @@ class CategoryBrowser(PageGenerator):
             return False
         return True
 
-
     def canLoadPagesFromCategory(self, category):
         if self.validCategoryPattern is not None:
-            return self.validCategoryPattern.match(category.title(withNamespace=False))
+            return self.validCategoryPattern.match(
+                category.title(withNamespace=False))
         if self.pageTitleMatchesPattern(category, self.invalidCategoryPattern):
             return False
         return True
 
-
     def canTreatCategoryAsPage(self, category):
-        return not self.pageTitleMatchesPattern(category, self.invalidCategoryAsPagePattern)
-
+        return not self.pageTitleMatchesPattern(
+            category, self.invalidCategoryAsPagePattern)
 
     def loadPagesFromCategory(self, category, reporter):
         category_name = category.title(withNamespace=False)
@@ -369,20 +409,22 @@ class CategoryBrowser(PageGenerator):
                subcategoryName not in self.categoryNames and \
                subcategoryName not in self.categoryOfCategoriesNames and \
                subcategoryName not in self.categoryOfPagesNames:
-                if not self.categoryOfPagesNames and self.canLoadPagesFromCategory(subcategory):
-                    subcategoryReporter = TaskInProgressReporter(u"Cargando o contido da categoría «{}»".format(subcategoryName), indent=reporter.indent+2)
-                    for page in self.loadPagesFromCategory(subcategory, subcategoryReporter):
+                if not self.categoryOfPagesNames and \
+                        self.canLoadPagesFromCategory(subcategory):
+                    subcategoryReporter = TaskInProgressReporter(
+                        u"Cargando o contido da categoría «{}»".format(
+                            subcategoryName), indent=reporter.indent + 2)
+                    for page in self.loadPagesFromCategory(
+                            subcategory, subcategoryReporter):
                         yield page
                 elif self.canTreatCategoryAsPage(subcategory):
                     if self.pageIsValid(subcategory):
                         yield subcategory
 
-
     def loadPagesFromCategoryIntoIgnoreList(self, category):
         self.visitedCategoryNames.add(category.title(withNamespace=False))
         for page in category.articles(namespaces=0):
             self.pagesNamesToIgnore.add(page.title())
-
 
     def run(self):
 
@@ -390,34 +432,49 @@ class CategoryBrowser(PageGenerator):
             output(u"• Obtendo unha lista de páxinas a ignorar…\n")
             for categoryName in self.ignoreCategoryNames:
                 if categoryName not in self.visitedCategoryNames:
-                    reporter = TaskInProgressReporter(u"Cargando o contido da categoría «{}»".format(categoryName), indent=2)
-                    self.loadPagesFromCategoryIntoIgnoreList(pywikibot.Category(self.site, categoryName))
+                    reporter = TaskInProgressReporter(
+                        u"Cargando o contido da categoría «{}»".format(
+                            categoryName), indent=2)
+                    self.loadPagesFromCategoryIntoIgnoreList(
+                        pywikibot.Category(self.site, categoryName))
                     reporter.done()
 
         if self.categoryNames:
             output(u"• Obtendo páxinas da lista de categorías…\n")
             for categoryName in self.categoryNames:
                 if categoryName not in self.visitedCategoryNames:
-                    reporter = TaskInProgressReporter(u"Cargando o contido da categoría «{}»".format(categoryName), indent=2)
-                    for page in self.loadPagesFromCategory(pywikibot.Category(self.site, categoryName), reporter):
+                    reporter = TaskInProgressReporter(
+                        u"Cargando o contido da categoría «{}»".format(
+                            categoryName), indent=2)
+                    for page in self.loadPagesFromCategory(
+                            pywikibot.Category(
+                                self.site, categoryName),
+                            reporter):
                         yield page
 
         if self.categoryOfPagesNames:
             output(u"• Obtendo páxinas da lista de categorías de páxinas…\n")
             for categoryName in self.categoryOfPagesNames:
-                reporter = TaskInProgressReporter(u"Cargando o contido da categoría «{}»".format(categoryName), indent=2)
+                reporter = TaskInProgressReporter(
+                    u"Cargando o contido da categoría «{}»".format(
+                        categoryName), indent=2)
                 category = pywikibot.Category(self.site, categoryName)
                 for page in self.loadPagesFromCategory(category, reporter):
                     yield page
 
         if self.categoryOfCategoriesNames:
-            output(u"• Obtendo páxinas da lista de categorías de categorías…\n")
+            output(u"• Obtendo páxinas da lista de categorías de "
+                   u"categorías…\n")
             for categoryName in self.categoryOfCategoriesNames:
-                for subcategory in pywikibot.Category(self.site, categoryName).subcategories():
+                for subcategory in pywikibot.Category(
+                        self.site, categoryName).subcategories():
                     subcategoryName = subcategory.title(withNamespace=False)
                     if subcategoryName not in self.visitedCategoryNames:
-                        reporter = TaskInProgressReporter(u"Cargando o contido da categoría «{}»".format(subcategoryName), indent=2)
-                        for page in self.loadPagesFromCategory(subcategory, reporter):
+                        reporter = TaskInProgressReporter(
+                            u"Cargando o contido da categoría «{}»".format(
+                                subcategoryName), indent=2)
+                        for page in self.loadPagesFromCategory(subcategory,
+                                                               reporter):
                             yield page
 
 
@@ -427,27 +484,24 @@ class PageLoader(PageGenerator):
         self.site = site
         self.pageNames = pageNames
 
-
     def setSite(self, site):
         self.site = site
 
-
     def run(self):
-        reporter = ProgressReporter(u"Cargando a lista de páxinas", len(self.pageNames))
+        reporter = ProgressReporter(u"Cargando a lista de páxinas",
+                                    len(self.pageNames))
         for pageName in self.pageNames:
             yield pywikibot.Page(self.site, pageName)
             reporter.increase()
         reporter.done()
 
 
-
-
 # Page parsers.
 
 class PageParser(object):
+
     def parse(self, pages):
         raise Exception("Abstract method")
-
 
 
 class TitleParser(PageParser):
@@ -458,7 +512,6 @@ class TitleParser(PageParser):
             yield page.title(withNamespace=False)
             reporter.increase()
         reporter.done()
-
 
 
 class MediawikiDumpServerForbidsAccessException(Exception):
@@ -472,11 +525,14 @@ class SiteCache(object):
         self.site = site
         cacheManager = CacheManager()
 
-        self.cacheFolder = os.path.join(cacheManager.cacheFolder, "mediawiki", u"{}-{}".format(site.family.name, site.lang))
+        self.cacheFolder = os.path.join(
+            cacheManager.cacheFolder,
+            "mediawiki", u"{}-{}".format(site.family.name, site.lang))
         if not os.path.exists(self.cacheFolder):
             os.makedirs(self.cacheFolder)
 
-        self.cacheTestsFolder = os.path.join(cacheManager.cacheFolder, "mediawiki", u"tests")
+        self.cacheTestsFolder = os.path.join(cacheManager.cacheFolder,
+                                             "mediawiki", u"tests")
         if not os.path.exists(self.cacheTestsFolder):
             os.makedirs(self.cacheTestsFolder)
 
@@ -485,8 +541,10 @@ class SiteCache(object):
             familyCode = u"wiki"
         self._siteCode = site.lang + familyCode
 
-        self.dumpFileNameTemplate = self.siteCode() + u"-{}-pages-articles.xml.bz2"
-        self.pageDumpPattern = re.compile(self.dumpFileNameTemplate.format(u"(?P<date>[0-9]{8})"))
+        self.dumpFileNameTemplate = self.siteCode() + \
+            u"-{}-pages-articles.xml.bz2"
+        self.pageDumpPattern = re.compile(self.dumpFileNameTemplate.format(
+            u"(?P<date>[0-9]{8})"))
 
         self._dumpUrl = None
         self._dumpDownloadBytesPerSecond = None
@@ -498,10 +556,8 @@ class SiteCache(object):
         self._localDumpPath = None
         self._needToDownloadDump = None
 
-
     def pageNamesToLoadFromWikiFilePath(self):
         return os.path.join(self.cacheFolder, u"pageNamesToLoadFromWiki.json")
-
 
     def pageNamesToLoadFromWiki(self):
         filePath = self.pageNamesToLoadFromWikiFilePath()
@@ -516,25 +572,27 @@ class SiteCache(object):
                 fileObject.write("")
         return []
 
-
     def siteCode(self):
         return self._siteCode
-
 
     def remoteDumpDate(self):
         if not self._remoteDumpDate:
             opener = urllib2.build_opener()
-            opener.addheaders = [('User-agent', 'Mozilla/5.0 (X11; Linux x86_64; rv:29.0) Gecko/20100101 Firefox/29.0')]
+            opener.addheaders = [(
+                u"User-agent",
+                u"Mozilla/5.0 (X11; Linux x86_64; rv:29.0) Gecko/20100101 "
+                u"Firefox/29.0")]
             try:
-                response = opener.open(u"http://dumps.wikimedia.org/{}/".format(self.siteCode()))
+                response = opener.open(
+                    u"http://dumps.wikimedia.org/{}/".format(self.siteCode()))
                 page = response.read()
                 soup = BeautifulSoup(page)
-                self._remoteDumpDate = int(soup.find_all("tr")[-2].td.a.get_text())
+                self._remoteDumpDate = int(
+                    soup.find_all("tr")[-2].td.a.get_text())
             except urllib2.HTTPError:
                 # Most likely “HTTP Error 403: Forbidden”
                 raise MediawikiDumpServerForbidsAccessException()
         return self._remoteDumpDate
-
 
     def dumpUrl(self):
         if not self._dumpUrl:
@@ -545,23 +603,22 @@ class SiteCache(object):
             )
         return self._dumpUrl
 
-
     def dumpDownloadBytes(self):
         if not self._dumpDownloadBytes:
             response = requests.head(self.dumpUrl())
-            self._dumpDownloadBytes = float(response.headers.get('content-length'))
+            self._dumpDownloadBytes = float(response.headers.get(
+                'content-length'))
         return self._dumpDownloadBytes
-
 
     def dumpDownloadBytesPerSecond(self):
         if not self._dumpDownloadBytesPerSecond:
-            testFileUrl = u"http://dumps.wikimedia.org/astwiki/latest/astwiki-latest-pages-logging.xml.gz" # ~1.5 MB
+            testFileUrl = u"http://dumps.wikimedia.org/astwiki/latest/" \
+                u"astwiki-latest-pages-logging.xml.gz"  # ~1.5 MB
             response = requests.get(testFileUrl, stream=True)
             byteCount = float(response.headers.get('content-length'))
             seconds = response.elapsed.total_seconds()
-            self._dumpDownloadBytesPerSecond = byteCount/seconds
+            self._dumpDownloadBytesPerSecond = byteCount / seconds
         return self._dumpDownloadBytesPerSecond
-
 
     def dumpParsingBytesPerSecond(self):
 
@@ -570,7 +627,8 @@ class SiteCache(object):
             localFileName = u"articles.xml.bz2"
             localFilePath = os.path.join(self.cacheTestsFolder, localFileName)
             if not os.path.exists(localFilePath):
-                testFileUrl = u"http://dumps.wikimedia.org/ttwikiquote/latest/ttwikiquote-latest-pages-articles.xml.bz2"
+                testFileUrl = u"http://dumps.wikimedia.org/ttwikiquote/" \
+                    u"latest/ttwikiquote-latest-pages-articles.xml.bz2"
                 urllib.urlretrieve(testFileUrl, localFilePath)
 
             byteCount = float(os.path.getsize(localFilePath))
@@ -581,44 +639,45 @@ class SiteCache(object):
                 pass
             seconds = time.clock() - start
 
-            self._dumpParsingBytesPerSecond = byteCount/seconds
+            self._dumpParsingBytesPerSecond = byteCount / seconds
 
         return self._dumpParsingBytesPerSecond
-
 
     def dumpBytes(self):
         if not self._dumpBytes:
             self._dumpBytes = float(os.path.getsize(self.localDumpPath()))
         return self._dumpBytes
 
-
     def localDumpDate(self):
         if not self._localDumpDate:
-            for filePath in [filePath for filePath in os.listdir(self.cacheFolder) if os.path.isfile(os.path.join(self.cacheFolder, filePath))]:
+            for filePath in [filePath for filePath
+                             in os.listdir(self.cacheFolder)
+                             if os.path.isfile(
+                                 os.path.join(self.cacheFolder, filePath))]:
                 match = self.pageDumpPattern.match(filePath)
                 if match:
                     self._localDumpDate = int(match.group(u"date"))
                     break
         return self._localDumpDate
 
-
     def localDumpPath(self):
         if self._localDumpPath is None:
             localDumpDate = self.localDumpDate()
             if localDumpDate:
-                localDumpFileName = self.dumpFileNameTemplate.format(localDumpDate)
-                self._localDumpPath = os.path.join(self.cacheFolder, localDumpFileName)
+                localDumpFileName = self.dumpFileNameTemplate.format(
+                    localDumpDate)
+                self._localDumpPath = os.path.join(self.cacheFolder,
+                                                   localDumpFileName)
             else:
-                self._localDumpPath = False # No local dump.
+                self._localDumpPath = False  # No local dump.
         return self._localDumpPath
-
 
     def needToDownloadDump(self):
         if self._needToDownloadDump is None:
             localDumpDate = self.localDumpDate()
-            self._needToDownloadDump = not localDumpDate or localDumpDate < self.remoteDumpDate()
+            self._needToDownloadDump = not localDumpDate \
+                or localDumpDate < self.remoteDumpDate()
         return self._needToDownloadDump
-
 
     def downloadDumpIfNeeded(self):
 
@@ -633,22 +692,24 @@ class SiteCache(object):
                 fileObject.write("")
 
             self._localDumpDate = self.remoteDumpDate()
-            dumpFileName = self.dumpFileNameTemplate.format(self._localDumpDate)
+            dumpFileName = self.dumpFileNameTemplate.format(
+                self._localDumpDate)
             self._localDumpPath = os.path.join(self.cacheFolder, dumpFileName)
             urllib.urlretrieve(self.dumpUrl(), self._localDumpPath)
 
             self._needToDownloadDump = False
 
 
-
 mainArticleTemplatePatterns = {
-    "gl": re.compile(u"(?i)\{\{ *(?P<template>AP|Artigo principal) *(\| *(?P<page>[^|}]+) *)?(\|[^|}]*)*\}\}"),
-    "es": re.compile(u"(?i)\{\{ *(?P<template>AP) *(\| *(?P<page>[^|}]+) *)?(\|[^|}]*)*\}\}"),
+    "gl": re.compile(u"(?i)\{\{ *(?P<template>AP|Artigo principal) *"
+                     u"(\| *(?P<page>[^|}]+) *)?(\|[^|}]*)*\}\}"),
+    "es": re.compile(u"(?i)\{\{ *(?P<template>AP) *(\| *"
+                     u"(?P<page>[^|}]+) *)?(\|[^|}]*)*\}\}"),
 }
 
 
-
 class PageContentLoader(object):
+
     """Helper class for those page parsers that require to load the content of
     the pages.
 
@@ -659,7 +720,6 @@ class PageContentLoader(object):
     not found in the dump or marked as requiring the latest version from the
     MediaWiki server are then obtained using the API.
     """
-
 
     def mainCategoryArticle(self, category):
 
@@ -683,11 +743,10 @@ class PageContentLoader(object):
                 page = pywikibot.Page(category.site, mainArticleName)
                 if page.exists():
                     if page.isRedirectPage():
-                       page = page.getRedirectTarget()
+                        page = page.getRedirectTarget()
                     return page
 
         return None
-
 
     def __init__(self, pages, forceWiki=False):
 
@@ -718,7 +777,8 @@ class PageContentLoader(object):
             else:
                 pageName = page.title(withNamespace=False)
             if pageName in pageNamesToLoadFromWiki:
-                self.pagesToLoadFromWiki.add(pywikibot.Page(self.site, pageName))
+                self.pagesToLoadFromWiki.add(pywikibot.Page(self.site,
+                                                            pageName))
             else:
                 self.pagesToLoadFromXmlDump[pageName] = page
 
@@ -726,10 +786,8 @@ class PageContentLoader(object):
         self._calculateSecondsToLoadOnePageFromWiki = None
         self._usingXmlDumpIsQuicker = None
 
-
     def pagesWithoutContent(self):
         return self._pagesWithoutContent
-
 
     def secondsToLoadOnePageFromWiki(self):
         if not self._calculateSecondsToLoadOnePageFromWiki:
@@ -739,19 +797,16 @@ class PageContentLoader(object):
             self._calculateSecondsToLoadOnePageFromWiki = time.time() - start
         return self._calculateSecondsToLoadOnePageFromWiki
 
-
     def secondsToDisplayString(self, seconds):
         hours, remainder = divmod(seconds, 3600)
         minutes, seconds = divmod(remainder, 60)
         return u"%d:%02d:%02d" % (hours, minutes, seconds)
 
-
     def bytesAsDisplayString(self, byteCount):
-        for x in ['bytes','KB','MB','GB','TB']:
+        for x in ['bytes', 'KB', 'MB', 'GB', 'TB']:
             if byteCount < 1024.0:
                 return "%3.1f %s" % (byteCount, x)
             byteCount /= 1024.0
-
 
     def usingXmlDump(self):
 
@@ -762,19 +817,24 @@ class PageContentLoader(object):
 
             secondsToLoadOnePageFromWiki = self.secondsToLoadOnePageFromWiki()
             pagesCount = len(self.pagesToLoadFromXmlDump)
-            secondsToLoadRequiredPagesFromWiki = pagesCount * secondsToLoadOnePageFromWiki
+            secondsToLoadRequiredPagesFromWiki = pagesCount * \
+                secondsToLoadOnePageFromWiki
             print
-            print u"  • Tempo aproximado que levaría descargar as {} páxinas do wiki dunha nunha: {}".format(pagesCount, self.secondsToDisplayString(secondsToLoadRequiredPagesFromWiki))
+            print u"  • Tempo aproximado que levaría descargar as " \
+                u"{} páxinas do wiki dunha nunha: {}".format(
+                    pagesCount,
+                    self.secondsToDisplayString(
+                        secondsToLoadRequiredPagesFromWiki))
 
             secondsToDownloadDump = 0
             if self.siteCache.needToDownloadDump():
                 dumpBytes = self.siteCache.dumpDownloadBytes()
                 bytesPerSecond = self.siteCache.dumpDownloadBytesPerSecond()
                 secondsToDownloadDump = dumpBytes / bytesPerSecond
-                print u"  • Tempo aproximado que levaría descargar unha copia de seguranza do wiki ({}): {}".format(
-                    self.bytesAsDisplayString(dumpBytes),
-                    self.secondsToDisplayString(secondsToDownloadDump)
-                )
+                print u"  • Tempo aproximado que levaría descargar unha " \
+                    u"copia de seguranza do wiki ({}): {}".format(
+                        self.bytesAsDisplayString(dumpBytes),
+                        self.secondsToDisplayString(secondsToDownloadDump))
                 if secondsToDownloadDump > secondsToLoadRequiredPagesFromWiki:
                     print u"  ✓ Descargaranse as páxinas dunha nunha."
                     self._usingXmlDumpIsQuicker = False
@@ -784,19 +844,22 @@ class PageContentLoader(object):
 
             bytesPerSecond = self.siteCache.dumpParsingBytesPerSecond()
             secondsToParseDump = dumpBytes / bytesPerSecond
-            print u"  • Tempo aproximado que levaría analizar o contido da copia de seguranza do wiki: {}".format(self.secondsToDisplayString(secondsToParseDump))
+            print u"  • Tempo aproximado que levaría analizar o contido " \
+                u"da copia de seguranza do wiki: {}".format(
+                    self.secondsToDisplayString(secondsToParseDump))
             secondsToUseDump = secondsToDownloadDump + secondsToParseDump
-            self._usingXmlDumpIsQuicker = secondsToUseDump < secondsToLoadRequiredPagesFromWiki
+            self._usingXmlDumpIsQuicker = secondsToUseDump < \
+                secondsToLoadRequiredPagesFromWiki
             if self._usingXmlDumpIsQuicker:
                 if not secondsToDownloadDump:
                     print u"  ✓ Usarase a copia de seguranza dispoñíbel."
                 else:
-                    print u"  ✓ Descargarase e usarase unha copia de seguranza."
+                    print u"  ✓ Descargarase e usarase unha copia " \
+                        u"de seguranza."
             else:
                 print u"  ✓ Descargaranse as páxinas unha a unha."
 
         return self._usingXmlDumpIsQuicker
-
 
     def xmlReader(self):
         if not self._xmlReader:
@@ -804,13 +867,13 @@ class PageContentLoader(object):
             self._xmlReader = XmlDump(self.siteCache.localDumpPath())
         return self._xmlReader
 
-
     def run(self):
 
         if self.usingXmlDump():
             for entry in self.xmlReader().parse():
                 if entry.title in self.pagesToLoadFromXmlDump:
-                    yield self.pagesToLoadFromXmlDump[entry.title], entry.text, "cache"
+                    yield self.pagesToLoadFromXmlDump[entry.title], \
+                        entry.text, "cache"
                     del self.pagesToLoadFromXmlDump[entry.title]
 
         for pageName, page in self.pagesToLoadFromXmlDump.iteritems():
@@ -830,7 +893,6 @@ class PageContentLoader(object):
             yield page, content, "wiki"
 
 
-
 class PageContentParser(PageParser):
 
     def __init__(self):
@@ -838,24 +900,28 @@ class PageContentParser(PageParser):
         self.pagesWithWrongContentOnline = set()
         self.pagesWithoutContent = set()
 
-
     def parsePageContent(self, page, content, source):
         raise Exception("Abstract method")
 
-
     def parse(self, pages):
 
-        reporter = ProgressReporter(u"Analizando o contido das páxinas", len(pages))
+        reporter = ProgressReporter(u"Analizando o contido das páxinas",
+                                    len(pages))
         pageContentLoader = PageContentLoader(pages)
         for page, content, source in pageContentLoader.run():
             for entry in self.parsePageContent(page, content, source):
                 yield entry
             reporter.increase()
         reporter.done()
-        self.pagesWithoutContent = self.pagesWithoutContent.union(pageContentLoader.pagesWithoutContent())
+        self.pagesWithoutContent = self.pagesWithoutContent.union(
+            pageContentLoader.pagesWithoutContent())
 
-        reporter = ProgressReporter(u"Analizando a última versión das páxinas con contido problemático na caché", len(self.pagesWithWrongContentInCache))
-        pageContentLoader = PageContentLoader(self.pagesWithWrongContentInCache, forceWiki=True)
+        reporter = ProgressReporter(
+            u"Analizando a última versión das páxinas con contido "
+            u"problemático na caché",
+            len(self.pagesWithWrongContentInCache))
+        pageContentLoader = PageContentLoader(
+            self.pagesWithWrongContentInCache, forceWiki=True)
         for page, content, source in pageContentLoader.run():
             for entry in self.parsePageContent(page, content, source):
                 yield entry
@@ -863,19 +929,23 @@ class PageContentParser(PageParser):
         reporter.done()
 
         pageNamesWithWrongContentOnline = set()
-        for entry in TitleParser().parse(self.pagesWithWrongContentOnline, u"Obtendo o nome das páxinas con contido problemático na súa última versión"):
+        for entry in TitleParser().parse(
+                self.pagesWithWrongContentOnline,
+                u"Obtendo o nome das páxinas con contido problemático na súa "
+                u"última versión"):
             yield entry
             pageNamesWithWrongContentOnline.add(entry)
         for pageName in pageNamesWithWrongContentOnline:
             output(u"  • {}\n".format(pageName))
 
         pageNamesWithoutContent = set()
-        for entry in TitleParser().parse(self.pagesWithoutContent, u"Obtendo o nome das páxinas sen contido"):
+        for entry in TitleParser().parse(
+                self.pagesWithoutContent,
+                u"Obtendo o nome das páxinas sen contido"):
             yield entry
             pageNamesWithoutContent.add(entry)
         for pageName in pageNamesWithoutContent:
             output(u"  • {}\n".format(pageName))
-
 
 
 class LineParser(PageContentParser):
@@ -885,12 +955,10 @@ class LineParser(PageContentParser):
         self.linePattern = parsePattern(linePattern)
         self.ignorePattern = parsePattern(ignorePattern)
 
-
     def entryIsValid(self, entry):
         if self.ignorePattern and self.ignorePattern.match(entry):
             return False
         return True
-
 
     def parsePageContent(self, page, content, source):
         for line in content.splitlines():
@@ -899,7 +967,6 @@ class LineParser(PageContentParser):
                 entry = match.group(u"entry")
                 if self.entryIsValid(entry):
                     yield entry
-
 
 
 tablePattern = re.compile(u"(?s)\{\|.*?\|\}")
@@ -912,35 +979,31 @@ class TableParser(PageContentParser):
         self.cellNumbers = cellNumbers
         self.skipRows = skipRows
 
-
     def iterTables(self, content):
         for match in tablePattern.finditer(content):
             yield match.group()
 
-
     def iterRows(self, table):
         tableWithoutTags = "\n".join(table.split("\n")[1:-1])
         for row in tableWithoutTags.split("|-"):
-            if u"|" in row: # Senón pode tratarse dun separador ao comezo da táboa.
+            # Senón pode tratarse dun separador ao comezo da táboa.
+            if u"|" in row:
                 yield row
-
 
     def parseCell(self, cell):
         if u" |" in cell:
             return "|".join(cell.split(u"|")[1:])
         return cell
 
-
     def iterCells(self, row):
         for cell in row.splitlines():
-            if cell.startswith("|"): # Skip headers that start with “!”.
+            if cell.startswith("|"):  # Skip headers that start with “!”.
                 cell = cell[1:]
                 if cell and u"||" in cell:
                     for subcell in cell.split(u"||"):
                         yield self.parseCell(subcell)
                 else:
                     yield self.parseCell(cell)
-
 
     def parsePageContent(self, page, content, source):
         for table in self.iterTables(content):
@@ -955,16 +1018,13 @@ class TableParser(PageContentParser):
                 rowNumber += 1
 
 
-
 class FirstSentenceParser(PageContentParser):
 
     def __init__(self):
         super(FirstSentenceParser, self).__init__()
 
-
     def removeMediaWikiFileTags(self, content):
         return fileTagPattern.sub(u"", content)
-
 
     def registerPageWithWrongContent(self, page, source):
         if source == "cache":
@@ -973,7 +1033,6 @@ class FirstSentenceParser(PageContentParser):
             self.pagesWithWrongContentOnline.add(page)
         else:
             raise ValueError(u"Unexpected source: '{}'".format(source))
-
 
     def getFirstSentence(self, page, content, source):
 
@@ -995,16 +1054,23 @@ class FirstSentenceParser(PageContentParser):
             line = self.removeMediaWikiFileTags(line).rstrip()
             if line:
 
-                tableDepth += sum(1 for match in tableStartTagPattern.finditer(line))
-                lineTableEndTagsCount = sum(1 for match in tableEndTagPattern.finditer(line))
+                tableDepth += sum(
+                    1 for match in tableStartTagPattern.finditer(line))
+                lineTableEndTagsCount = sum(
+                    1 for match in tableEndTagPattern.finditer(line))
                 tableDepth -= lineTableEndTagsCount
                 if lineTableEndTagsCount and line.startswith("|}"):
                     line = line[2:]
                     if not line:
                         continue
 
-                if line[0] not in [' ', '{', '}', '|', '[', ':', '!', '<'] and not templateDepth and not tableDepth and not fileDepth and not htmlStartTags:
-                    line = re.sub(reference, u"", line) # Eliminar contido de referencia.
+                if line[0] not in [' ', '{', '}', '|', '[', ':', '!', '<'] \
+                        and not templateDepth \
+                        and not tableDepth \
+                        and not fileDepth \
+                        and not htmlStartTags:
+                    # Eliminar contido de referencia.
+                    line = re.sub(reference, u"", line)
                     if line.startswith("D."):
                         line = line[2:]
                     return sentenceSeparatorPattern.split(line)[0]
@@ -1012,9 +1078,11 @@ class FirstSentenceParser(PageContentParser):
                 templateDepth += line.count("{{")
                 templateDepth -= line.count("}}")
 
-                lineFileDepth = sum(1 for match in fileStartTagPattern.finditer(line))
+                lineFileDepth = sum(
+                    1 for match in fileStartTagPattern.finditer(line))
                 fileDepth += lineFileDepth
-                fileDepth -= line.count(u"]]") - line.count(u"[[") + lineFileDepth
+                fileDepth -= line.count(u"]]") - line.count(u"[[") \
+                    + lineFileDepth
 
                 for startTag in htmlStartTagPattern.findall(line):
                     if startTag not in tagsToSkip:
@@ -1028,7 +1096,6 @@ class FirstSentenceParser(PageContentParser):
                         return None
 
         return None
-
 
     def parsePageContent(self, page, content, source):
 
@@ -1099,21 +1166,20 @@ class EntryParser(object):
             import HTMLParser
             self.htmlParser = HTMLParser.HTMLParser()
 
-
     def applyMandatoryFilters(self, entry):
         entry = entry.strip()
-        entry = entry.strip(u'\ufeff') # http://stackoverflow.com/a/6786646
+        entry = entry.strip(u'\ufeff')  # http://stackoverflow.com/a/6786646
         entry = entry.lstrip(u'¡')
         entry = entry.rstrip(u'!')
         if entry and entry not in self.ignoredEntries:
             yield entry
 
-
     def isRtl(self, text):
         # http://stackoverflow.com/a/17685399/939364
         text = unicode(text)
-        return len([None for character in text if unicodedata.bidirectional(character) in ('R', 'AL')])/float(len(text)) > 0.1
-
+        return len([None for character in text
+                    if unicodedata.bidirectional(character)
+                    in ('R', 'AL')]) / float(len(text)) > 0.1
 
     def parse(self, entries):
         for entry in entries:
@@ -1123,25 +1189,42 @@ class EntryParser(object):
                 continue
 
             # Modifiers.
-            entry = re.sub(parenthesis, u"", entry) # Eliminar contido entre parénteses.
+
+            # Eliminar contido entre parénteses.
+            entry = re.sub(parenthesis, u"", entry)
+
             if self.doubleApostropheFilter and u"''" in entry:
                 entry = entry.replace(u"''", u"")
-            if self.commaFilter and u"," in entry: # Datos adicionais para localizar o lugar. Por exemplo: «Durango, País Vasco».
+
+            # Datos adicionais para localizar o lugar. Por exemplo:
+            # «Durango, País Vasco».
+            if self.commaFilter and u"," in entry:
                 entry = entry.split(u",")[0]
-            if self.hyphenFilter and u" - " in entry: # Nome en galego e no idioma local. Por exemplo: «Bilbao - Bilbo».
+
+            # Nome en galego e no idioma local. Por exemplo: «Bilbao - Bilbo».
+            if self.hyphenFilter and u" - " in entry:
                 entry = entry.split(u" - ")[0]
+
             if self.linkFilter and u"[[" in entry:
                 entry = re.sub(u"\[\[(?:[^]|]+\|)?([^]|]+)\]\]", u"\\1", entry)
+
             if self.quoteFilter and u"\"" in entry:
                 entry = entry.replace(u"\"", u"")
+
+            # Engádanse novos valores a medida que sexan necesarios.
             if self.subscriptFilter and u"<sub>" in entry:
-                entry = entry.replace(u"<sub>2</sub>", u"₂") # Engádanse novos valores a medida que sexan necesarios.
+                entry = entry.replace(u"<sub>2</sub>", u"₂")
+
+            # Engádanse novos valores a medida que sexan necesarios.
             if self.superscriptFilter and u"<sup>" in entry:
-                entry = entry.replace(u"<sup>+</sup>", u"⁺") # Engádanse novos valores a medida que sexan necesarios.
+                entry = entry.replace(u"<sup>+</sup>", u"⁺")
+
             if self.quoteFilter and u"\"" in entry:
                 entry = entry.replace(u"\"", u"")
+
             if self.unescapeHtml and u"&" in entry:
                 entry = self.htmlParser.unescape(entry)
+
             if self.colonFilter and u": " in entry:
                 entry = entry.replace(u": ", u" ")
 
@@ -1150,7 +1233,9 @@ class EntryParser(object):
             outputEntries = set()
             outputEntries.add(entry)
 
-            if self.basqueFilter: # Nome éuscara oficial, en éuscara e castelán. Por exemplo: «Valle de Trápaga-Trapagaran».
+            # Nome éuscara oficial, en éuscara e castelán. Por exemplo:
+            # «Valle de Trápaga-Trapagaran».
+            if self.basqueFilter:
                 newOutputEntries = set()
                 for outputEntry in outputEntries:
                     if "-" in outputEntry:
@@ -1189,7 +1274,6 @@ class EntryParser(object):
                     else:
                         newOutputEntries.add(outputEntry)
                 outputEntries = newOutputEntries
-
 
             for outputEntry in outputEntries:
                 for item in self.applyMandatoryFilters(outputEntry):

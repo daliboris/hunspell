@@ -11,7 +11,7 @@ def getFirstPathRelativeToSecondPathIfWithin(childPath, parentPath):
     absoluteChildPath = os.path.abspath(childPath)
     absoluteParentPath = os.path.abspath(parentPath)
     if (absoluteChildPath.startswith(absoluteParentPath)):
-        childPath = absoluteChildPath[len(absoluteParentPath)+1:]
+        childPath = absoluteChildPath[len(absoluteParentPath) + 1:]
     return childPath
 
 
@@ -58,6 +58,7 @@ def getLineFromFile(path, lineNumber):
 
 # Source: http://code.activestate.com/recipes/577564/
 class Silence:
+
     """Context manager which uses low-level file descriptors to suppress
     output to stdout/stderr, optionally redirecting to the named file(s).
 
@@ -124,6 +125,7 @@ class Silence:
     >>>
 
     """
+
     def __init__(self, stdout=os.devnull, stderr=os.devnull, mode='w'):
         self.outfiles = stdout, stderr
         self.combine = (stdout == stderr)
@@ -145,7 +147,8 @@ class Silence:
             null_streams = [open(self.outfiles[0], self.mode, 0)] * 2
             if self.outfiles[0] != os.devnull:
                 # disable buffering so output is merged immediately
-                sys.stdout, sys.stderr = map(os.fdopen, fds, ['w']*2, [0]*2)
+                sys.stdout, sys.stderr = map(
+                    os.fdopen, fds, ['w'] * 2, [0] * 2)
         else:
             null_streams = [open(f, self.mode, 0) for f in self.outfiles]
         self.null_fds = null_fds = [s.fileno() for s in null_streams]

@@ -28,7 +28,7 @@ def getFirstPathRelativeToSecondPathIfWithin(childPath, parentPath):
     absoluteChildPath = path.abspath(childPath)
     absoluteParentPath = path.abspath(parentPath)
     if (absoluteChildPath.startswith(absoluteParentPath)):
-        childPath = absoluteChildPath[len(absoluteParentPath)+1:]
+        childPath = absoluteChildPath[len(absoluteParentPath) + 1:]
     return childPath
 
 
@@ -38,19 +38,20 @@ def load_generators():
     root, languages, files = next(walk(generators_folder_path))
     generators_dictionary = {}
     for language in languages:
-        import_module(u"generators."+language)
+        import_module(u"generators." + language)
         generators_dictionary[language] = []
         language_generators_folder_path = path.join(
             generators_folder_path, language)
         if language_generators_folder_path not in sys.path:
             sys.path.insert(0, path.join(language_generators_folder_path))
         for generator_file_path in glob(
-                language_generators_folder_path+"/*.py"):
+                language_generators_folder_path + "/*.py"):
             module_name = path.basename(generator_file_path)[:-3]
             module = load_source("generators.{}.{}".format(
                 language, module_name), generator_file_path)
             if "loadGeneratorList" in module.__dict__:
-                generators_dictionary[language].extend(module.loadGeneratorList())
+                generators_dictionary[language].extend(
+                    module.loadGeneratorList())
     return generators_dictionary
 
 
@@ -60,7 +61,8 @@ generators = load_generators()
 for parameter in [parameter.decode('UTF-8') for parameter in sys.argv[1:]]:
     if parameter.startswith("-"):
         continue
-    modulePath = getFirstPathRelativeToSecondPathIfWithin(parameter, data_dir())
+    modulePath = getFirstPathRelativeToSecondPathIfWithin(parameter,
+                                                          data_dir())
     parts = modulePath.split(u"/")
     language = parts[0]
     if len(parts) > 1:
@@ -70,8 +72,10 @@ for parameter in [parameter.decode('UTF-8') for parameter in sys.argv[1:]]:
     usedGenerators = 0
     for generator in generators[language]:
         if generator.resource.startswith(modulePath):
-            print u":: Actualizando «{resource}»…".format(resource=generator.resource)
+            print u":: Actualizando «{resource}»…".format(
+                resource=generator.resource)
             generator.run()
             usedGenerators += 1
     if usedGenerators == 0:
-        print u":: Non existe ningún xerador para o módulo «{module}».".format(module=modulePath)
+        print(u":: Non existe ningún xerador para o módulo "
+              u"«{module}».".format(module=modulePath))

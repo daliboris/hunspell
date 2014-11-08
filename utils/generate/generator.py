@@ -37,9 +37,9 @@ class Generator(object):
     def generateFileContent(self):
         raise Exception("Abstract method")
 
-
     def run(self):
-        writeToResource(self.generateFileContent(), self.resource, self.language)
+        writeToResource(self.generateFileContent(), self.resource,
+                        self.language)
 
 
 tupleOfWordsToIgnore = (
@@ -130,7 +130,7 @@ tupleOfWordsToIgnore = (
     u"Concello", u"Concellos",
     u"Condado", u"Condados",
     u"Confederación", u"Confederacións",
-    u"Continental", u"Continentais", # «Portugal continental».
+    u"Continental", u"Continentais",  # «Portugal continental».
     u"Continente", u"Continentes",
     u"Convento", u"Conventos",
     u"Copa", u"Copas",
@@ -321,8 +321,8 @@ tupleOfWordsToIgnore = (
     # Numerais.
     u"Un", u"Unha", u"Unhas", u"Uns",
     u"Dous", u"Dúas",
-    u"Tres", # «Penedo dos Tres Reinos»
-    u"Catro", # «Pena dos Catro Cabaleiros»
+    u"Tres",  # «Penedo dos Tres Reinos»
+    u"Catro",  # «Pena dos Catro Cabaleiros»
     u"Cinco",
     u"Seis",
     u"Sete",

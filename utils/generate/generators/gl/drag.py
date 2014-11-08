@@ -14,20 +14,20 @@ from common import formatEntriesForDictionary
 import generator
 
 
-
 class AbbreviationsGenerator(generator.Generator):
 
     def __init__(self):
         super(AbbreviationsGenerator, self).__init__()
         self.resource = "rag/gl/abreviaturas.dic"
 
-
     def generateFileContent(self):
 
         import tempfile
         import urllib
 
-        abbreviationsPdfUrl = u"http://www.realacademiagalega.org/c/document_library/get_file?uuid=f29e6ce1-9ac5-42e3-8c15-73c4b9b5f48b&groupId=10157"
+        abbreviationsPdfUrl = u"http://www.realacademiagalega.org/c/" \
+            u"document_library/get_file?uuid=" \
+            u"f29e6ce1-9ac5-42e3-8c15-73c4b9b5f48b&groupId=10157"
         temporaryFile = tempfile.NamedTemporaryFile()
         urllib.urlretrieve(abbreviationsPdfUrl, temporaryFile.name)
 
@@ -41,7 +41,9 @@ class AbbreviationsGenerator(generator.Generator):
         for page in PDFPage.create_pages(document):
             interpreter.process_page(page)
             layout = device.get_result()
-            objects = [object for object in layout if not isinstance(object, LTRect) and not isinstance(object, LTCurve)]
+            objects = [object for object in layout
+                       if not isinstance(object, LTRect)
+                       and not isinstance(object, LTCurve)]
             params = LAParams()
             for line in layout.group_objects(params, objects):
                 text = line.get_text()
@@ -51,7 +53,8 @@ class AbbreviationsGenerator(generator.Generator):
                     entry = entry.replace(u"..", ".")
                     entries.add(entry)
 
-        dictionary  = u"# Abreviaturas empregadas no Dicionario da Real Academia Galega\n"
+        dictionary = u"# Abreviaturas empregadas no Dicionario da Real " \
+            u"Academia Galega\n"
         dictionary += u"# http://www.realacademiagalega.org/abreviaturas\n"
         dictionary += u"\n"
         for entry in formatEntriesForDictionary(entries, u"abreviatura"):

@@ -4,13 +4,14 @@ import textwrap
 
 import codecs
 
-from common import formatEntriesAndCommentsForDictionary, ContentCache, PdfParser
+from common import formatEntriesAndCommentsForDictionary, ContentCache, \
+    PdfParser
 import generator
 
 
-
 uvigoContentCache = ContentCache("uvigo")
-doubtsPdfUrl = u"http://anl.uvigo.es/UserFiles/File/manuais/Lingua_galega._Dubidas_linguisticas.pdf"
+doubtsPdfUrl = u"http://anl.uvigo.es/UserFiles/File/manuais/" \
+    u"Lingua_galega._Dubidas_linguisticas.pdf"
 
 
 class AbbreviationsGenerator(generator.Generator):
@@ -18,7 +19,6 @@ class AbbreviationsGenerator(generator.Generator):
     def __init__(self):
         super(AbbreviationsGenerator, self).__init__()
         self.resource = u"uvigo/abreviaturas.dic"
-
 
     def parseSubEntries(self, entry):
         if u"," in entry:
@@ -33,10 +33,10 @@ class AbbreviationsGenerator(generator.Generator):
         else:
             yield entry
 
-
     def generateFileContent(self):
 
-        filePath = uvigoContentCache.downloadFileIfNeededAndGetLocalPath(doubtsPdfUrl)
+        filePath = uvigoContentCache.downloadFileIfNeededAndGetLocalPath(
+            doubtsPdfUrl)
         pdfParser = PdfParser(filePath)
 
         entries = {}
@@ -71,10 +71,11 @@ class AbbreviationsGenerator(generator.Generator):
                     subentry = subentry.strip()
                     entries[subentry] = comment.strip()
 
-        dictionary  = u"# Relación de abreviaturas máis frecuentes\n"
+        dictionary = u"# Relación de abreviaturas máis frecuentes\n"
         dictionary += u"# {}\n".format(doubtsPdfUrl)
         dictionary += u"\n"
-        for entry in formatEntriesAndCommentsForDictionary(entries, u"abreviatura"):
+        for entry in formatEntriesAndCommentsForDictionary(entries,
+                                                           u"abreviatura"):
             dictionary += entry
         return dictionary
 
@@ -85,10 +86,10 @@ class AcronymsGenerator(generator.Generator):
         super(AcronymsGenerator, self).__init__()
         self.resource = u"uvigo/siglas.dic"
 
-
     def generateFileContent(self):
 
-        filePath = uvigoContentCache.downloadFileIfNeededAndGetLocalPath(doubtsPdfUrl)
+        filePath = uvigoContentCache.downloadFileIfNeededAndGetLocalPath(
+            doubtsPdfUrl)
         pdfParser = PdfParser(filePath)
 
         entries = {}
@@ -130,7 +131,7 @@ class AcronymsGenerator(generator.Generator):
                 else:
                     commentCache = comment.strip()
 
-        dictionary  = u"# Relación de acrónimos e siglas máis frecuentes\n"
+        dictionary = u"# Relación de acrónimos e siglas máis frecuentes\n"
         dictionary += u"# {}\n".format(doubtsPdfUrl)
         dictionary += u"\n"
         for entry in formatEntriesAndCommentsForDictionary(entries, u"sigla"):
