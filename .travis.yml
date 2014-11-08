@@ -10,11 +10,12 @@ install:
   - pip install pep8 --use-mirrors
   - pip install https://github.com/pyflakes/pyflakes/tarball/master
   - pip install sphinx
+  - pip install pyicu
   - sudo apt-get install graphviz
-before_script:
-    - pep8 tests/ utils/ hunspell.py
-    - pyflakes tests/ utils/ hunspell.py
+  - sudo apt-get install hunspell
 script:
+  - pep8 tests/ utils/ hunspell.py
+  - pyflakes tests/ utils/ hunspell.py
   - sphinx-build -nW -b html doc doc/_build/html
   - sphinx-build -nW -b linkcheck doc doc/_build/html
   - python tests/doc-coverage.py
