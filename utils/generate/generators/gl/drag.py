@@ -1,14 +1,11 @@
 # -*- coding:utf-8 -*-
 
-import textwrap
-
 from pdfminer.layout import LAParams, LTCurve, LTRect
 from pdfminer.pdfparser import PDFParser
 from pdfminer.pdfdocument import PDFDocument
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.converter import PDFPageAggregator
 from pdfminer.pdfpage import PDFPage
-import codecs
 
 from common import formatEntriesForDictionary
 import generator

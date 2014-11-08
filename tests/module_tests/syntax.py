@@ -3,7 +3,6 @@
 from os import path, walk
 import re
 import subprocess
-import sys
 
 from hunspell import data_dir
 

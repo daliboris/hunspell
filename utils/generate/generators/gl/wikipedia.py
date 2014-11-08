@@ -4,7 +4,7 @@ from mediawiki import MediaWikiGenerator  # Dictionary generators.
 from mediawiki import EntryGenerator  # Entry generators.
 from mediawiki import PageLoader, CategoryBrowser  # Page generators.
 # Page parsers.
-from mediawiki import TitleParser, FirstSentenceParser, LineParser, TableParser
+from mediawiki import FirstSentenceParser, LineParser, TableParser
 from mediawiki import EntryParser  # Page parsers.
 
 

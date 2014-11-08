@@ -5,7 +5,6 @@ import json
 import os
 import requests
 import sys
-import tempfile
 import time
 import unicodedata
 import urllib
@@ -19,7 +18,7 @@ from pywikibot.xmlreader import XmlDump
 
 from common import CacheManager, ProgressReporter, TaskInProgressReporter, \
     formatEntriesForDictionary
-from generator import Generator, output, wordsToIgnore
+from generator import Generator, output
 
 
 fileTagPattern = re.compile(

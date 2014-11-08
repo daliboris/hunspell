@@ -1,7 +1,6 @@
 # -*- coding:utf-8 -*-
 
 import os
-import shutil
 
 from hunspell import module_paths_from_filters, build_files
 

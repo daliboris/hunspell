@@ -2,12 +2,9 @@
 
 import codecs
 import os
-import shutil
 import subprocess
-import sys
 
 import common
-import spellchecker
 import syntax
 import test
 

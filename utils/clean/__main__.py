@@ -24,7 +24,7 @@ inputFilesOrFolders = sys.argv[2:]
 entries = set()
 for inputFileOrFolder in inputFilesOrFolders:
     if os.path.isfile(inputFileOrFolder):
-        with codecs.open(inputFile, "r", "utf-8") as fileObject:
+        with codecs.open(inputFileOrFolder, "r", "utf-8") as fileObject:
             for line in fileObject.readlines():
                 entries.add(line.split(u" ")[0])
     else:

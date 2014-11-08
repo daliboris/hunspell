@@ -18,8 +18,6 @@ if root_path not in sys.path:
 
 from hunspell import data_dir
 
-import common
-
 # See http://stackoverflow.com/a/4546129/939364
 sys.stdout = codecs.getwriter(locale.getpreferredencoding())(sys.stdout)
 
@@ -33,7 +31,7 @@ def getFirstPathRelativeToSecondPathIfWithin(childPath, parentPath):
 
 
 def load_generators():
-    import generators
+    import_module(u"generators")
     generators_folder_path = path.join(path.dirname(__file__), "generators")
     root, languages, files = next(walk(generators_folder_path))
     generators_dictionary = {}

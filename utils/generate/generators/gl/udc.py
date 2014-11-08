@@ -1,9 +1,5 @@
 # -*- coding:utf-8 -*-
 
-import textwrap
-
-import codecs
-
 from common import formatEntriesAndCommentsForDictionary, ContentCache, \
     PdfParser
 import generator

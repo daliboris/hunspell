@@ -1,9 +1,5 @@
 # -*- coding:utf-8 -*-
 
-import textwrap
-
-import codecs
-
 from common import formatEntriesAndCommentsForDictionary, ContentCache, \
     PdfParser
 import generator
@@ -118,6 +114,7 @@ class AcronymsGenerator(generator.Generator):
         parsingStage = 0
         entry = None
 
+        comment = u""
         for line in pdfParser.lines():
 
             line = line.strip()

@@ -259,7 +259,7 @@ def unmunch(language, aff_filters, dic_filters, rep_filters, output_file_path):
     specified modules (*aff_filters*, *dic_filters*, *rep_filters*) for the
     specified *language*, and stores those words on the specified
     *output_file_path*, one word per line."""
-    from tempfile import mkdtemp, mkstemp
+    from tempfile import mkdtemp
     temporary_folder = mkdtemp(prefix=u"hunspell")
     base_name = language
     aff_path = path.join(temporary_folder, base_name + u".aff")

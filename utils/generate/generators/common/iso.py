@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 
-import re
 import urllib2
 from xml.etree.ElementTree import XML
 from bs4 import BeautifulSoup
-import PyICU
 import generator
 
 
