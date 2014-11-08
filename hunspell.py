@@ -143,7 +143,7 @@ def _load_rep_json_lines(module_paths):
             target_data = load_word_data(target, language=language,
                                          search_from=module)
             mapping = _map_word_inflections(source_data["inflections"],
-                                           target_data["inflections"])
+                                            target_data["inflections"])
             for source_word, target_word in mapping:
                 lines.add(u"^{}$ {}".format(source_word, target_word))
     return lines
@@ -210,11 +210,11 @@ def build_files(module_paths, language, output_file_name, output_folder):
     if not path.exists(output_folder):
         makedirs(output_folder)
     _build_aff(module_paths,
-              path.join(output_folder, output_file_name + ".aff"),
-              language=language)
+               path.join(output_folder, output_file_name + ".aff"),
+               language=language)
     _build_dic(module_paths,
-              path.join(output_folder, output_file_name + ".dic"),
-              language=language)
+               path.join(output_folder, output_file_name + ".dic"),
+               language=language)
 
 
 def _extension_to_content_type(extension):
@@ -248,8 +248,8 @@ def module_paths_from_filters(filters, language):
 def _unmunch_files(aff_path, dic_path, output_file_path):
     from subprocess import Popen, PIPE
     unmunch_script = path.join(_root_dir(), "utils", "unmunch.sh")
-    command = u"bash \"{}\" \"{}\" \"{}\" >> \"{}\"".format(unmunch_script, dic_path, aff_path,
-                                                            output_file_path)
+    command = u"bash \"{}\" \"{}\" \"{}\" >> \"{}\"".format(
+        unmunch_script, dic_path, aff_path, output_file_path)
     process = Popen(command, shell=True, stdout=PIPE, stderr=PIPE)
     process.communicate()
 
@@ -264,8 +264,10 @@ def unmunch(language, aff_filters, dic_filters, rep_filters, output_file_path):
     base_name = language
     aff_path = path.join(temporary_folder, base_name + u".aff")
     dic_path = path.join(temporary_folder, base_name + u".dic")
-    build_files(aff_filters=aff_filters, dic_filters=dic_filters, rep_filters=rep_filters,
-                language=language, output_file_path=base_name, output_folder=temporary_folder)
-    _unmunch_files(aff_path=aff_path, dic_path=dic_path, output_file_path=output_file_path)
+    build_files(aff_filters=aff_filters, dic_filters=dic_filters,
+                rep_filters=rep_filters, language=language,
+                output_file_path=base_name, output_folder=temporary_folder)
+    _unmunch_files(aff_path=aff_path, dic_path=dic_path,
+                   output_file_path=output_file_path)
     from shutil import rmtree
     rmtree(temporary_folder)
