@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # -*- coding:utf-8 -*-
 
-from os import path, remove
+from os import path, pathsep, remove
 from subprocess import call
 from sys import exit
 
@@ -19,7 +19,7 @@ def which(program):
         if is_exe(program):
             return program
     else:
-        for executable_path in os.environ["PATH"].split(path.sep):
+        for executable_path in os.environ["PATH"].split(pathsep):
             executable_path = executable_path.strip('"')
             exe_file = path.join(executable_path, program)
             if is_exe(exe_file):
