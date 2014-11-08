@@ -10,7 +10,9 @@ sys.stdout = codecs.getwriter(locale.getpreferredencoding())(sys.stdout)
 
 
 def getModulesSourcePath():
-    return os.path.join(os.path.dirname(os.path.realpath(__file__)).decode("utf-8"), u"../../src")
+    return os.path.join(
+        os.path.dirname(os.path.realpath(__file__)).decode("utf-8"),
+        u"../../src")
 
 
 # Program starts.
@@ -26,7 +28,8 @@ for inputFileOrFolder in inputFilesOrFolders:
             for line in fileObject.readlines():
                 entries.add(line.split(u" ")[0])
     else:
-        for parentFolderPath, folderNames, fileNames in os.walk(inputFileOrFolder.decode("utf-8")):
+        for parentFolderPath, folderNames, fileNames in \
+                os.walk(inputFileOrFolder.decode("utf-8")):
             for fileName in fileNames:
                 if fileName.endswith(u".dic"):
                     filePath = os.path.join(parentFolderPath, fileName)
