@@ -16,6 +16,7 @@ doubtsPdfUrl = u"http://anl.uvigo.es/UserFiles/File/manuais/Lingua_galega._Dubid
 class AbbreviationsGenerator(generator.Generator):
 
     def __init__(self):
+        super(AbbreviationsGenerator, self).__init__()
         self.resource = u"uvigo/abreviaturas.dic"
 
 
@@ -81,6 +82,7 @@ class AbbreviationsGenerator(generator.Generator):
 class AcronymsGenerator(generator.Generator):
 
     def __init__(self):
+        super(AcronymsGenerator, self).__init__()
         self.resource = u"uvigo/siglas.dic"
 
 

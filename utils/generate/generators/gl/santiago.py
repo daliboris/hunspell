@@ -16,6 +16,7 @@ styleGuidePdfUrl = u"http://www.v1deputacionlugo.org/media/documentos/Libro_de_e
 class AbbreviationsGenerator(generator.Generator):
 
     def __init__(self):
+        super(AbbreviationsGenerator, self).__init__()
         self.resource = u"santiago/abreviaturas.dic"
 
 
@@ -123,6 +124,7 @@ class AbbreviationsGenerator(generator.Generator):
 class AcronymsGenerator(generator.Generator):
 
     def __init__(self):
+        super(AcronymsGenerator, self).__init__()
         self.resource = u"santiago/siglas.dic"
 
 
@@ -193,6 +195,7 @@ class AcronymsGenerator(generator.Generator):
 class SymbolsGenerator(generator.Generator):
 
     def __init__(self):
+        super(SymbolsGenerator, self).__init__()
         self.resource = u"santiago/símbolos.dic"
 
 

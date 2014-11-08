@@ -2,14 +2,16 @@
 
 from __future__ import print_function
 
-import codecs, os, sys
+import codecs
+from os import makedirs, path
+import sys
 
 import common
 
 
 def createFoldersIfNeeded(path):
     try:
-        os.makedirs(path)
+        makedirs(path)
     except:
         pass
 
@@ -19,21 +21,25 @@ def output(text):
     sys.stdout.flush()
 
 
-def writeToResource(content, resource):
-    targetPath = os.path.join(common.getModulesSourcePath(), resource)
-    createFoldersIfNeeded(os.path.dirname(targetPath))
+def writeToResource(content, resource, language):
+    targetPath = path.join(common.getModulesSourcePath(), language, resource)
+    createFoldersIfNeeded(path.dirname(targetPath))
     with codecs.open(targetPath, u"w", u"utf-8") as fileObject:
         fileObject.write(content)
 
 
 class Generator(object):
 
+    def __init__(self):
+        module_path = sys.modules[self.__module__].__file__
+        self.language = path.basename(path.dirname(module_path))
+
     def generateFileContent(self):
         raise Exception("Abstract method")
 
 
     def run(self):
-        writeToResource(self.generateFileContent(), self.resource)
+        writeToResource(self.generateFileContent(), self.resource, self.language)
 
 
 tupleOfWordsToIgnore = (

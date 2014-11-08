@@ -18,6 +18,7 @@ languageUsageCriteria2007PdfUrl = u"http://www.concellodezas.org/linguazas/docum
 class AbbreviationsGenerator(generator.Generator):
 
     def __init__(self):
+        super(AbbreviationsGenerator, self).__init__()
         self.resource = u"udc/abreviaturas/xeral.dic"
 
 
@@ -70,6 +71,7 @@ class AbbreviationsGenerator(generator.Generator):
 class AdministrativeAbbreviationsGenerator(generator.Generator):
 
     def __init__(self):
+        super(AdministrativeAbbreviationsGenerator, self).__init__()
         self.resource = u"udc/abreviaturas/administración.dic"
 
 
@@ -132,6 +134,7 @@ class AdministrativeAbbreviationsGenerator(generator.Generator):
 class TitleAbbreviationsGenerator(generator.Generator):
 
     def __init__(self):
+        super(TitleAbbreviationsGenerator, self).__init__()
         self.resource = u"udc/abreviaturas/tratamento.dic"
 
 
@@ -201,6 +204,7 @@ class TitleAbbreviationsGenerator(generator.Generator):
 class AcronymsGenerator(generator.Generator):
 
     def __init__(self):
+        super(AcronymsGenerator, self).__init__()
         self.resource = u"udc/siglas/xeral.dic"
 
 
@@ -255,6 +259,7 @@ class AcronymsGenerator(generator.Generator):
 class UdcAcronymsGenerator(generator.Generator):
 
     def __init__(self):
+        super(UdcAcronymsGenerator, self).__init__()
         self.resource = u"udc/siglas/udc.dic"
 
 

@@ -58,6 +58,7 @@ class Iso4217CodeList(object):
 class Iso4217Generator(generator.Generator):
 
     def __init__(self):
+        super(Iso4217Generator, self).__init__()
         self.resource = "iso4217/vocabulario.dic"
 
     def generateFileContent(self):
@@ -151,6 +152,7 @@ class Iso639CodeList(object):
 class Iso639Generator(generator.Generator):
 
     def __init__(self):
+        super(Iso639Generator, self).__init__()
         self.resource = "iso639/vocabulario.dic"
 
 

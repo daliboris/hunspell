@@ -97,6 +97,8 @@ class MediaWikiGenerator(Generator):
 
     def __init__(self, siteName, languageCode, resource, partOfSpeech, entryGenerators):
 
+        super(MediaWikiGenerator, self).__init__()
+
         self.resource = u"{}/{}/{}".format(siteName, languageCode, resource)
         self.partOfSpeech = partOfSpeech
 

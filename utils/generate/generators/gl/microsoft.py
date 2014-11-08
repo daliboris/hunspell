@@ -16,6 +16,7 @@ styleGuidePdfUrl = u"http://download.microsoft.com/download/D/7/2/D72521AC-634E-
 class AbbreviationsGenerator(generator.Generator):
 
     def __init__(self):
+        super(AbbreviationsGenerator, self).__init__()
         self.resource = u"microsoft/abreviaturas.dic"
 
 

@@ -18,6 +18,7 @@ import generator
 class AbbreviationsGenerator(generator.Generator):
 
     def __init__(self):
+        super(AbbreviationsGenerator, self).__init__()
         self.resource = "rag/gl/abreviaturas.dic"
 
 

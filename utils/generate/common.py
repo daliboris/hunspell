@@ -15,7 +15,7 @@ numberPattern = re.compile(u"^[0-9-]*[0-9]+(\.?[ºª]|[.°:])?$")
 
 
 def getModulesSourcePath():
-    return os.path.join(os.path.dirname(os.path.realpath(__file__)).decode("utf-8"), u"../../src")
+    return os.path.join(os.path.dirname(os.path.realpath(__file__)).decode("utf-8"), u"../../data")
 
 
 
