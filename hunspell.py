@@ -166,25 +166,55 @@ def _build_aff(module_paths, output_file_path, language):
         fp.write(content)
 
 
-def _lines_to_dic(lines, language):
-    content = u""
-    if lines:
-        content += u"{}\n".format(len(lines))
-        for line in sorted(lines, cmp=collator(language).compare):
-            content += u"{}\n".format(line)
-    return content
-
-
-def _load_dic(module_paths, language):
-    unparsed_content = _load_files_and_strip(module_paths)
-    unique_lines = _remove_duplicate_lines(unparsed_content.splitlines())
-    return _lines_to_dic(unique_lines, language=language)
-
-
 def _build_dic(module_paths, output_file_path, language):
-    content = _load_dic(module_paths["dic"], language=language)
-    with codecs.open(output_file_path, "w", "utf-8") as fp:
-        fp.write(content)
+
+    # NOTE:
+    # This logic used to be implemented in Python.
+    # The change to Bash and Linux tools made the script run more than 100
+    # times faster.
+    # If we ever need a cross-platform implementation, keep this one for
+    # Linux and use the cross-platform (and extremely slow) implementation for
+    # the remaining platforms.
+
+    from locale import normalize
+    from shutil import rmtree
+    from subprocess import call, check_output
+    from tempfile import mkdtemp
+
+    temporary_folder = mkdtemp(prefix=u"hunspell")
+
+    # Load all files into a single, temporary file.
+    for file_path in module_paths["dic"]:
+        call(u"cat \"{}\" >> {}".format(file_path, u"all.txt"),
+             shell=True, cwd=temporary_folder)
+
+    # Remove unnecessary stuff.
+    sed_expressions = [
+        u"'s/[[:space:]]*#.*$//'",  # Remove comments.
+        u"'s/[[:space:]]*$//'",  # Remove trailing whitespace.
+        u"'/^$/d'",  # Remove empty lines.
+        u"'s/[[:space:]]+/ /g'",  # Remove extra whitespace.
+        ]
+    sed_expressions_string = u" ".join([u"-e " + expression
+                                        for expression in sed_expressions])
+    command = u"cat {} | sed {} > {}".format(
+        u"all.txt", sed_expressions_string, u"clean.txt")
+    call(command, shell=True, cwd=temporary_folder)
+
+    # Sort file and remove duplicate lines.
+    locale = normalize(language + ".utf8")
+    command = u"cat {} | msort -qlws {} | uniq > {}".format(
+        u"clean.txt", locale, u"sorted.txt")
+    call(command, shell=True, cwd=temporary_folder)
+
+    # Append line count at the beginning.
+    command = u"cat {} | wc -l".format(u"sorted.txt")
+    line_count = check_output(command, shell=True, cwd=temporary_folder).strip()
+    command = u"cat {} | sed -e '1i{}' > \"{}\"".format(
+        u"sorted.txt", line_count, output_file_path)
+    call(command, shell=True, cwd=temporary_folder)
+
+    rmtree(temporary_folder)
 
 
 def build_files(module_paths, language, output_file_name, output_folder):
@@ -207,6 +237,7 @@ def build_files(module_paths, language, output_file_name, output_folder):
 
     Any other keys in the *module_paths* dictionary are ignored.
     """
+    output_folder = path.abspath(output_folder)
     if not path.exists(output_folder):
         makedirs(output_folder)
     _build_aff(module_paths,

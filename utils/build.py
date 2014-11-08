@@ -163,6 +163,7 @@ def _main(argv):
     module_filters = {"aff": [], "dic": [], "rep": []}
 
     for option, value in options:
+        value = value.decode("utf-8")
         if option in ("-l", "--language"):
             if language:
                 warn_about_option_overwrite(option=option,
