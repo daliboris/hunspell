@@ -209,7 +209,8 @@ def _build_dic(module_paths, output_file_path, language):
 
     # Append line count at the beginning.
     command = u"cat {} | wc -l".format(u"sorted.txt")
-    line_count = check_output(command, shell=True, cwd=temporary_folder).strip()
+    line_count = check_output(command, shell=True, cwd=temporary_folder)
+    line_count = line_count.strip()
     command = u"cat {} | sed -e '1i{}' > \"{}\"".format(
         u"sorted.txt", line_count, output_file_path)
     call(command, shell=True, cwd=temporary_folder)

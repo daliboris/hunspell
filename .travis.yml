@@ -14,6 +14,9 @@ install:
   - pip install pyicu
   - sudo apt-get install graphviz
   - sudo apt-get install hunspell
+  - sudo apt-get install msort
+  - sudo cp /usr/share/i18n/SUPPORTED /var/lib/locales/supported.d/local
+  - sudo locale-gen
 script:
   - pep8 tests/ utils/ hunspell.py
   - pyflakes tests/ utils/ hunspell.py
