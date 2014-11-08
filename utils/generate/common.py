@@ -6,7 +6,6 @@ import os
 import pickle
 import re
 import requests
-import sys
 import time
 import urllib
 from datetime import datetime, timedelta
