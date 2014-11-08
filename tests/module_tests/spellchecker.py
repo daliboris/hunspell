@@ -8,17 +8,14 @@ from hunspell import module_paths_from_filters, build_files
 import common
 
 
-
 class Manager(object):
 
     def __init__(self):
 
         self.builtSpellCheckers = {}
 
-
     def __enter__(self):
         return self
-
 
     def __exit__(self, type, value, traceback):
 
@@ -30,7 +27,6 @@ class Manager(object):
             os.rmdir(common.getBuildPath())
         except:
             pass
-
 
     def getUnusedCode(self):
 
@@ -44,7 +40,6 @@ class Manager(object):
             index += 1
         return index
 
-
     def create(self, config):
 
         for builtPath, builtConfig in self.builtSpellCheckers.iteritems():
@@ -56,8 +51,7 @@ class Manager(object):
         file_name = unicode(self.getUnusedCode())
         folder_path = common.getBuildPath()
         build_files(module_paths=module_paths, language=config["language"],
-                output_file_name=file_name,
-                output_folder=folder_path)
+                    output_file_name=file_name, output_folder=folder_path)
         path = os.path.join(folder_path, file_name)
         self.builtSpellCheckers[path] = config
         return path

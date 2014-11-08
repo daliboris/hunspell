@@ -2,7 +2,9 @@
 
 from __future__ import print_function
 
-import codecs, os, sys
+import codecs
+import os
+import sys
 
 
 def getFirstPathRelativeToSecondPathIfWithin(childPath, parentPath):
@@ -14,7 +16,9 @@ def getFirstPathRelativeToSecondPathIfWithin(childPath, parentPath):
 
 
 def getRootPath():
-    return os.path.join(os.path.dirname(os.path.realpath(__file__)).decode("utf-8"), u"../..")
+    return os.path.join(
+        os.path.dirname(os.path.realpath(__file__)).decode("utf-8"),
+        u"../..")
 
 
 def getBuildPath():
@@ -50,7 +54,6 @@ def getLineFromFile(path, lineNumber):
                 return line.strip()
             index += 1
     return None
-
 
 
 # Source: http://code.activestate.com/recipes/577564/
@@ -134,7 +137,8 @@ class Silence:
         self.fds = fds = [s.fileno() for s in saved_streams]
         self.saved_fds = map(os.dup, fds)
         # flush any pending output
-        for s in saved_streams: s.flush()
+        for s in saved_streams:
+            s.flush()
 
         # open surrogate files
         if self.combine:
@@ -142,7 +146,8 @@ class Silence:
             if self.outfiles[0] != os.devnull:
                 # disable buffering so output is merged immediately
                 sys.stdout, sys.stderr = map(os.fdopen, fds, ['w']*2, [0]*2)
-        else: null_streams = [open(f, self.mode, 0) for f in self.outfiles]
+        else:
+            null_streams = [open(f, self.mode, 0) for f in self.outfiles]
         self.null_fds = null_fds = [s.fileno() for s in null_streams]
         self.null_streams = null_streams
 
@@ -152,11 +157,14 @@ class Silence:
     def __exit__(self, *args):
         sys = self.sys
         # flush any pending output
-        for s in self.saved_streams: s.flush()
+        for s in self.saved_streams:
+            s.flush()
         # restore original streams and file descriptors
         map(os.dup2, self.saved_fds, self.fds)
         sys.stdout, sys.stderr = self.saved_streams
         # clean up
-        for s in self.null_streams: s.close()
-        for fd in self.saved_fds: os.close(fd)
+        for s in self.null_streams:
+            s.close()
+        for fd in self.saved_fds:
+            os.close(fd)
         return False

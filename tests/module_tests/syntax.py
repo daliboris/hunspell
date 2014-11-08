@@ -1,17 +1,19 @@
 # -*- coding:utf-8 -*-
 
-import os, re, subprocess, sys
-from os import path
+from os import path, walk
+import re
+import subprocess
+import sys
 
 from hunspell import data_dir
 
-import common, test
-
+import common
+import test
 
 
 unescapedSlash = re.compile(u"error: line (\d+): 0 is wrong flag id")
-multipleDefinitions = re.compile(u"error: line (\d+): multiple definitions of an affix flag")
-
+multipleDefinitions = re.compile(
+    u"error: line (\d+): multiple definitions of an affix flag")
 
 
 def check(path):
@@ -24,7 +26,9 @@ def check(path):
         path,
         u"-l",
     ]
-    hunspell = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    hunspell = subprocess.Popen(args, stdin=subprocess.PIPE,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE)
     standardOutput, errorOutput = hunspell.communicate(u"proba")
     for line in errorOutput.splitlines():
 
@@ -34,20 +38,23 @@ def check(path):
         if match:
             lineNumber = int(match.group(1))
             lineContent = common.getLineFromFile(path + u".dic", lineNumber)
-            common.error(u"Hai unha barra inclinada («/») sen escapar na liña {} do dicionario («{}»).".format(lineNumber, lineContent))
+            common.error(u"Hai unha barra inclinada («/») sen escapar na liña "
+                         u"{} do dicionario («{}»).".format(
+                             lineNumber, lineContent))
             continue
 
         match = multipleDefinitions.match(line)
         if match:
             lineNumber = int(match.group(1))
             lineContent = common.getLineFromFile(path + u".dic", lineNumber)
-            common.error(u"Definición duplicada de marca na liña {} do dicionario («{}»).".format(lineNumber, lineContent))
+            common.error(u"Definición duplicada de marca na liña {} do "
+                         u"dicionario («{}»).".format(lineNumber, lineContent))
             continue
 
-        common.error(u"O executábel de Hunspell informou do seguinte erro: «{}».".format(line))
+        common.error(u"O executábel de Hunspell informou do seguinte erro: "
+                     u"«{}».".format(line))
 
     return errors
-
 
 
 class SyntaxTest(test.Test):
@@ -59,16 +66,15 @@ class SyntaxTest(test.Test):
         self.path = "{}/sintax".format(language)
         self.language = language
 
-
     def getAllModules(self, language):
         modules = []
-        root, module_folders, module_files = next(os.walk(path.join(data_dir(), language).encode("utf-8")))
+        root, module_folders, module_files = next(walk(
+            path.join(data_dir(), language).encode("utf-8")))
         for module in module_folders:
             modules.append(module.decode("utf-8"))
         for module in module_files:
             modules.append(module.decode("utf-8"))
         return modules
-
 
     def run(self, spellCheckerManager):
         modules = self.getAllModules(self.language)
@@ -83,10 +89,9 @@ class SyntaxTest(test.Test):
         self.report()
 
 
-
 def loadTestList():
     test_list = []
-    root, languages, files = next(os.walk(data_dir()))
+    root, languages, files = next(walk(data_dir()))
     for language in languages:
         if language != u"common":
             test_list.append(SyntaxTest(language))
