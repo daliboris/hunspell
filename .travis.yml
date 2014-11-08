@@ -15,8 +15,7 @@ install:
   - sudo apt-get install graphviz
   - sudo apt-get install hunspell
   - sudo apt-get install msort
-  - sudo cp /usr/share/i18n/SUPPORTED /var/lib/locales/supported.d/local
-  - sudo locale-gen
+  - bash utils/travis/install-locales.sh
 script:
   - pep8 tests/ utils/ hunspell.py
   - pyflakes tests/ utils/ hunspell.py
