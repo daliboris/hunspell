@@ -10,6 +10,7 @@ install:
   - pip install pep8 --use-mirrors
   - pip install https://github.com/pyflakes/pyflakes/tarball/master
   - pip install sphinx
+  - sudo apt-get install libicu-dev
   - pip install pyicu
   - sudo apt-get install graphviz
   - sudo apt-get install hunspell
