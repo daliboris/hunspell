@@ -6,3 +6,4 @@ Reference
 
    file-formats/index
    tools/index
+   api

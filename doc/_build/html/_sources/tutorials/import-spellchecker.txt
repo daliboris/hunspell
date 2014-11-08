@@ -1,2 +1,0 @@
-Importing Existing Hunspell Files
-=================================

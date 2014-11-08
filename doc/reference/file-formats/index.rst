@@ -5,7 +5,3 @@ File Formats
    :maxdepth: 1
 
    language
-   .. header
-   .. aff
-   .. dic
-   .. rep

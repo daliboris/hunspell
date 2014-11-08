@@ -1,2 +1,0 @@
-Building Hunspell Files
-=======================

@@ -1,4 +1,4 @@
 The Build Tool
 ==============
 
-.. automodule:: build.__main__
+.. automodule:: build

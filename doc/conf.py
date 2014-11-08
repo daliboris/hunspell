@@ -18,6 +18,7 @@ import os
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
+sys.path.insert(0, os.path.abspath('..'))
 sys.path.insert(0, os.path.abspath(os.path.join('..', 'utils')))
 
 # -- General configuration ------------------------------------------------
@@ -31,6 +32,7 @@ sys.path.insert(0, os.path.abspath(os.path.join('..', 'utils')))
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.coverage',
+    'sphinx.ext.intersphinx',
     'sphinx.ext.viewcode',
 ]
 
@@ -47,7 +49,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Hunspell Spellcheckers Repository'
+project = u'Hunspell'
 copyright = u'2014, Adrián Chaves Fernández (Gallaecio)'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -131,7 +133,7 @@ html_theme = 'default'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+#html_static_path = ['_static']
 
 # Add any extra paths that contain custom files (such as robots.txt or
 # .htaccess) here, relative to this directory. These files are copied
@@ -180,7 +182,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'HunspellSpellcheckersdoc'
+htmlhelp_basename = 'Hunspelldoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -200,7 +202,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'HunspellSpellcheckers.tex', u'Hunspell Spellcheckers Documentation',
+  ('index', 'Hunspell.tex', u'Hunspell Documentation',
    u'Adrián Chaves Fernández (Gallaecio)', 'manual'),
 ]
 
@@ -230,7 +232,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'hunspellspellcheckers', u'Hunspell Spellcheckers Documentation',
+    ('index', 'hunspell', u'Hunspell Documentation',
      [u'Adrián Chaves Fernández (Gallaecio)'], 1)
 ]
 
@@ -244,8 +246,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'HunspellSpellcheckers', u'Hunspell Spellcheckers Documentation',
-   u'Adrián Chaves Fernández (Gallaecio)', 'HunspellSpellcheckers', 'One line description of project.',
+  ('index', 'Hunspell', u'Hunspell Documentation',
+   u'Adrián Chaves Fernández (Gallaecio)', 'Hunspell', 'One line description of project.',
    'Miscellaneous'),
 ]
 
@@ -260,3 +262,9 @@ texinfo_documents = [
 
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
+
+
+# -- Options for Read the Docs ------------------------------------------------
+
+# Source: http://read-the-docs.readthedocs.org/en/latest/faq.html#i-want-to-use-the-blue-default-sphinx-theme
+html_style = u"/default.css"

@@ -1,1 +1,2 @@
-pywikibot
+doc/_build
+tests/.doctrees

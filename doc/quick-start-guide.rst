@@ -1,7 +1,7 @@
 Quick Start Guide
 =================
 
-Lets say that you want to build the latest version of the default spellchecker for Galician (language code: gl) from the Hunspell Spellcheckers Repository. You simply need to follow these steps:
+Lets say that you want to build the latest version of the default spellchecker for Galician (language code: gl) from the repository. You simply need to follow these steps:
 
     1. `Grab our Github repository`_.
     2. Open the downloaded folder on a terminal.
@@ -18,8 +18,6 @@ On a GNU/Linux terminal you can easily perform those steps running the following
 The :doc:`build </reference/tools/build>` tool generates a :file:`build` folder. Inside the :file:`build` folder you can find a set of Hunspell files: :file:`gl.aff` and :file:`gl.dic`.
 
 That’s it! Check the `Hunspell command-line documentation`_ to learn how to use those two files.
-
-If you want to learn how to build Hunspell files from a custom set of spellchecking data modules, or how to contribute spellchecking data to the Hunspell Spellcheckers Repository, see the :doc:`Manual </manual/index>`.
 
 
 .. _Grab our Github repository: https://help.github.com/articles/fetching-a-remote/#clone

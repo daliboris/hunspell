@@ -1,12 +1,7 @@
-Documentation
-=============
+Hunspell
+========
 
-To build the documentation run:
+.. image:: https://readthedocs.org/projects/hunspell/badge/?version=latest
+.. image:: https://travis-ci.org/eitsl/hunspell.svg
 
-.. code:: bash
-
-    cd doc/
-    make html
-
-The documentation is generated in HTML format at :file:`doc/_build/html/`. You can open the
-:file:`index.html` file there in your favorite web browser.
+See the project documentation at `Read the Docs <http://hunspell.rtfd.org>`_.
