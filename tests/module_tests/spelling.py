@@ -17,7 +17,7 @@ class SpellingTest(test.Test):
 
         self.path = path
         self._config = None
-        self._language = path.split(u"/")[1]
+        self._language = path.split(u"/")[0]
 
         self.spellCheckerPath = None
         self.spellCheckerManager = None
@@ -26,7 +26,8 @@ class SpellingTest(test.Test):
         if self._config is None:
             import json
             with codecs.open(
-                    os.path.join(common.getTestsPath(), self.path + u".json"),
+                    os.path.join(common.module_tests_data_path(),
+                                 self.path + u".json"),
                     "r", "utf-8") as fileObject:
                 self._config = json.load(fileObject)
             self._config["language"] = self._language
