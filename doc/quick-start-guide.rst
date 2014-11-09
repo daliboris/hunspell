@@ -5,7 +5,7 @@ Lets say that you want to build the latest version of the default spellchecker f
 
     1. `Grab our Github repository`_.
     2. Open the downloaded folder on a terminal.
-    3. Run :code:`python utils/build -l gl`.
+    3. Run :code:`python utils/build.py -l gl`.
 
 On a GNU/Linux terminal you can easily perform those steps running the following commands:
 
@@ -13,7 +13,7 @@ On a GNU/Linux terminal you can easily perform those steps running the following
 
     git clone https://github.com/eitsl/hunspell.git
     cd hunspell/
-    python utils/build -l gl
+    python utils/build.py -l gl
 
 The :doc:`build </reference/tools/build>` tool generates a :file:`build` folder. Inside the :file:`build` folder you can find a set of Hunspell files: :file:`gl.aff` and :file:`gl.dic`.
 

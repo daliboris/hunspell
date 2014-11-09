@@ -303,7 +303,7 @@ def unmunch(filters, language, output_file_path):
     dic_path = path.join(temporary_folder, base_name + u".dic")
     module_paths = module_paths_from_filters(filters, language)
     build_files(module_paths=module_paths, language=language,
-                output_file_path=base_name, output_folder=temporary_folder)
+                output_file_name=base_name, output_folder=temporary_folder)
     _unmunch_files(aff_path=aff_path, dic_path=dic_path,
                    output_file_path=output_file_path)
     from shutil import rmtree
