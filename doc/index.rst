@@ -1,9 +1,9 @@
 Hunspell
 ========
 
-**Hunspell** is a repository that contains spellchecking data and tools to
-easily build `Hunspell`_ spellchecking files (:file:`.aff` and :file:`.dic`)
-for different languages.
+**Hunspell** is a repository of the `Idiomatic`_ project that contains
+spellchecking data and tools to easily build `Hunspell`_ spellchecking files
+(:file:`.aff` and :file:`.dic`) for different languages.
 
 The repository contains:
 
@@ -33,6 +33,11 @@ build:
 * A spellchecker that includes words specific to one or more fields, such as
   biology or computing.
 
+.. graphviz:: index.dot
+
+.. _Idiomatic: https://github.com/eitsl/idiomatic
+.. _Hunspell: http://hunspell.sourceforge.net/
+
 
 Table of Contents
 =================
@@ -50,5 +55,3 @@ Indices and Tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
-.. _Hunspell: http://hunspell.sourceforge.net/

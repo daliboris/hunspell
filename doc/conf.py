@@ -32,7 +32,7 @@ sys.path.insert(0, os.path.abspath(os.path.join('..', 'utils')))
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.coverage',
-    'sphinx.ext.intersphinx',
+    'sphinx.ext.graphviz',
     'sphinx.ext.viewcode',
 ]
 

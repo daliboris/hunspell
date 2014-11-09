@@ -1,0 +1,12 @@
+digraph "hunspell" {
+
+    compound=true;
+    bgcolor=lightgrey;
+
+    pydiomatic -> hunspell;
+    lexicon -> hunspell;
+    spelling -> hunspell;
+
+    hunspell -> morfologik;
+    hunspell -> languagetool;
+ }
