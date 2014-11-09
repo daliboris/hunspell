@@ -286,18 +286,23 @@ def _unmunch_files(aff_path, dic_path, output_file_path):
     process.communicate()
 
 
-def unmunch(language, aff_filters, dic_filters, rep_filters, output_file_path):
+def unmunch(filters, language, output_file_path):
     """Generates a list of words accepted by a spellchecker built from the
-    specified modules (*aff_filters*, *dic_filters*, *rep_filters*) for the
-    specified *language*, and stores those words on the specified
-    *output_file_path*, one word per line."""
+    specified *language* and the specified dictionary of *filters*, where keys
+    are types of filters for the **Hunspell** repository (:code:`aff`,
+    :code:`dic` or :code:`rep`) and their values are `module filters`_.
+
+    A file with a word per line is generated on *output_file_path*.
+
+    .. _module filters: http://pydiomatic.rtfd.org/en/latest/data.html#modules
+    """
     from tempfile import mkdtemp
     temporary_folder = mkdtemp(prefix=u"hunspell")
     base_name = language
     aff_path = path.join(temporary_folder, base_name + u".aff")
     dic_path = path.join(temporary_folder, base_name + u".dic")
-    build_files(aff_filters=aff_filters, dic_filters=dic_filters,
-                rep_filters=rep_filters, language=language,
+    module_paths = module_paths_from_filters(filters, language)
+    build_files(module_paths=module_paths, language=language,
                 output_file_path=base_name, output_folder=temporary_folder)
     _unmunch_files(aff_path=aff_path, dic_path=dic_path,
                    output_file_path=output_file_path)
