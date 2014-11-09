@@ -5,3 +5,4 @@ Tools
    :maxdepth: 1
 
    build
+   package
