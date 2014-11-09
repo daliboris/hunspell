@@ -124,8 +124,7 @@ from idiomatic.ui import \
     list_presets, \
     load_preset_or_error_and_exit, \
     missing_language_error_and_exit, \
-    warn_about_option_overwrite, \
-    warn_if_preset_and_filters
+    warn_about_option_overwrite
 from hunspell import build_files, module_paths_from_filters
 
 
