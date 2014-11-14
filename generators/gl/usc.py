@@ -1,16 +1,18 @@
 # -*- coding:utf-8 -*-
 
-from common import formatEntriesAndCommentsForDictionary, ContentCache, \
-    PdfParser
-import generator
+from idiomatic.cache import ContentCache
+from idiomatic.generators import Generator
+from idiomatic.parsers import PdfParser
+
+from formatting import formatEntriesAndCommentsForDictionary
 
 
-contentCache = ContentCache("usc")
+contentCache = ContentCache("hunspell/gl/usc")
 pdfUrl = u"http://www.usc.es/export/sites/default/gl/servizos/snl/" \
     u"asesoramento/fundamentos/descargas/abreviaturassiglassimboloslexico.pdf"
 
 
-class AbbreviationsGenerator(generator.Generator):
+class AbbreviationsGenerator(Generator):
 
     def __init__(self):
         super(AbbreviationsGenerator, self).__init__()
@@ -30,7 +32,7 @@ class AbbreviationsGenerator(generator.Generator):
         elif entry:
             yield entry
 
-    def generateFileContent(self):
+    def content(self):
 
         filePath = contentCache.downloadFileIfNeededAndGetLocalPath(pdfUrl)
         pdfParser = PdfParser(filePath)
@@ -82,13 +84,13 @@ class AbbreviationsGenerator(generator.Generator):
         return dictionary
 
 
-class AcronymsGenerator(generator.Generator):
+class AcronymsGenerator(Generator):
 
     def __init__(self):
         super(AcronymsGenerator, self).__init__()
         self.resource = u"usc/siglas.dic"
 
-    def generateFileContent(self):
+    def content(self):
 
         filePath = contentCache.downloadFileIfNeededAndGetLocalPath(pdfUrl)
         pdfParser = PdfParser(filePath)
@@ -137,7 +139,7 @@ class AcronymsGenerator(generator.Generator):
         return dictionary
 
 
-class SymbolsGenerator(generator.Generator):
+class SymbolsGenerator(Generator):
 
     def __init__(self):
         super(SymbolsGenerator, self).__init__()
@@ -157,7 +159,7 @@ class SymbolsGenerator(generator.Generator):
         elif entry:
             yield entry
 
-    def generateFileContent(self):
+    def content(self):
 
         filePath = contentCache.downloadFileIfNeededAndGetLocalPath(pdfUrl)
         pdfParser = PdfParser(filePath)
@@ -208,7 +210,7 @@ class SymbolsGenerator(generator.Generator):
         return dictionary
 
 
-def loadGeneratorList():
+def generators():
     generators = []
     generators.append(AbbreviationsGenerator())
     generators.append(AcronymsGenerator())

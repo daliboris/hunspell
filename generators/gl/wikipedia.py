@@ -191,7 +191,7 @@ class GalipediaNamesGenerator(GalipediaGenerator):
         )
 
 
-def loadGeneratorList():
+def generators():
 
     generators = []
 

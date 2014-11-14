@@ -2,8 +2,10 @@
 
 import urllib2
 from xml.etree.ElementTree import XML
+
 from bs4 import BeautifulSoup
-import generator
+
+from idiomatic.generators import Generator
 
 
 class Iso4217CodeList(object):
@@ -61,7 +63,7 @@ class Iso4217CodeList(object):
         return result
 
 
-class Iso4217Generator(generator.Generator):
+class Iso4217Generator(Generator):
 
     def __init__(self):
         super(Iso4217Generator, self).__init__()
@@ -166,7 +168,7 @@ class Iso639CodeList(object):
         return result
 
 
-class Iso639Generator(generator.Generator):
+class Iso639Generator(Generator):
 
     def __init__(self):
         super(Iso639Generator, self).__init__()
@@ -181,7 +183,7 @@ class Iso639Generator(generator.Generator):
         return codeList.toDicFormat()
 
 
-def loadGeneratorList():
+def generators():
     generators = []
     generators.append(Iso4217Generator())
     generators.append(Iso639Generator())

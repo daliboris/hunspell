@@ -98,7 +98,7 @@ class WiktionaryEnNamesGenerator(WiktionaryEnGenerator):
         )
 
 
-def loadGeneratorList():
+def generators():
 
     generators = []
 

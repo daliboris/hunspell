@@ -1,16 +1,18 @@
 # -*- coding:utf-8 -*-
 
-from common import formatEntriesAndCommentsForDictionary, ContentCache, \
-    PdfParser
-import generator
+from idiomatic.cache import ContentCache
+from idiomatic.generators import Generator
+from idiomatic.parsers import PdfParser
+
+from formatting import formatEntriesAndCommentsForDictionary
 
 
-contentCache = ContentCache("santiago")
+contentCache = ContentCache("hunspell/gl/santiago")
 styleGuidePdfUrl = u"http://www.v1deputacionlugo.org/media/documentos/" \
     u"Libro_de_estilo_Concello_Santiago.pdf"
 
 
-class AbbreviationsGenerator(generator.Generator):
+class AbbreviationsGenerator(Generator):
 
     def __init__(self):
         super(AbbreviationsGenerator, self).__init__()
@@ -35,7 +37,7 @@ class AbbreviationsGenerator(generator.Generator):
         elif entry:
             yield entry
 
-    def generateFileContent(self):
+    def content(self):
 
         filePath = contentCache.downloadFileIfNeededAndGetLocalPath(
             styleGuidePdfUrl)
@@ -121,13 +123,13 @@ class AbbreviationsGenerator(generator.Generator):
         return dictionary
 
 
-class AcronymsGenerator(generator.Generator):
+class AcronymsGenerator(Generator):
 
     def __init__(self):
         super(AcronymsGenerator, self).__init__()
         self.resource = u"santiago/siglas.dic"
 
-    def generateFileContent(self):
+    def content(self):
 
         filePath = contentCache.downloadFileIfNeededAndGetLocalPath(
             styleGuidePdfUrl)
@@ -192,7 +194,7 @@ class AcronymsGenerator(generator.Generator):
         return dictionary
 
 
-class SymbolsGenerator(generator.Generator):
+class SymbolsGenerator(Generator):
 
     def __init__(self):
         super(SymbolsGenerator, self).__init__()
@@ -217,7 +219,7 @@ class SymbolsGenerator(generator.Generator):
         elif entry:
             yield entry
 
-    def generateFileContent(self):
+    def content(self):
 
         filePath = contentCache.downloadFileIfNeededAndGetLocalPath(
             styleGuidePdfUrl)
@@ -281,7 +283,7 @@ class SymbolsGenerator(generator.Generator):
         return dictionary
 
 
-def loadGeneratorList():
+def generators():
     generators = []
     generators.append(AcronymsGenerator())
     generators.append(AbbreviationsGenerator())

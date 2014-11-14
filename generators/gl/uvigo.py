@@ -1,16 +1,18 @@
 # -*- coding:utf-8 -*-
 
-from common import formatEntriesAndCommentsForDictionary, ContentCache, \
-    PdfParser
-import generator
+from idiomatic.cache import ContentCache
+from idiomatic.generators import Generator
+from idiomatic.parsers import PdfParser
+
+from formatting import formatEntriesAndCommentsForDictionary
 
 
-uvigoContentCache = ContentCache("uvigo")
+uvigoContentCache = ContentCache("hunspell/gl/uvigo")
 doubtsPdfUrl = u"http://anl.uvigo.es/UserFiles/File/manuais/" \
     u"Lingua_galega._Dubidas_linguisticas.pdf"
 
 
-class AbbreviationsGenerator(generator.Generator):
+class AbbreviationsGenerator(Generator):
 
     def __init__(self):
         super(AbbreviationsGenerator, self).__init__()
@@ -29,7 +31,7 @@ class AbbreviationsGenerator(generator.Generator):
         else:
             yield entry
 
-    def generateFileContent(self):
+    def content(self):
 
         filePath = uvigoContentCache.downloadFileIfNeededAndGetLocalPath(
             doubtsPdfUrl)
@@ -76,13 +78,13 @@ class AbbreviationsGenerator(generator.Generator):
         return dictionary
 
 
-class AcronymsGenerator(generator.Generator):
+class AcronymsGenerator(Generator):
 
     def __init__(self):
         super(AcronymsGenerator, self).__init__()
         self.resource = u"uvigo/siglas.dic"
 
-    def generateFileContent(self):
+    def content(self):
 
         filePath = uvigoContentCache.downloadFileIfNeededAndGetLocalPath(
             doubtsPdfUrl)
@@ -135,7 +137,7 @@ class AcronymsGenerator(generator.Generator):
         return dictionary
 
 
-def loadGeneratorList():
+def generators():
     generators = []
     generators.append(AbbreviationsGenerator())
     generators.append(AcronymsGenerator())

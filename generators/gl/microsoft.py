@@ -1,16 +1,18 @@
 # -*- coding:utf-8 -*-
 
-from common import formatEntriesAndCommentsForDictionary, ContentCache, \
-    PdfParser
-import generator
+from idiomatic.cache import ContentCache
+from idiomatic.generators import Generator
+from idiomatic.parsers import PdfParser
+
+from formatting import formatEntriesAndCommentsForDictionary
 
 
-contentCache = ContentCache("microsoft")
+contentCache = ContentCache("hunspell/gl/microsoft")
 styleGuidePdfUrl = u"http://download.microsoft.com/download/D/7/2/" \
     u"D72521AC-634E-41B1-8431-6F75C29CAE84/glg-esp-StyleGuide.pdf"
 
 
-class AbbreviationsGenerator(generator.Generator):
+class AbbreviationsGenerator(Generator):
 
     def __init__(self):
         super(AbbreviationsGenerator, self).__init__()
@@ -23,7 +25,7 @@ class AbbreviationsGenerator(generator.Generator):
         else:
             yield entry
 
-    def generateFileContent(self):
+    def content(self):
 
         filePath = contentCache.downloadFileIfNeededAndGetLocalPath(
             styleGuidePdfUrl)
@@ -70,7 +72,7 @@ class AbbreviationsGenerator(generator.Generator):
         return dictionary
 
 
-def loadGeneratorList():
+def generators():
     generators = []
     generators.append(AbbreviationsGenerator())
     return generators

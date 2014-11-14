@@ -1,5 +1,9 @@
 # -*- coding:utf-8 -*-
 
+from idiomatic.generators import Generator
+
+from formatting import formatEntriesForDictionary
+
 from pdfminer.layout import LAParams, LTCurve, LTRect
 from pdfminer.pdfparser import PDFParser
 from pdfminer.pdfdocument import PDFDocument
@@ -7,17 +11,14 @@ from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.converter import PDFPageAggregator
 from pdfminer.pdfpage import PDFPage
 
-from common import formatEntriesForDictionary
-import generator
 
-
-class AbbreviationsGenerator(generator.Generator):
+class AbbreviationsGenerator(Generator):
 
     def __init__(self):
         super(AbbreviationsGenerator, self).__init__()
         self.resource = "rag/gl/abreviaturas.dic"
 
-    def generateFileContent(self):
+    def content(self):
 
         import tempfile
         import urllib
@@ -59,7 +60,7 @@ class AbbreviationsGenerator(generator.Generator):
         return dictionary
 
 
-def loadGeneratorList():
+def generators():
     generators = []
     generators.append(AbbreviationsGenerator())
     return generators

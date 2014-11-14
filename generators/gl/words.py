@@ -1,47 +1,5 @@
 # -*- coding:utf-8 -*-
 
-from __future__ import print_function
-
-import codecs
-from os import makedirs, path
-import sys
-
-import common
-
-
-def createFoldersIfNeeded(path):
-    try:
-        makedirs(path)
-    except:
-        pass
-
-
-def output(text):
-    print(text, end="")
-    sys.stdout.flush()
-
-
-def writeToResource(content, resource, language):
-    targetPath = path.join(common.getModulesSourcePath(), language, resource)
-    createFoldersIfNeeded(path.dirname(targetPath))
-    with codecs.open(targetPath, u"w", u"utf-8") as fileObject:
-        fileObject.write(content)
-
-
-class Generator(object):
-
-    def __init__(self):
-        module_path = sys.modules[self.__module__].__file__
-        self.language = path.basename(path.dirname(module_path))
-
-    def generateFileContent(self):
-        raise Exception("Abstract method")
-
-    def run(self):
-        writeToResource(self.generateFileContent(), self.resource,
-                        self.language)
-
-
 tupleOfWordsToIgnore = (
 
     # Símbolos.

@@ -16,9 +16,11 @@ from bs4 import BeautifulSoup
 import pywikibot
 from pywikibot.xmlreader import XmlDump
 
-from common import CacheManager, ProgressReporter, TaskInProgressReporter, \
-    formatEntriesForDictionary
-from generator import Generator, output
+from formatting import formatEntriesForDictionary
+
+from idiomatic.cache import CacheManager
+from idiomatic.generators import Generator
+from idiomatic.ui import output, ProgressReporter, TaskInProgressReporter
 
 
 fileTagPattern = re.compile(
@@ -241,7 +243,7 @@ class MediaWikiGenerator(Generator):
 
         return noCache
 
-    def generateFileContent(self):
+    def content(self):
 
         noCache = self.evaluateNoCacheParameters()
         cacheManager = CacheManager()
@@ -522,7 +524,7 @@ class SiteCache(object):
     def __init__(self, site):
 
         self.site = site
-        cacheManager = CacheManager()
+        cacheManager = CacheManager("hunspell/gl/mediawiki")
 
         self.cacheFolder = os.path.join(
             cacheManager.cacheFolder,

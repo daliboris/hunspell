@@ -1,11 +1,13 @@
 # -*- coding:utf-8 -*-
 
-from common import formatEntriesAndCommentsForDictionary, ContentCache, \
-    PdfParser
-import generator
+from idiomatic.cache import ContentCache
+from idiomatic.generators import Generator
+from idiomatic.parsers import PdfParser
+
+from formatting import formatEntriesAndCommentsForDictionary
 
 
-contentCache = ContentCache("udc")
+contentCache = ContentCache("hunspell/gl/udc")
 abbreviationsPdfUrl = u"http://download.microsoft.com/download/A/0/B/" \
     u"A0B1A66A-5EBF-4CF3-9453-4B13BB027F1F/Phd_thesis_DB_v21.pdf"
 languageUsageCriteria2012PdfUrl = u"http://www.udc.es/snl/documentospdf/" \
@@ -14,13 +16,13 @@ languageUsageCriteria2007PdfUrl = u"http://www.concellodezas.org/linguazas/" \
     u"documentos/criterios_uso_lingua.pdf"
 
 
-class AbbreviationsGenerator(generator.Generator):
+class AbbreviationsGenerator(Generator):
 
     def __init__(self):
         super(AbbreviationsGenerator, self).__init__()
         self.resource = u"udc/abreviaturas/xeral.dic"
 
-    def generateFileContent(self):
+    def content(self):
 
         filePath = contentCache.downloadFileIfNeededAndGetLocalPath(
             abbreviationsPdfUrl)
@@ -70,13 +72,13 @@ class AbbreviationsGenerator(generator.Generator):
         return dictionary
 
 
-class AdministrativeAbbreviationsGenerator(generator.Generator):
+class AdministrativeAbbreviationsGenerator(Generator):
 
     def __init__(self):
         super(AdministrativeAbbreviationsGenerator, self).__init__()
         self.resource = u"udc/abreviaturas/administración.dic"
 
-    def generateFileContent(self):
+    def content(self):
 
         filePath = contentCache.downloadFileIfNeededAndGetLocalPath(
             languageUsageCriteria2012PdfUrl)
@@ -141,13 +143,13 @@ class AdministrativeAbbreviationsGenerator(generator.Generator):
         return dictionary
 
 
-class TitleAbbreviationsGenerator(generator.Generator):
+class TitleAbbreviationsGenerator(Generator):
 
     def __init__(self):
         super(TitleAbbreviationsGenerator, self).__init__()
         self.resource = u"udc/abreviaturas/tratamento.dic"
 
-    def generateFileContent(self):
+    def content(self):
 
         filePath = contentCache.downloadFileIfNeededAndGetLocalPath(
             languageUsageCriteria2007PdfUrl)
@@ -211,13 +213,13 @@ class TitleAbbreviationsGenerator(generator.Generator):
         return dictionary
 
 
-class AcronymsGenerator(generator.Generator):
+class AcronymsGenerator(Generator):
 
     def __init__(self):
         super(AcronymsGenerator, self).__init__()
         self.resource = u"udc/siglas/xeral.dic"
 
-    def generateFileContent(self):
+    def content(self):
 
         filePath = contentCache.downloadFileIfNeededAndGetLocalPath(
             languageUsageCriteria2012PdfUrl)
@@ -272,13 +274,13 @@ class AcronymsGenerator(generator.Generator):
         return dictionary
 
 
-class UdcAcronymsGenerator(generator.Generator):
+class UdcAcronymsGenerator(Generator):
 
     def __init__(self):
         super(UdcAcronymsGenerator, self).__init__()
         self.resource = u"udc/siglas/udc.dic"
 
-    def generateFileContent(self):
+    def content(self):
 
         filePath = contentCache.downloadFileIfNeededAndGetLocalPath(
             languageUsageCriteria2012PdfUrl)
@@ -332,7 +334,7 @@ class UdcAcronymsGenerator(generator.Generator):
         return dictionary
 
 
-def loadGeneratorList():
+def generators():
     generators = []
     generators.append(AcronymsGenerator())
     generators.append(AbbreviationsGenerator())
