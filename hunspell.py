@@ -384,7 +384,6 @@ def unmunch_files(aff_path, dic_path, output_path):
                     output_path=output_path) as unmuncher:
         unmuncher.run()
 
-
 def unmunch(filters, language, output_file_path):
     """Generates a list of words accepted by a spellchecker built from the
     specified *language* and the specified dictionary of *filters*, where keys

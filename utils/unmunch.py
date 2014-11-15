@@ -19,7 +19,8 @@ and you simply did not notice yet.
 
 .. _unmunch: http://hunspell.cvs.sourceforge.net/viewvc/hunspell/hunspell/src/\
 tools/unmunch.c?view=markup
-.. _unmunch.sh: http://sf.net/projects/hunspell/files/Hunspell/1.2.8/unmunch.sh
+.. _unmunch.sh: http://sourceforge.net/projects/hunspell/files/Hunspell/1.2.8/\
+unmunch.sh/download
 
 
 Uncomplete Implementation
@@ -84,10 +85,8 @@ Options
         Shows this command-line help. Any other option is ignored.
 """
 
-import codecs
 from getopt import getopt, GetoptError
 from os import path
-import re
 import sys
 
 
