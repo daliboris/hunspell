@@ -160,7 +160,6 @@ def _load_suggestion_rules(module_paths, language):
 
 def _build_aff(module_paths, output_file_path, language):
     content = _load_and_strip(path.join(data_dir(), language, u"language.hunspell"))
-    print module_paths["aff"]
     content += _load_files_and_strip(module_paths["aff"])
     content += _load_suggestion_rules(module_paths, language=language)
     with codecs.open(output_file_path, "w", "utf-8") as fp:
