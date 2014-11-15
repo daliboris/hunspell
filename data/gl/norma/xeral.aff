@@ -9775,20 +9775,3 @@ SFX 860     Y     3
 SFX 860     ir     es/666,132,133     balbúcir . is:presente P2 + enclítico
 SFX 860     ir     e/666,134,135     balbúcir . is:presente P3 + enclítico
 SFX 860     ir     en/666,134,135     balbúcir . is:presente P6 + enclítico
-
-
-# Números.
-
-COMPOUNDMIN 1
-
-ONLYINCOMPOUND 900
-# 901: [0-9]
-# 902: ,
-# 903: [%‰]
-# 904: .
-# 905: [ºª]
-
-COMPOUNDRULE 3
-COMPOUNDRULE (901)(901)*(903)?  # [0-9]+%?
-COMPOUNDRULE (901)(901)*(902)(901)(901)*(903)?  # [0-9]+,[0-9]+%?
-COMPOUNDRULE (901)(901)*(904)?(905)  # [0-9]+\.?[ºª]
