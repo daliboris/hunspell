@@ -364,7 +364,6 @@ class _Unmuncher(object):
         else:
             self.output(lemma + suffix)
 
-
     def read_dic(self):
         with codecs.open(self.dic_path, "r", "utf-8") as fp:
             next(fp)  # Skip first line.
@@ -383,6 +382,7 @@ def unmunch_files(aff_path, dic_path, output_path):
     with _Unmuncher(aff_path=aff_path, dic_path=dic_path,
                     output_path=output_path) as unmuncher:
         unmuncher.run()
+
 
 def unmunch(filters, language, output_file_path):
     """Generates a list of words accepted by a spellchecker built from the
