@@ -295,9 +295,9 @@ class _Unmuncher(object):
             self.out = stdout
 
         # Rules.
+        self.parsed_aff = False
         self.needaffix_flag = None
         self.keepcase_flag = None
-
         self.sfx_countdown = False
         self.current_flag = None
         self.sfx_rules = {}
@@ -312,7 +312,9 @@ class _Unmuncher(object):
     def output(self, word):
         self.out.write(word + "\n")
 
-    def read_aff(self):
+    def parse_aff(self):
+        if self.parsed_aff:
+            return
         with codecs.open(self.aff_path, "r", "utf-8") as fp:
             for line in fp:
                 if line.startswith(u"SFX "):
@@ -344,6 +346,7 @@ class _Unmuncher(object):
                     self.needaffix_flag = line[10:].rstrip()
                 if line.startswith(u"KEEPCASE "):
                     self.keepcase_flag = line[9:].rstrip()
+        self.parsed_aff = True
 
     def apply_suffix(self, lemma, suffix):
         if u"/" in suffix:
@@ -366,16 +369,26 @@ class _Unmuncher(object):
         else:
             self.output(lemma + suffix)
 
-    def read_dic(self):
+    def unmunch_all(self):
+        self.parse_aff()
         with codecs.open(self.dic_path, "r", "utf-8") as fp:
             next(fp)  # Skip first line.
             for line in fp:
                 line = line.split(u" ")[0]
                 self.apply_suffix(u"", line)
 
-    def run(self):
-        self.read_aff()
-        self.read_dic()
+    def unmunch_words(self, words):
+        self.parse_aff()
+        with codecs.open(self.dic_path, "r", "utf-8") as fp:
+            next(fp)  # Skip first line.
+            for line in fp:
+                line = line.split(u" ")[0]
+                if u"/" in line:
+                    lemma = line.split("/")[0]
+                else:
+                    lemma = line
+                if lemma in words:
+                    self.apply_suffix(u"", line)
 
 
 def unmunch_files(aff_path, dic_path, output_path):
@@ -383,7 +396,16 @@ def unmunch_files(aff_path, dic_path, output_path):
     the specified Hunspell files, *aff_path* and *dic_path*, accept."""
     with _Unmuncher(aff_path=aff_path, dic_path=dic_path,
                     output_path=output_path) as unmuncher:
-        unmuncher.run()
+        unmuncher.unmunch_all()
+
+
+def unmunch_words(aff_path, dic_path, output_path, words):
+    """Creates a file at *output_file_path* that contains all the forms of the
+    specified *words* as defined in the specified Hunspell files, *aff_path*
+    and *dic_path*, accept."""
+    with _Unmuncher(aff_path=aff_path, dic_path=dic_path,
+                    output_path=output_path) as unmuncher:
+        unmuncher.unmunch_words(words)
 
 
 def unmunch(filters, language, output_file_path):

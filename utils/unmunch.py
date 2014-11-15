@@ -1,8 +1,9 @@
 #!/usr/bin/env python2
 # -*- coding:utf-8 -*-
 
-"""Build a file of words (one word per line) that a set of Hunspell files
-(:file:`.aff` and :file:`.dic`) accept.
+"""Print or save to disk a list of words (one word per line) that a set of
+Hunspell files (:file:`.aff` and :file:`.dic`) accept, or the different forms
+that a specific word can adopt.
 
 Performance
 ===========
@@ -57,8 +58,13 @@ file:
 
 .. code:: bash
 
-    python utils/unmunch.py -a <.aff file> -d <.dic file> -o <output file> \
-[options]
+    python utils/unmunch.py -a <.aff file> -d <.dic file> -o <output file>
+
+Use the :code:`-w` parameter if you only want the forms that a word can adopt:
+
+.. code:: bash
+
+    python utils/unmunch.py -a <.aff file> -d <.dic file> -w <base word>
 
 Finally, you can use the following command to get extended command-line help
 for this script:
@@ -81,6 +87,19 @@ Options
         Path to the output file. If you omit this parameter, the results are
         printed on the standard output.
 
+-w WORD, --word=WORD
+        Show only the possible forms of the specified base word. If no word is
+        specified, this script returns all forms of all words in the specified
+        Hunspell files.
+
+        You may use this parameter more than once to get all
+        the forms of a set of words:
+
+        .. code:: bash
+
+            python utils/unmunch.py -a <.aff file> -d <.dic file> -w <word1> \
+-w <word2>
+
 -h, --help
         Shows this command-line help. Any other option is ignored.
 """
@@ -98,7 +117,7 @@ if root_path not in sys.path:
     sys.path.insert(0, path.join(root_path))
 
 
-from hunspell import unmunch_files
+from hunspell import unmunch_files, unmunch_words
 
 
 def _external_dir():
@@ -113,8 +132,8 @@ from idiomatic.ui import \
 def _main(argv):
 
     try:
-        options, arguments = getopt(argv, "a:d:ho:",
-                                    ["aff=", "dic=", "help", "output="])
+        options, arguments = getopt(
+            argv, "a:d:ho:w:", ["aff=", "dic=", "help", "word=", "output="])
     except GetoptError as error:
         print(error)
         sys.exit(2)
@@ -122,6 +141,7 @@ def _main(argv):
     aff_path = None
     dic_path = None
     output_path = None
+    words = []
 
     for option, value in options:
         value = value.decode("utf-8")
@@ -143,6 +163,8 @@ def _main(argv):
                                             previous_value=output_path,
                                             new_value=value)
             output_path = value
+        elif option in ("-w", "--word"):
+            words.append(value)
         elif option in ("-h", "--help"):
             print(__doc__)
             sys.exit()
@@ -166,8 +188,12 @@ def _main(argv):
     if output_path:
         output_path = path.abspath(output_path)
 
-    unmunch_files(aff_path=aff_path, dic_path=dic_path,
-                  output_path=output_path)
+    if words:
+        unmunch_words(aff_path=aff_path, dic_path=dic_path,
+                      output_path=output_path, words=words)
+    else:
+        unmunch_files(aff_path=aff_path, dic_path=dic_path,
+                      output_path=output_path)
 
 
 if __name__ == "__main__":
