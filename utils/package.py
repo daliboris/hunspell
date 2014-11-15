@@ -245,7 +245,7 @@ def _main(argv):
 
         root, folders, files = next(walk(path.join(data_dir(), language)))
         for file_name in files:
-            if file_name not in [u"base.aff", u"language.json"]:
+            if file_name not in [u"language.hunspell", u"language.json"]:
                 copy(path.join(root, file_name),
                      path.join(temporary_folder, file_name))
 
