@@ -122,7 +122,7 @@ if root_path not in sys.path:
     sys.path.insert(0, path.join(root_path))
 
 
-from hunspell import data_dirs
+from hunspell import build_files, data_dirs, module_paths_from_filters
 
 
 def _external_dir():
@@ -139,7 +139,6 @@ from idiomatic.ui import \
     missing_language_error_and_exit, \
     warn_about_option_overwrite, \
     warn_if_preset_and_filters
-from hunspell import build_files, module_paths_from_filters
 
 
 def _main(argv):

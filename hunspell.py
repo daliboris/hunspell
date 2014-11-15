@@ -277,13 +277,112 @@ def module_paths_from_filters(filters, language):
     return module_paths
 
 
-def _unmunch_files(aff_path, dic_path, output_file_path):
-    from subprocess import Popen, PIPE
-    unmunch_script = path.join(_root_dir(), "utils", "unmunch.sh")
-    command = u"bash \"{}\" \"{}\" \"{}\" >> \"{}\"".format(
-        unmunch_script, dic_path, aff_path, output_file_path)
-    process = Popen(command, shell=True, stdout=PIPE, stderr=PIPE)
-    process.communicate()
+class _Unmuncher(object):
+
+    def __init__(self, aff_path, dic_path, output_path=None):
+
+        # Input.
+        self.aff_path = aff_path
+        self.dic_path = dic_path
+        self.output_path = output_path
+        if output_path:
+            open(output_path, "w").close()
+            self.out = codecs.open(output_path, "a", "utf-8")
+        else:
+            from sys import stdout
+            self.out = stdout
+
+        # Rules.
+        self.needaffix_flag = None
+        self.keepcase_flag = None
+
+        self.sfx_countdown = False
+        self.current_flag = None
+        self.sfx_rules = {}
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, type, value, traceback):
+        if self.output_path:
+            self.out.close()
+
+    def output(self, word):
+        self.out.write(word + "\n")
+
+    def read_aff(self):
+        with codecs.open(self.aff_path, "r", "utf-8") as fp:
+            for line in fp:
+                if line.startswith(u"SFX "):
+                    if self.sfx_countdown:
+                        parts = line.split()
+                        old, new, rule = parts[2:5]
+                        if old == u"0":
+                            old = 0
+                        else:
+                            old = len(old)
+                        rule = re.compile(rule + u"$")
+                        self.sfx_rules[self.current_flag].append(
+                            (old, new, rule))
+                        self.sfx_countdown -= 1
+                    else:
+                        sfx, flag, cross_product, rule_count = line.split()
+                        self.current_flag = flag
+                        self.sfx_rules[flag] = []
+                        self.sfx_countdown = int(rule_count)
+                if line.startswith(u"SET ") and \
+                        not line.startswith(u"SET UTF-8"):
+                    raise NotImplementedError(
+                        u"Only UTF-8 files are currently supported")
+                if line.startswith(u"FLAG ") and \
+                        not line.startswith(u"FLAG num"):
+                    raise NotImplementedError(
+                        u"Only numeric flags are currently supported")
+                if line.startswith(u"NEEDAFFIX "):
+                    self.needaffix_flag = line[10:].rstrip()
+                if line.startswith(u"KEEPCASE "):
+                    self.keepcase_flag = line[9:].rstrip()
+
+    def apply_suffix(self, lemma, suffix):
+        if u"/" in suffix:
+            suffix, flags = suffix.split(u"/")
+            lemma += suffix
+            flags = flags.split(u",")
+            if self.keepcase_flag in flags:
+                flags.remove(self.keepcase_flag)
+            if self.needaffix_flag in flags:
+                flags.remove(self.needaffix_flag)
+            else:
+                self.output(lemma)
+            for flag in flags:
+                for old, new, rule in self.sfx_rules[flag]:
+                    if rule.search(lemma):
+                        new_lemma = lemma
+                        if old:
+                            new_lemma = lemma[:-old]
+                        self.apply_suffix(new_lemma, new)
+        else:
+            self.output(lemma + suffix)
+
+
+    def read_dic(self):
+        with codecs.open(self.dic_path, "r", "utf-8") as fp:
+            next(fp)  # Skip first line.
+            for line in fp:
+                line = line.split(u" ")[0]
+                self.apply_suffix(u"", line)
+
+    def run(self):
+        self.read_aff()
+        self.read_dic()
+
+
+def unmunch_files(aff_path, dic_path, output_path):
+    """Creates a file at *output_file_path* that contains all the words that
+    the specified Hunspell files, *aff_path* and *dic_path*, accept."""
+    with _Unmuncher(aff_path=aff_path, dic_path=dic_path,
+                    output_path=output_path) as unmuncher:
+        unmuncher.run()
 
 
 def unmunch(filters, language, output_file_path):
@@ -304,7 +403,7 @@ def unmunch(filters, language, output_file_path):
     module_paths = module_paths_from_filters(filters, language)
     build_files(module_paths=module_paths, language=language,
                 output_file_name=base_name, output_folder=temporary_folder)
-    _unmunch_files(aff_path=aff_path, dic_path=dic_path,
-                   output_file_path=output_file_path)
+    unmunch_files(aff_path=aff_path, dic_path=dic_path,
+                  output_path=output_file_path)
     from shutil import rmtree
     rmtree(temporary_folder)
