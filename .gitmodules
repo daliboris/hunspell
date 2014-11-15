@@ -1,9 +1,9 @@
 [submodule "external/spelling"]
 	path = external/spelling
-	url = git@github.com:eitsl/spelling.git
+	url = https://github.com/eitsl/spelling.git
 [submodule "external/lexicon"]
 	path = external/lexicon
-	url = git@github.com:eitsl/lexicon.git
+	url = https://github.com/eitsl/lexicon.git
 [submodule "external/pydiomatic"]
 	path = external/pydiomatic
-	url = git@github.com:eitsl/pydiomatic.git
+	url = https://github.com/eitsl/pydiomatic.git
