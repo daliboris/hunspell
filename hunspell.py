@@ -266,7 +266,8 @@ def module_paths_from_filters(filters, language):
 
     The return value can be passed to :py:func:`build_files`.
 
-    .. _module filters: http://pydiomatic.rtfd.org/en/latest/data.html#modules
+    .. _module filters: http://pydiomatic.rtfd.org/en/latest/api/\
+    data.html#modules
     """
     module_paths = {}
     for extension in ["aff", "dic", "rep", "rep.json"]:
@@ -393,7 +394,8 @@ def unmunch(filters, language, output_file_path):
 
     A file with a word per line is generated on *output_file_path*.
 
-    .. _module filters: http://pydiomatic.rtfd.org/en/latest/data.html#modules
+    .. _module filters: http://pydiomatic.rtfd.org/en/latest/api/\
+    data.html#modules
     """
     from tempfile import mkdtemp
     temporary_folder = mkdtemp(prefix=u"hunspell")

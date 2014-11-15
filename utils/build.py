@@ -88,7 +88,8 @@ Module Filtering Options
 
 You may use any of the following `module filtering options`_:
 
-.. _module filtering options: http://pydiomatic.rtfd.org/en/latest/data.html
+.. _module filtering options: http://pydiomatic.rtfd.org/en/latest/api/\
+data.html
 
 -a MODULES, --aff=MODULES
         Modules of word-formation rules to load.
