@@ -35,7 +35,7 @@ package archive. For example:
 
 .. code:: bash
 
-    python utils/build -l gl -p drag -v 1.0 -n gl_ES
+    python utils/build -l gl -p drag -v 1.0 -o gl_ES
 
 Use the following commands to get a list of available languages or a list of
 presets available for the specified language:
