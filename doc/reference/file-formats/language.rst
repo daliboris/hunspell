@@ -5,7 +5,7 @@ This topic explains the keys of the :file:`language.json` file that you can
 define in this repository. For general information about this file, see the
 `Pydiomatic documentation for the language file`_.
 
-.. _Pydiomatic documentation for the language file: http://pydiomatic.readthedocs.org/en/latest/data.html#the-language-file
+.. _Pydiomatic documentation for the language file: http://pydiomatic.readthedocs.org/en/latest/api/data.html#the-language-file
 
 Presets
 -------
@@ -25,7 +25,7 @@ fields:
 See the `Pydiomatic documentation for modules`_ to learn how to specify the
 values of these lists.
 
-.. _Pydiomatic documentation for modules: http://pydiomatic.readthedocs.org/en/latest/data.html#modules
+.. _Pydiomatic documentation for modules: http://pydiomatic.readthedocs.org/en/latest/api/data.html#modules
 
 
 Example
