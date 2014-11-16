@@ -258,11 +258,11 @@ def _extension_to_content_type(extension):
 
 
 def module_paths_from_filters(filters, language):
-    """Given a dictionary of *filters*, where keys are types of filters for the
-    **Hunspell** repository (:code:`aff`, :code:`dic` or :code:`rep`) and their
-    values are `module filters`_, it returns a new dictionary that contains
-    file extensions as keys and lists of paths to module files with those
-    file extensions as values.
+    """Given a language and a dictionary of *filters*, where keys are types of
+    filters for the **Hunspell** repository (:code:`aff`, :code:`dic` or
+    :code:`rep`) and their values are `module filters`_, it returns a new
+    dictionary that contains file extensions as keys and lists of paths to
+    module files with those file extensions as values.
 
     The return value can be passed to :py:func:`build_files`.
 
@@ -277,6 +277,30 @@ def module_paths_from_filters(filters, language):
                 filters[type], language=language, extension=extension,
                 search_paths=data_dirs())
     return module_paths
+
+
+def build_hunspell_files_from_filters(filters, language, output_folder,
+                                      output_file_name=None):
+    """Given a *language* and a dictionary of *filters*, where keys are types
+    of filters for the **Hunspell** repository (:code:`aff`, :code:`dic` or
+    :code:`rep`) and their values are `module filters`_, it builds matching
+    data files into Hunspell files.
+
+    The resulting Hunspell files are generated on the specified *output_folder*
+    with the specified *output_file_name*.
+
+    The *filters* dictionary may contain additional keys, they are simply
+    ignored.
+
+    .. _module filters: http://pydiomatic.rtfd.org/en/latest/api/\
+    data.html#modules
+    """
+    module_paths = module_paths_from_filters(filters=filters,
+                                             language=language)
+    if not output_file_name:
+        output_file_name = language
+    build_files(module_paths=module_paths, language=language,
+                output_file_name=output_file_name, output_folder=output_folder)
 
 
 class _Unmuncher(object):
