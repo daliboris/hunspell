@@ -10,7 +10,6 @@ aah       # Abu' Arapesh (639-3).
 aai       # Arifama-Miniafia (639-3).
 aak       # Ankave (639-3).
 aal       # Afade (639-3).
-aam       # Aramanik (639-3).
 aan       # Anambé (639-3).
 aao       # Algerian Saharan Arabic (639-3).
 aap       # Pará Arára (639-3).
@@ -83,7 +82,6 @@ adj       # Adioukrou (639-3).
 adl       # Galo (639-3).
 adn       # Adang (639-3).
 ado       # Abu (639-3).
-adp       # Adap (639-3).
 adq       # Adangbe (639-3).
 adr       # Adonara (639-3).
 ads       # Adamorobe Sign Language (639-3).
@@ -98,7 +96,7 @@ aea       # Areba (639-3).
 aeb       # Tunisian Arabic (639-3).
 aec       # Saidi Arabic (639-3).
 aed       # Argentine Sign Language (639-3).
-aee       # Northeast Pashayi (639-3).
+aee       # Northeast Pashai (639-3).
 aek       # Haeke (639-3).
 ael       # Ambele (639-3).
 aem       # Arem (639-3).
@@ -316,7 +314,7 @@ aom       # Ömie (639-3).
 aon       # Bumbita Arapesh (639-3).
 aor       # Aore (639-3).
 aos       # Taikat (639-3).
-aot       # A'tong (639-3).
+aot       # Atong (639-3).
 aou       # A'ou (639-3).
 aox       # Atorada (639-3).
 aoz       # Uab Meto (639-3).
@@ -434,7 +432,6 @@ aua       # Asumboa (639-3).
 aub       # Alugu (639-3).
 auc       # Waorani (639-3).
 aud       # Anuta (639-3).
-aue       # =/Kx'au//'ein (639-3).
 aug       # Aguna (639-3).
 auh       # Aushi (639-3).
 aui       # Anuki (639-3).
@@ -853,7 +850,6 @@ bmu       # Somba-Siawari (639-3).
 bmv       # Bum (639-3).
 bmw       # Bomwali (639-3).
 bmx       # Baimak (639-3).
-bmy       # Bemba (Democratic Republic of Congo) (639-3).
 bmz       # Baramu (639-3).
 bn        # Bengali (639-1).
 bna       # Bonerate (639-3).
@@ -1128,7 +1124,6 @@ bxs       # Busam (639-3).
 bxu       # China Buriat (639-3).
 bxv       # Berakou (639-3).
 bxw       # Bankagooma (639-3).
-bxx       # Borna (Democratic Republic of Congo) (639-3).
 bxz       # Binahari (639-3).
 bya       # Batak (639-3).
 byb       # Bikya (639-3).
@@ -1153,7 +1148,6 @@ byt       # Berti (639-3).
 byv       # Medumba (639-3).
 byw       # Belhariya (639-3).
 byx       # Qaqet (639-3).
-byy       # Buya (639-3).
 byz       # Banaro (639-3).
 bza       # Bandi (639-3).
 bzb       # Andio (639-3).
@@ -1218,6 +1212,7 @@ cbk       # Chavacano (639-3).
 cbl       # Bualkhaw Chin (639-3).
 cbn       # Nyahkur (639-3).
 cbo       # Izora (639-3).
+cbq       # Tsucuba (639-3).
 cbr       # Cashibo-Cacataibo (639-3).
 cbs       # Cashinahua (639-3).
 cbt       # Chayahuita (639-3).
@@ -1804,7 +1799,6 @@ dyu       # Dyula (639-2/639-5, 639-3).
 dyy       # Dyaabugay (639-3).
 dz        # Dzongkha (639-1).
 dza       # Tunzu (639-3).
-dzd       # Daza (639-3).
 dze       # Djiwarli (639-3).
 dzg       # Dazaga (639-3).
 dzl       # Dzalakha (639-3).
@@ -2140,7 +2134,6 @@ gey       # Enya (639-3).
 gez       # Geez (639-2/639-5, 639-3).
 gfk       # Patpatar (639-3).
 gft       # Gafat (639-3).
-gfx       # Mangetti Dune !Xung (639-3).
 gga       # Gao (639-3).
 ggb       # Gbii (639-3).
 ggd       # Gugadj (639-3).
@@ -2193,13 +2186,14 @@ gke       # Ndai (639-3).
 gkn       # Gokana (639-3).
 gko       # Kok-Nar (639-3).
 gkp       # Guinea Kpelle (639-3).
+gku       # ǂUngkue (639-3).
 gl        # Galician (639-1).
 gla       # Scottish Gaelic (639-2/639-5, 639-3).
 glc       # Bon Gula (639-3).
 gld       # Nanai (639-3).
 gle       # Irish (639-2/639-5, 639-3).
 glg       # Galician (639-2/639-5, 639-3).
-glh       # Northwest Pashayi (639-3).
+glh       # Northwest Pashai (639-3).
 gli       # Guliguli (639-3).
 glj       # Gula Iro (639-3).
 glk       # Gilaki (639-3).
@@ -2308,7 +2302,6 @@ gsp       # Wasembo (639-3).
 gss       # Greek Sign Language (639-3).
 gsw       # Swiss German (639-2/639-5, 639-3).
 gta       # Guató (639-3).
-gti       # Gbati-ri (639-3).
 gtu       # Aghu-Tharnggala (639-3).
 gu        # Gujarati (639-1).
 gua       # Shiki (639-3).
@@ -2655,6 +2648,7 @@ ikl       # Ikulu (639-3).
 iko       # Olulumo-Ikom (639-3).
 ikp       # Ikpeshi (639-3).
 ikr       # Ikaranggal (639-3).
+iks       # Inuit Sign Language (639-3).
 ikt       # Inuinnaqtun (639-3).
 iku       # Inuktitut (639-2/639-5, 639-3).
 ikv       # Iku-Gora-Ankwa (639-3).
@@ -2673,7 +2667,6 @@ ils       # International Sign (639-3).
 ilu       # Ili'uun (639-3).
 ilv       # Ilue (639-3).
 ima       # Mala Malasar (639-3).
-ime       # Imeraguen (639-3).
 imi       # Anamgura (639-3).
 iml       # Miluk (639-3).
 imn       # Imonda (639-3).
@@ -2832,6 +2825,7 @@ jit       # Jita (639-3).
 jiu       # Youle Jinuo (639-3).
 jiv       # Shuar (639-3).
 jiy       # Buyuan Jinuo (639-3).
+jje       # Jejueo (639-3).
 jjr       # Bankal (639-3).
 jkm       # Mobwa Karen (639-3).
 jko       # Kubo (639-3).
@@ -2929,7 +2923,6 @@ kbb       # Kaxuiâna (639-3).
 kbc       # Kadiwéu (639-3).
 kbd       # Kabardian (639-2/639-5, 639-3).
 kbe       # Kanju (639-3).
-kbf       # Kakauhua (639-3).
 kbg       # Khamba (639-3).
 kbh       # Camsá (639-3).
 kbi       # Kaptiau (639-3).
@@ -3149,6 +3142,7 @@ kjr       # Kurudu (639-3).
 kjs       # East Kewa (639-3).
 kjt       # Phrae Pwo Karen (639-3).
 kju       # Kashaya (639-3).
+kjv       # Kaikavian Literary Language (639-3).
 kjx       # Ramopa (639-3).
 kjy       # Erave (639-3).
 kjz       # Bumthangkha (639-3).
@@ -3268,7 +3262,6 @@ kof       # Kubi (639-3).
 kog       # Cogui (639-3).
 koh       # Koyo (639-3).
 koi       # Komi-Permyak (639-3).
-koj       # Sara Dunjo (639-3).
 kok       # Konkani (macrolanguage) (639-2/639-5, 639-3).
 kol       # Kol (Papua New Guinea) (639-3).
 kom       # Komi (639-2/639-5, 639-3).
@@ -3418,7 +3411,7 @@ kua       # Kuanyama (639-2/639-5, 639-3).
 kub       # Kutep (639-3).
 kuc       # Kwinsu (639-3).
 kud       # 'Auhelawa (639-3).
-kue       # Kuman (639-3).
+kue       # Kuman (Papua New Guinea) (639-3).
 kuf       # Western Katu (639-3).
 kug       # Kupa (639-3).
 kuh       # Kushi (639-3).
@@ -3484,7 +3477,6 @@ kwm       # Kwambi (639-3).
 kwn       # Kwangali (639-3).
 kwo       # Kwomtari (639-3).
 kwp       # Kodia (639-3).
-kwq       # Kwak (639-3).
 kwr       # Kwer (639-3).
 kws       # Kwese (639-3).
 kwt       # Kwesten (639-3).
@@ -3498,7 +3490,6 @@ kxa       # Kairiru (639-3).
 kxb       # Krobu (639-3).
 kxc       # Konso (639-3).
 kxd       # Brunei (639-3).
-kxe       # Kakihum (639-3).
 kxf       # Manumanaw Karen (639-3).
 kxh       # Karo (Ethiopia) (639-3).
 kxi       # Keningau Murut (639-3).
@@ -3707,7 +3698,6 @@ lie       # Likila (639-3).
 lif       # Limbu (639-3).
 lig       # Ligbi (639-3).
 lih       # Lihir (639-3).
-lii       # Lingkhim (639-3).
 lij       # Ligurian (639-3).
 lik       # Lika (639-3).
 lil       # Lillooet (639-3).
@@ -4481,7 +4471,6 @@ mwf       # Murrinh-Patha (639-3).
 mwg       # Aiklep (639-3).
 mwh       # Mouk-Aria (639-3).
 mwi       # Labo (639-3).
-mwj       # Maligo (639-3).
 mwk       # Kita Maninkakan (639-3).
 mwl       # Mirandese (639-2/639-5, 639-3).
 mwm       # Sar (639-3).
@@ -4588,10 +4577,10 @@ nam       # Ngan'gityemerri (639-3).
 nan       # Min Nan Chinese (639-3).
 nao       # Naaba (639-3).
 nap       # Neapolitan (639-2/639-5, 639-3).
-naq       # Nama (Namibia) (639-3).
+naq       # Khoekhoe (639-3).
 nar       # Iguta (639-3).
 nas       # Naasioi (639-3).
-nat       # Hungworo (639-3).
+nat       # Ca̱hungwa̱rya̱ (639-3).
 nau       # Nauru (639-2/639-5, 639-3).
 nav       # Navajo (639-2/639-5, 639-3).
 naw       # Nawuri (639-3).
@@ -4884,7 +4873,6 @@ nnt       # Nanticoke (639-3).
 nnu       # Dwang (639-3).
 nnv       # Nugunu (Australia) (639-3).
 nnw       # Southern Nuni (639-3).
-nnx       # Ngong (639-3).
 nny       # Nyangga (639-3).
 nnz       # Nda'nda' (639-3).
 no        # Norwegian (639-1).
@@ -4935,6 +4923,7 @@ nra       # Ngom (639-3).
 nrb       # Nara (639-3).
 nrc       # Noric (639-3).
 nre       # Southern Rengma Naga (639-3).
+nrf       # Jèrriais (639-3).
 nrg       # Narango (639-3).
 nri       # Chokri Naga (639-3).
 nrk       # Ngarla (639-3).
@@ -5035,6 +5024,7 @@ nxk       # Koki Naga (639-3).
 nxl       # South Nuaulu (639-3).
 nxm       # Numidian (639-3).
 nxn       # Ngawun (639-3).
+nxo       # Ndambomo (639-3).
 nxq       # Naxi (639-3).
 nxr       # Ninggerum (639-3).
 nxu       # Narau (639-3).
@@ -5240,7 +5230,6 @@ oub       # Glio-Oubi (639-3).
 oue       # Oune (639-3).
 oui       # Old Uighur (639-3).
 oum       # Ouma (639-3).
-oun       # !O!ung (639-3).
 owi       # Owiniga (639-3).
 owl       # Old Welsh (639-3).
 oyb       # Oy (639-3).
@@ -5289,7 +5278,7 @@ pbs       # Central Pame (639-3).
 pbt       # Southern Pashto (639-3).
 pbu       # Northern Pashto (639-3).
 pbv       # Pnar (639-3).
-pby       # Pyu (639-3).
+pby       # Pyu (Papua New Guinea) (639-3).
 pca       # Santa Inés Ahuatempan Popoloca (639-3).
 pcb       # Pear (639-3).
 pcc       # Bouyei (639-3).
@@ -5338,6 +5327,7 @@ pfa       # Pááfang (639-3).
 pfe       # Peere (639-3).
 pfl       # Pfaelzisch (639-3).
 pga       # Sudanese Creole Arabic (639-3).
+pgd       # Gāndhārī (639-3).
 pgg       # Pangwali (639-3).
 pgi       # Pagi (639-3).
 pgk       # Rerep (639-3).
@@ -5415,7 +5405,7 @@ plo       # Oluta Popoluca (639-3).
 plp       # Palpa (639-3).
 plq       # Palaic (639-3).
 plr       # Palaka Senoufo (639-3).
-pls       # San Marcos Tlalcoyalco Popoloca (639-3).
+pls       # San Marcos Tlacoyalco Popoloca (639-3).
 plt       # Plateau Malagasy (639-3).
 plu       # Palikúr (639-3).
 plv       # Southwest Palawano (639-3).
@@ -5440,7 +5430,6 @@ pmq       # Northern Pame (639-3).
 pmr       # Paynamar (639-3).
 pms       # Piemontese (639-3).
 pmt       # Tuamotuan (639-3).
-pmu       # Mirpur Panjabi (639-3).
 pmw       # Plains Miwok (639-3).
 pmx       # Poumei Naga (639-3).
 pmy       # Papuan Malay (639-3).
@@ -5534,8 +5523,8 @@ psc       # Persian Sign Language (639-3).
 psd       # Plains Indian Sign Language (639-3).
 pse       # Central Malay (639-3).
 psg       # Penang Sign Language (639-3).
-psh       # Southwest Pashayi (639-3).
-psi       # Southeast Pashayi (639-3).
+psh       # Southwest Pashai (639-3).
+psi       # Southeast Pashai (639-3).
 psl       # Puerto Rican Sign Language (639-3).
 psm       # Pauserna (639-3).
 psn       # Panasuan (639-3).
@@ -5793,6 +5782,7 @@ rsl       # Russian Sign Language (639-3).
 rtc       # Rungtu Chin (639-3).
 rth       # Ratahan (639-3).
 rtm       # Rotuman (639-3).
+rts       # Yurats (639-3).
 rtw       # Rathawi (639-3).
 ru        # Russian (639-1).
 rub       # Gungu (639-3).
@@ -5853,7 +5843,7 @@ sbb       # Simbo (639-3).
 sbc       # Kele (Papua New Guinea) (639-3).
 sbd       # Southern Samo (639-3).
 sbe       # Saliba (639-3).
-sbf       # Shabo (639-3).
+sbf       # Chabu (639-3).
 sbg       # Seget (639-3).
 sbh       # Sori-Harengan (639-3).
 sbi       # Seti (639-3).
@@ -5955,7 +5945,6 @@ sgi       # Suga (639-3).
 sgj       # Surgujia (639-3).
 sgk       # Sangkong (639-3).
 sgm       # Singa (639-3).
-sgo       # Songa (639-3).
 sgp       # Singpho (639-3).
 sgr       # Sangisari (639-3).
 sgs       # Samogitian (639-3).
@@ -6047,7 +6036,7 @@ skn       # Kolibugan Subanon (639-3).
 sko       # Seko Tengah (639-3).
 skp       # Sekapan (639-3).
 skq       # Sininkere (639-3).
-skr       # Seraiki (639-3).
+skr       # Saraiki (639-3).
 sks       # Maia (639-3).
 skt       # Sakata (639-3).
 sku       # Sakao (639-3).
@@ -6347,6 +6336,7 @@ syo       # Suoy (639-3).
 syr       # Syriac (639-2/639-5, 639-3).
 sys       # Sinyar (639-3).
 syw       # Kagate (639-3).
+syx       # Samay (639-3).
 syy       # Al-Sayyid Bedouin Sign Language (639-3).
 sza       # Semelai (639-3).
 szb       # Ngalum (639-3).
@@ -6530,7 +6520,6 @@ tht       # Tahltan (639-3).
 thu       # Thuri (639-3).
 thv       # Tahaggart Tamahaq (639-3).
 thw       # Thudam (639-3).
-thx       # The (639-3).
 thy       # Tha (639-3).
 thz       # Tayart Tamajeq (639-3).
 ti        # Tigrinya (639-1).
@@ -6752,7 +6741,6 @@ tsb       # Tsamai (639-3).
 tsc       # Tswa (639-3).
 tsd       # Tsakonian (639-3).
 tse       # Tunisian Sign Language (639-3).
-tsf       # Southwestern Tamang (639-3).
 tsg       # Tausug (639-3).
 tsh       # Tsuvan (639-3).
 tsi       # Tsimshian (639-2/639-5, 639-3).
@@ -6864,6 +6852,7 @@ txe       # Totoli (639-3).
 txg       # Tangut (639-3).
 txh       # Thracian (639-3).
 txi       # Ikpeng (639-3).
+txj       # Tarjumo (639-3).
 txm       # Tomini (639-3).
 txn       # West Tarangan (639-3).
 txo       # Toto (639-3).
@@ -6977,7 +6966,6 @@ unr       # Mundari (639-3).
 unu       # Unubahe (639-3).
 unx       # Munda (639-3).
 unz       # Unde Kaili (639-3).
-uok       # Uokha (639-3).
 upi       # Umeda (639-3).
 upv       # Uripiv-Wala-Rano-Atchin (639-3).
 ur        # Urdu (639-1).
@@ -7034,7 +7022,7 @@ vaf       # Vafsi (639-3).
 vag       # Vagla (639-3).
 vah       # Varhadi-Nagpuri (639-3).
 vai       # Vai (639-2/639-5, 639-3).
-vaj       # Vasekela Bushman (639-3).
+vaj       # Sekele (639-3).
 val       # Vehes (639-3).
 vam       # Vanimo (639-3).
 van       # Valman (639-3).
@@ -7575,7 +7563,6 @@ xsd       # Sidetic (639-3).
 xse       # Sempan (639-3).
 xsh       # Shamang (639-3).
 xsi       # Sio (639-3).
-xsj       # Subi (639-3).
 xsl       # South Slavey (639-3).
 xsm       # Kasem (639-3).
 xsn       # Sanga (Nigeria) (639-3).
@@ -7703,7 +7690,6 @@ ydd       # Eastern Yiddish (639-3).
 yde       # Yangum Dey (639-3).
 ydg       # Yidgha (639-3).
 ydk       # Yoidik (639-3).
-yds       # Yiddish Sign Language (639-3).
 yea       # Ravula (639-3).
 yec       # Yeniche (639-3).
 yee       # Yimas (639-3).
@@ -7789,14 +7775,12 @@ ymp       # Yamap (639-3).
 ymq       # Qila Muji (639-3).
 ymr       # Malasar (639-3).
 yms       # Mysian (639-3).
-ymt       # Mator-Taygi-Karagas (639-3).
 ymx       # Northern Muji (639-3).
 ymz       # Muzi (639-3).
 yna       # Aluo (639-3).
 ynd       # Yandruwandha (639-3).
 yne       # Lang'e (639-3).
 yng       # Yango (639-3).
-ynh       # Yangho (639-3).
 ynk       # Naukan Yupik (639-3).
 ynl       # Yangulam (639-3).
 ynn       # Yana (639-3).
@@ -7932,9 +7916,10 @@ zea       # Zeeuws (639-3).
 zeg       # Zenag (639-3).
 zeh       # Eastern Hongshuihe Zhuang (639-3).
 zen       # Zenaga (639-2/639-5, 639-3).
+zg        # Standard Moroccan Tamazight (639-1).
 zga       # Kinga (639-3).
 zgb       # Guibei Zhuang (639-3).
-zgh       # Standard Moroccan Tamazight (639-3).
+zgh       # Standard Moroccan Tamazight (639-2/639-5, 639-3).
 zgm       # Minz Zhuang (639-3).
 zgn       # Guibian Zhuang (639-3).
 zgr       # Magori (639-3).

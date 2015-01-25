@@ -14,6 +14,7 @@ angrivarios po:nome
 Exipto po:nome [n-grama: Antigo Exipto]
 Aqueos po:nome
 arameos po:nome
+arévacos po:nome
 Arminio po:nome
 Arronos po:nome
 arrotrebas po:nome
@@ -54,6 +55,7 @@ cibarcos po:nome
 cileni po:nome
 cilenos po:nome
 Cilicia po:nome
+cicládica po:nome [n-grama: civilización cicládica]
 maia po:nome [n-grama: civilización maia]
 minoica po:nome [n-grama: civilización minoica]
 coelerni po:nome
@@ -62,6 +64,8 @@ copori po:nome
 Crecente po:nome [n-grama: Crecente Fértil]
 Fértil po:nome [n-grama: Crecente Fértil]
 cuados po:nome
+cultura po:nome [n-grama: cultura cicládica]
+cicládica po:nome [n-grama: cultura cicládica]
 dacios po:nome
 Dicalidóns po:nome
 drevlianos po:nome
@@ -87,6 +91,7 @@ Grovii po:nome
 Grovios po:nome
 Hamavi po:nome
 Hapalla po:nome
+helvecios po:nome
 Hermann po:nome
 hérulos po:nome
 hititas po:nome
@@ -107,6 +112,7 @@ Lidia po:nome
 Limici po:nome
 Límicos po:nome
 Longobardos po:nome
+Lusitanos po:nome
 MAR.TU po:nome
 marcomanos po:nome
 Martu po:nome
@@ -133,6 +139,8 @@ Palhwisa po:nome
 Panfilia po:nome
 Paphlagonia po:nome
 Parisii po:nome
+período po:nome [n-grama: período cicládico]
+cicládico po:nome [n-grama: período cicládico]
 Persia po:nome
 Pictos po:nome
 Pisidia po:nome
@@ -183,17 +191,12 @@ turdetanos po:nome
 Usipetes po:nome
 vándalos po:nome
 Verturións po:nome
+Vetóns po:nome
 viquingo po:nome
 Visigodos po:nome
 Wilusa po:nome
 Xépidos po:nome
 Xermania po:nome
-Ки́евская po:nome [n-grama: Ки́евская Русь]
-Русь po:nome [n-grama: Ки́евская Русь]
-Ки́ївська po:nome [n-grama: Ки́ївська Русь]
-Русь po:nome [n-grama: Ки́ївська Русь]
-Кіеўская po:nome [n-grama: Кіеўская Русь]
-Русь po:nome [n-grama: Кіеўская Русь]
 Русичи po:nome
 Русы po:nome
 Русь po:nome

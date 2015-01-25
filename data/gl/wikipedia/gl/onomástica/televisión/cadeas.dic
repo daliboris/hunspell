@@ -11,6 +11,10 @@ WJAC po:nome [n-grama: 6 WJAC]
 Aaj po:nome [n-grama: Aaj Tak]
 Tak po:nome [n-grama: Aaj Tak]
 ABC po:nome
+Abu po:nome [n-grama: Abu Dhabi TV Canada]
+Dhabi po:nome [n-grama: Abu Dhabi TV Canada]
+TV po:nome [n-grama: Abu Dhabi TV Canada]
+Canada po:nome [n-grama: Abu Dhabi TV Canada]
 Aceh po:nome [n-grama: Aceh TV]
 TV po:nome [n-grama: Aceh TV]
 Al po:nome [n-grama: Al Jazeera]
@@ -84,8 +88,6 @@ Channel po:nome [n-grama: Channel [V] Thailand]
 [V] po:nome [n-grama: Channel [V] Thailand]
 Thailand po:nome [n-grama: Channel [V] Thailand]
 Chilevisión po:nome
-China po:nome [n-grama: China Central Television]
-Television po:nome [n-grama: China Central Television]
 CHV po:nome
 Clan po:nome
 CNN po:nome
@@ -163,6 +165,7 @@ Gol po:nome [n-grama: Gol Televisión]
 GPB po:nome
 Hamburg po:nome [n-grama: Hamburg 1]
 HBO po:nome
+HispanTV po:nome
 Box po:nome [n-grama: Home Box Office]
 Office po:nome [n-grama: Home Box Office]
 IB3 po:nome [n-grama: IB3 Televisió]
@@ -405,7 +408,11 @@ TVU po:nome
 TVVi po:nome
 Radiodifusión po:nome [n-grama: Unión Europea de Radiodifusión]
 V-me po:nome
+Venevisión po:nome
+Venezolana po:nome [n-grama: Venezolana de Televisión]
+Venezuela po:nome [n-grama: Venezuela Televisión]
 VIA po:nome [n-grama: VIA Televisión]
+VTV po:nome
 Wallis po:nome [n-grama: Wallis et Futuna 1ère]
 et po:nome [n-grama: Wallis et Futuna 1ère]
 Futuna po:nome [n-grama: Wallis et Futuna 1ère]
@@ -431,4 +438,3 @@ ZNBC po:nome
 Zweites po:nome [n-grama: Zweites Deutsches Fernsehen]
 Deutsches po:nome [n-grama: Zweites Deutsches Fernsehen]
 Fernsehen po:nome [n-grama: Zweites Deutsches Fernsehen]
-中国中央电视台 po:nome

@@ -1009,6 +1009,7 @@ def generators():
     ))
 
     pattern = u"(Rexións) "
+    invalid_pattern = u"(^Imaxes|.* por rexións$)"
     generators.append(GalipediaGenerator(
         resource=u"onomástica/toponimia/accidentes/rexións.dic",
         partOfSpeech=u"topónimo",
@@ -1029,7 +1030,8 @@ def generators():
                         u"Galería de imaxes)".format(pattern=pattern),
                         validCategoryPattern=u"^{pattern}".format(
                             pattern=pattern),
-                        invalidCategoryAsPagePattern=u"^(Imaxes) ",
+                        invalidCategoryPattern=invalid_pattern,
+                        invalidCategoryAsPagePattern=invalid_pattern,
                     ),
                 ],
                 pageParser=FirstSentenceParser(),
@@ -1172,7 +1174,7 @@ def generators():
     generators.append(GalipediaLocalidadesGenerator(
         u"Sudán do Sur", [u"Localidades de {name}"]))
     generators.append(GalipediaLocalidadesGenerator(u"Suecia"))
-    generators.append(GalipediaLocalidadesGenerator(u"Suráfrica"))
+    generators.append(GalipediaLocalidadesGenerator(u"Sudáfrica"))
     generators.append(GalipediaLocalidadesGenerator(u"Suíza"))
     generators.append(GalipediaLocalidadesGenerator(u"Timor Leste"))
     generators.append(GalipediaLocalidadesGenerator(u"Turquía"))
@@ -1544,7 +1546,10 @@ def generators():
             EntryGenerator(
                 pageGenerators=[
                     CategoryBrowser(
-                        categoryNames=[u"Given names by gender"],
+                        categoryNames=[
+                            u"Feminine given names",
+                            u"Masculine given names",
+                            u"Unisex given names"],
                         validCategoryPattern=u".* (god(desse)?s|names)",
                         invalidPagePattern=u"^(Consorts of Ganesha|"
                         u"Forms of Parvati|Ganges in Hinduism|.* Temple)$",
@@ -1669,7 +1674,7 @@ def generators():
                 pageGenerators=[
                     CategoryBrowser(
                         categoryNames=[u"Atores do Brasil", ],
-                        invalidPagePattern=u"^(Anexo:|Vedete$)",
+                        invalidPagePattern=u"^(Anexo:|Vedete$|Lista)",
                         validCategoryPattern=u"^(Atores|Estrelas|Vedetes)",
                         invalidCategoryAsPagePattern=u"^(!|Imagens)",
                     ),
@@ -1686,7 +1691,7 @@ def generators():
                 pageGenerators=[
                     CategoryBrowser(
                         categoryNames=[u"Reis de Leão", ],
-                        invalidPagePattern=u"^Anexo:",
+                        invalidPagePattern=u"^(Anexo:|Lista)",
                     ),
                 ],
             )

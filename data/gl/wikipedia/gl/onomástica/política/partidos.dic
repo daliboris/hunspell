@@ -2178,11 +2178,6 @@ CAS po:nome
 del po:nome [n-grama: Casa del Pueblo de Mahon]
 Pueblo po:nome [n-grama: Casa del Pueblo de Mahon]
 Mahon po:nome [n-grama: Casa del Pueblo de Mahon]
-Castela po:nome [n-grama: Castela Nova en galego e ata finais de 2008 Juventudes Comuneras]
-ata po:nome [n-grama: Castela Nova en galego e ata finais de 2008 Juventudes Comuneras]
-finais po:nome [n-grama: Castela Nova en galego e ata finais de 2008 Juventudes Comuneras]
-Juventudes po:nome [n-grama: Castela Nova en galego e ata finais de 2008 Juventudes Comuneras]
-Comuneras po:nome [n-grama: Castela Nova en galego e ata finais de 2008 Juventudes Comuneras]
 Castela po:nome [n-grama: Castela Unida]
 Castellanos po:nome
 Castellterçol po:nome [n-grama: Castellterçol Alternativa Local]
@@ -3802,9 +3797,11 @@ Auténtica po:nome [n-grama: Falange Española Auténtica]
 Falange po:nome [n-grama: Falange Española de las J.O.N.S.]
 las po:nome [n-grama: Falange Española de las J.O.N.S.]
 J.O.N.S. po:nome [n-grama: Falange Española de las J.O.N.S.]
-Falange po:nome [n-grama: Falange Española de las JONS]
-las po:nome [n-grama: Falange Española de las JONS]
-JONS po:nome [n-grama: Falange Española de las JONS]
+Falange po:nome [n-grama: Falange Española de las Juntas de Ofensiva Nacional Sindicalista]
+las po:nome [n-grama: Falange Española de las Juntas de Ofensiva Nacional Sindicalista]
+Juntas po:nome [n-grama: Falange Española de las Juntas de Ofensiva Nacional Sindicalista]
+Ofensiva po:nome [n-grama: Falange Española de las Juntas de Ofensiva Nacional Sindicalista]
+Sindicalista po:nome [n-grama: Falange Española de las Juntas de Ofensiva Nacional Sindicalista]
 Falange po:nome [n-grama: Falange Española Frente Nacional-Sindicalista]
 Frente po:nome [n-grama: Falange Española Frente Nacional-Sindicalista]
 Nacional-Sindicalista po:nome [n-grama: Falange Española Frente Nacional-Sindicalista]
@@ -3828,6 +3825,15 @@ Falange po:nome [n-grama: Falange Universal]
 Universal po:nome [n-grama: Falange Universal]
 Falanges po:nome [n-grama: Falanges Gallegas]
 Gallegas po:nome [n-grama: Falanges Gallegas]
+Falanxe po:nome [n-grama: Falanxe Española]
+Falanxe po:nome [n-grama: Falanxe Española das Xuntas de Ofensiva Nacional Sindicalista]
+Xuntas po:nome [n-grama: Falanxe Española das Xuntas de Ofensiva Nacional Sindicalista]
+Ofensiva po:nome [n-grama: Falanxe Española das Xuntas de Ofensiva Nacional Sindicalista]
+Sindicalista po:nome [n-grama: Falanxe Española das Xuntas de Ofensiva Nacional Sindicalista]
+Falanxe po:nome [n-grama: Falanxe Española Tradicionalista e das Xuntas de Ofensiva Nacional Sindicalista]
+Xuntas po:nome [n-grama: Falanxe Española Tradicionalista e das Xuntas de Ofensiva Nacional Sindicalista]
+Ofensiva po:nome [n-grama: Falanxe Española Tradicionalista e das Xuntas de Ofensiva Nacional Sindicalista]
+Sindicalista po:nome [n-grama: Falanxe Española Tradicionalista e das Xuntas de Ofensiva Nacional Sindicalista]
 Familia po:nome
 Familia po:nome [n-grama: Familia Intercultural]
 Intercultural po:nome [n-grama: Familia Intercultural]
@@ -3988,6 +3994,7 @@ Salou po:nome [n-grama: Forum Salou]
 Forza po:nome [n-grama: Forza Galega Fuerza Gallega]
 Fuerza po:nome [n-grama: Forza Galega Fuerza Gallega]
 Gallega po:nome [n-grama: Forza Galega Fuerza Gallega]
+Forza po:nome [n-grama: Forza Nova]
 FP po:nome
 FR. po:nome
 FREIXES po:nome
@@ -4171,6 +4178,8 @@ Ceibe po:nome [n-grama: Galicia Ceibe]
 Ceibe-OLN po:nome [n-grama: Galicia Ceibe-OLN]
 Ceive-OLN po:nome [n-grama: Galiza Ceive-OLN]
 GAMP po:nome
+Ganemos po:nome
+Gañemos po:nome
 Garda po:nome [n-grama: Garda de Ferro]
 Ferro po:nome [n-grama: Garda de Ferro]
 GAV po:nome
@@ -6491,12 +6500,6 @@ MICA po:nome
 Micaecus po:nome
 MILLOR po:nome
 MIRAC po:nome
-Mirandako po:nome [n-grama: Mirandako Ezkerra en vasco ou Esquerda Mirandesa]
-Ezkerra po:nome [n-grama: Mirandako Ezkerra en vasco ou Esquerda Mirandesa]
-vasco po:nome [n-grama: Mirandako Ezkerra en vasco ou Esquerda Mirandesa]
-ou po:nome [n-grama: Mirandako Ezkerra en vasco ou Esquerda Mirandesa]
-Esquerda po:nome [n-grama: Mirandako Ezkerra en vasco ou Esquerda Mirandesa]
-Mirandesa po:nome [n-grama: Mirandako Ezkerra en vasco ou Esquerda Mirandesa]
 MN po:nome
 MNF po:nome
 MNG po:nome
@@ -6819,9 +6822,6 @@ African po:nome [n-grama: Northern Rhodesian African National Congress]
 National po:nome [n-grama: Northern Rhodesian African National Congress]
 Congress po:nome [n-grama: Northern Rhodesian African National Congress]
 NOS po:nome
-Nós po:nome
-Nós po:nome [n-grama: Nós mesmos]
-mesmos po:nome [n-grama: Nós mesmos]
 Nós-Unidade po:nome [n-grama: Nós-Unidade Popular]
 NÓS-Unidade po:nome [n-grama: NÓS-Unidade Popular]
 NOS-UP po:nome
@@ -7036,7 +7036,6 @@ ORYSPE po:nome
 Osona po:nome [n-grama: Osona Municipal]
 Municipal po:nome [n-grama: Osona Municipal]
 OXIGENO po:nome
-P po:nome
 P po:nome [n-grama: P A E C]
 C po:nome [n-grama: P A E C]
 P po:nome [n-grama: P DE A]
@@ -7994,6 +7993,7 @@ Sada po:nome [n-grama: Partido Demócrata Sada Popular]
 Demócrata-Radical po:nome [n-grama: Partido Demócrata-Radical]
 Alemán po:nome [n-grama: Partido Democrático Alemán]
 Cívico po:nome [n-grama: Partido Democrático Cívico]
+Constitucional po:nome [n-grama: Partido Democrático Constitucional]
 Albania po:nome [n-grama: Partido Democrático de Albania]
 Arahal po:nome [n-grama: Partido Democrático de Arahal]
 Baiona po:nome [n-grama: Partido Democrático de Baiona]
@@ -9028,11 +9028,11 @@ Cristiano po:nome [n-grama: Partido Sociolaboral Cristiano]
 Solidaridad po:nome [n-grama: Partido Solidaridad de Nueva Alianza Española]
 Nueva po:nome [n-grama: Partido Solidaridad de Nueva Alianza Española]
 Solidaridad po:nome [n-grama: Partido Solidaridad Democrática]
-Solidaridad po:nome [n-grama: Partido Solidaridad E Integración Vecinal: Barrios con Voz]
-Integración po:nome [n-grama: Partido Solidaridad E Integración Vecinal: Barrios con Voz]
-Vecinal: po:nome [n-grama: Partido Solidaridad E Integración Vecinal: Barrios con Voz]
-con po:nome [n-grama: Partido Solidaridad E Integración Vecinal: Barrios con Voz]
-Voz po:nome [n-grama: Partido Solidaridad E Integración Vecinal: Barrios con Voz]
+Solidaridad po:nome [n-grama: Partido Solidaridad E Integración Vecinal Barrios con Voz]
+Integración po:nome [n-grama: Partido Solidaridad E Integración Vecinal Barrios con Voz]
+Vecinal po:nome [n-grama: Partido Solidaridad E Integración Vecinal Barrios con Voz]
+con po:nome [n-grama: Partido Solidaridad E Integración Vecinal Barrios con Voz]
+Voz po:nome [n-grama: Partido Solidaridad E Integración Vecinal Barrios con Voz]
 Tera po:nome [n-grama: Partido Tera Vidriales]
 Vidriales po:nome [n-grama: Partido Tera Vidriales]
 Unificado po:nome [n-grama: Partido Unificado de los Pensionistas de España]
@@ -9289,8 +9289,8 @@ Partit po:nome [n-grama: Partit per la Independencia-Pi]
 per po:nome [n-grama: Partit per la Independencia-Pi]
 la po:nome [n-grama: Partit per la Independencia-Pi]
 Independencia-Pi po:nome [n-grama: Partit per la Independencia-Pi]
-Partit po:nome [n-grama: Partit Popular de Catalunya]
-Catalunya po:nome [n-grama: Partit Popular de Catalunya]
+Partit po:nome [n-grama: Partit Popular Català]
+Català po:nome [n-grama: Partit Popular Català]
 Partit po:nome [n-grama: Partit Progresista Independent per Vilamarxant]
 Independent po:nome [n-grama: Partit Progresista Independent per Vilamarxant]
 per po:nome [n-grama: Partit Progresista Independent per Vilamarxant]
@@ -9331,8 +9331,6 @@ d'Alliberament po:nome [n-grama: Partit Socialista d'Alliberament Nacional dels 
 dels po:nome [n-grama: Partit Socialista d'Alliberament Nacional dels Països Catalans]
 Països po:nome [n-grama: Partit Socialista d'Alliberament Nacional dels Països Catalans]
 Catalans po:nome [n-grama: Partit Socialista d'Alliberament Nacional dels Països Catalans]
-Partit po:nome [n-grama: Partit Socialista de Mallorca]
-Mallorca po:nome [n-grama: Partit Socialista de Mallorca]
 Partit po:nome [n-grama: Partit Socialista de Menorca-Entesa Nacionalista]
 Menorca-Entesa po:nome [n-grama: Partit Socialista de Menorca-Entesa Nacionalista]
 Partit po:nome [n-grama: Partit Socialista Democratic]
@@ -10032,6 +10030,7 @@ PSJ po:nome
 PSLCV po:nome
 PSM po:nome
 PSM-EN po:nome
+PSM-Entesa po:nome [n-grama: PSM-Entesa Nacionalista]
 PSM-Entesa po:nome [n-grama: PSM-Entesa Nacionalista de Mallorca]
 Mallorca po:nome [n-grama: PSM-Entesa Nacionalista de Mallorca]
 PSOE po:nome
@@ -10138,7 +10137,8 @@ la po:nome [n-grama: Reforma de la Administración Publica]
 Publica po:nome [n-grama: Reforma de la Administración Publica]
 Reforma po:nome [n-grama: Reforma Social Española]
 Social po:nome [n-grama: Reforma Social Española]
-Refundación po:nome [n-grama: Refundación Comunista]
+Refundación po:nome [n-grama: Refundación Comunista Sanmarinesa]
+Sanmarinesa po:nome [n-grama: Refundación Comunista Sanmarinesa]
 Regionalistas po:nome [n-grama: Regionalistas Cántabros Independientes]
 Cántabros po:nome [n-grama: Regionalistas Cántabros Independientes]
 Independientes po:nome [n-grama: Regionalistas Cántabros Independientes]
@@ -10230,7 +10230,6 @@ RP po:nome
 RT po:nome
 RVPV po:nome
 RWF po:nome
-S po:nome
 S.A. po:nome
 S.A.I. po:nome
 S.A.L.A.R. po:nome
@@ -10511,6 +10510,7 @@ Tierra po:nome [n-grama: Tierra Uno de España]
 Uno po:nome [n-grama: Tierra Uno de España]
 Tikzirin po:nome [n-grama: Tikzirin Tikanariyin]
 Tikanariyin po:nome [n-grama: Tikzirin Tikanariyin]
+Tjóðveldi po:nome
 Tjóðveldisflokkurin po:nome
 Todos po:nome [n-grama: Todos por Chipiona]
 Chipiona po:nome [n-grama: Todos por Chipiona]
@@ -11443,7 +11443,6 @@ Independiente po:nome [n-grama: Unión Democrática Independiente de Santa Ursul
 Ursula po:nome [n-grama: Unión Democrática Independiente de Santa Ursula]
 Región po:nome [n-grama: Unión Democrática Región de Murcia]
 Murcia po:nome [n-grama: Unión Democrática Región de Murcia]
-Navarro po:nome [n-grama: Unión do Pobo Navarro]
 Salmantino po:nome [n-grama: Unión do Pobo Salmantino]
 Povo po:nome [n-grama: Unión do Povo Galego]
 Traballo po:nome [n-grama: Unión do Traballo]
@@ -11583,7 +11582,6 @@ Aragonesa po:nome [n-grama: Unión Regionalista Aragonesa]
 Renovadora po:nome [n-grama: Unión Renovadora Asturiana]
 Asturiana po:nome [n-grama: Unión Renovadora Asturiana]
 Repúblicana po:nome [n-grama: Unión Repúblicana]
-Republicana|Unión po:nome [n-grama: Unión Republicana|Unión Republicana]
 Ruralista po:nome [n-grama: Unión Ruralista Leonesa]
 Leonesa po:nome [n-grama: Unión Ruralista Leonesa]
 Salmantina po:nome [n-grama: Unión Salmantina Independiente]
@@ -11951,7 +11949,6 @@ VVGM po:nome
 Vx+ po:nome
 VYP po:nome
 VYS po:nome
-W po:nome
 X.C.P.T. po:nome
 X.X.I. po:nome
 Xabia po:nome [n-grama: Xabia Som Tots]
@@ -11962,6 +11959,9 @@ Xalleiros po:nome [n-grama: Xóvenes Xalleiros]
 XST po:nome
 Xunta po:nome [n-grama: Xunta Nacionalista Asturiana]
 Asturiana po:nome [n-grama: Xunta Nacionalista Asturiana]
+Xuntas po:nome [n-grama: Xuntas de Ofensiva Nacional-Sindicalista]
+Ofensiva po:nome [n-grama: Xuntas de Ofensiva Nacional-Sindicalista]
+Nacional-Sindicalista po:nome [n-grama: Xuntas de Ofensiva Nacional-Sindicalista]
 Xuntos po:nome [n-grama: Xuntos Cara o Progreso de Toques]
 Cara po:nome [n-grama: Xuntos Cara o Progreso de Toques]
 Progreso po:nome [n-grama: Xuntos Cara o Progreso de Toques]

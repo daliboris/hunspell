@@ -130,6 +130,8 @@ Blue po:nome [n-grama: Blue Version]
 Version po:nome [n-grama: Blue Version]
 Bomb po:nome [n-grama: Bomb Jack]
 Jack po:nome [n-grama: Bomb Jack]
+botón po:nome [n-grama: botón direccional]
+direccional po:nome [n-grama: botón direccional]
 Brothers po:nome [n-grama: Brothers In Arms Road to Hill 30]
 In po:nome [n-grama: Brothers In Arms Road to Hill 30]
 Arms po:nome [n-grama: Brothers In Arms Road to Hill 30]
@@ -200,6 +202,8 @@ Final po:nome [n-grama: Call of Duty World at War Final Fronts]
 Fronts po:nome [n-grama: Call of Duty World at War Final Fronts]
 Camino po:nome
 Capcom po:nome
+cartucho po:nome [n-grama: cartucho de trucos]
+trucos po:nome [n-grama: cartucho de trucos]
 Castle po:nome [n-grama: Castle Master]
 Master po:nome [n-grama: Castle Master]
 Castlevania po:nome
@@ -235,11 +239,15 @@ Common po:nome [n-grama: Common Desktop Environment]
 Desktop po:nome [n-grama: Common Desktop Environment]
 Environment po:nome [n-grama: Common Desktop Environment]
 Conficker po:nome
+consola po:nome
+controlador po:nome [n-grama: controlador de xogo]
 Corpse po:nome [n-grama: Corpse Party]
 Party po:nome [n-grama: Corpse Party]
+direccional po:nome [n-grama: cruz direccional]
 Cyberball po:nome
 Cyberia po:nome
 Cyberun po:nome
+D-pad po:nome
 Dead po:nome [n-grama: Dead Rising]
 Rising po:nome [n-grama: Dead Rising]
 Dead po:nome [n-grama: Dead Space]
@@ -666,6 +674,10 @@ OVI po:nome [n-grama: OVI Music Store]
 Music po:nome [n-grama: OVI Music Store]
 Store po:nome [n-grama: OVI Music Store]
 Pac-Man po:nome
+pad po:nome [n-grama: pad direccional]
+direccional po:nome [n-grama: pad direccional]
+panca po:nome [n-grama: panca analóxica]
+analóxica po:nome [n-grama: panca analóxica]
 Pang po:nome
 Patrician po:nome
 PES po:nome [n-grama: PES 2009]
@@ -879,11 +891,15 @@ StarCraft po:nome
 StarCraft po:nome [n-grama: StarCraft Brood War]
 Brood po:nome [n-grama: StarCraft Brood War]
 War po:nome [n-grama: StarCraft Brood War]
+stick po:nome [n-grama: stick analóxico]
+analóxico po:nome [n-grama: stick analóxico]
 Street po:nome [n-grama: Street Cat]
 Cat po:nome [n-grama: Street Cat]
 Street po:nome [n-grama: Street Hawk]
 Hawk po:nome [n-grama: Street Hawk]
 Stunts po:nome
+Sunset po:nome [n-grama: Sunset Overdrive]
+Overdrive po:nome [n-grama: Sunset Overdrive]
 Super po:nome [n-grama: Super Mario Bros.]
 Mario po:nome [n-grama: Super Mario Bros.]
 Bros. po:nome [n-grama: Super Mario Bros.]
@@ -1018,7 +1034,6 @@ V-Jump po:nome
 Valve po:nome [n-grama: Valve Software]
 Software po:nome [n-grama: Valve Software]
 Vi po:nome
-videoconsola po:nome
 Visceral po:nome [n-grama: Visceral Games]
 Games po:nome [n-grama: Visceral Games]
 Visual po:nome [n-grama: Visual Memory Unit]

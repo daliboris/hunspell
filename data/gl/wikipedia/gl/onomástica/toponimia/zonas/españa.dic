@@ -1,4 +1,5 @@
 Abando po:topónimo
+Albaicín po:topónimo
 Algirós po:topónimo
 Arganzuela po:topónimo
 Barajas po:topónimo
@@ -12,6 +13,8 @@ Sant po:topónimo [n-grama: Barrio de Sant Antoni]
 Antoni po:topónimo [n-grama: Barrio de Sant Antoni]
 Basurtu-Zorrotza po:topónimo
 Begoña po:topónimo
+Bellavista-La po:topónimo [n-grama: Bellavista-La Palmera]
+Palmera po:topónimo [n-grama: Bellavista-La Palmera]
 Benicalap po:topónimo
 Benimaclet po:topónimo
 Bon po:topónimo [n-grama: Bon Pastor]
@@ -30,7 +33,10 @@ Can po:topónimo [n-grama: Can Peguera]
 Peguera po:topónimo [n-grama: Can Peguera]
 Canyelles po:topónimo
 Carabanchel po:topónimo
+Casco po:topónimo [n-grama: Casco Antiguo]
+Antiguo po:topónimo [n-grama: Casco Antiguo]
 Centre po:topónimo
+Cerro-Amate po:topónimo
 Chamartín po:topónimo
 Chamberí po:topónimo
 Ciudad po:topónimo [n-grama: Ciudad Lineal]
@@ -49,6 +55,8 @@ Front po:topónimo [n-grama: Diagonal Mar i el Front Marítim del Poblenou]
 Marítim po:topónimo [n-grama: Diagonal Mar i el Front Marítim del Poblenou]
 del po:topónimo [n-grama: Diagonal Mar i el Front Marítim del Poblenou]
 Poblenou po:topónimo [n-grama: Diagonal Mar i el Front Marítim del Poblenou]
+Los po:topónimo [n-grama: Distrito Los Remedios]
+Nervión po:topónimo [n-grama: Distrito Nervión]
 Dreta po:topónimo [n-grama: Dreta de l'Eixample]
 l'Eixample po:topónimo [n-grama: Dreta de l'Eixample]
 Eixample po:topónimo [n-grama: Eixample de Barcelona]
@@ -103,6 +111,7 @@ Turó po:topónimo [n-grama: El Turó de la Peira]
 la po:topónimo [n-grama: El Turó de la Peira]
 Peira po:topónimo [n-grama: El Turó de la Peira]
 Errekalde po:topónimo
+Este-Alcosa-Torreblanca po:topónimo
 Extramurs po:topónimo
 Fort po:topónimo [n-grama: Fort Pienc]
 Pienc po:topónimo [n-grama: Fort Pienc]
@@ -183,6 +192,7 @@ Corts po:topónimo [n-grama: Les Corts]
 Les po:topónimo [n-grama: Les Roquetes]
 Roquetes po:topónimo [n-grama: Les Roquetes]
 Les po:topónimo [n-grama: Les Tres Torres]
+Macarena po:topónimo
 Moncloa-Aravaca po:topónimo
 Montbau po:topónimo
 Moratalaz po:topónimo
@@ -215,6 +225,8 @@ Rascanya po:topónimo
 Retiro po:topónimo
 Salamanca po:topónimo
 Blas po:topónimo [n-grama: San Blas]
+Pablo-Santa po:topónimo [n-grama: San Pablo-Santa Justa]
+Justa po:topónimo [n-grama: San Pablo-Santa Justa]
 Sant po:topónimo [n-grama: Sant Andreu]
 Andreu po:topónimo [n-grama: Sant Andreu]
 Sant po:topónimo [n-grama: Sant Andreu de Palomar]
@@ -244,6 +256,7 @@ Sarrià-Sant po:topónimo [n-grama: Sarrià-Sant Gervasi]
 Gervasi po:topónimo [n-grama: Sarrià-Sant Gervasi]
 Tetuán po:topónimo
 Baró po:topónimo [n-grama: Torre Baró]
+Triana po:topónimo
 Trinitat po:topónimo [n-grama: Trinitat Vella]
 Uribarri po:topónimo
 Usera po:topónimo

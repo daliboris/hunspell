@@ -67,9 +67,9 @@ class Iso4217Generator(Generator):
 
     def __init__(self):
         super(Iso4217Generator, self).__init__()
-        self.resource = "iso4217/vocabulario.dic"
+        self.resource = "iso/4217/vocabulario.dic"
 
-    def generateFileContent(self):
+    def content(self):
         codeList = Iso4217CodeList()
         codeList.loadFromXml(
             urllib2.urlopen(
@@ -172,9 +172,9 @@ class Iso639Generator(Generator):
 
     def __init__(self):
         super(Iso639Generator, self).__init__()
-        self.resource = "iso639/vocabulario.dic"
+        self.resource = "iso/639/vocabulario.dic"
 
-    def generateFileContent(self):
+    def content(self):
         codeList = Iso639CodeList()
         codeList.mergeFromSilOrgPage(
             urllib2.urlopen(

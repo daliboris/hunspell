@@ -50,7 +50,6 @@ Amager po:topónimo
 Amaknak po:topónimo
 Amanu po:topónimo
 Ambae po:topónimo
-Ambón po:topónimo
 Ambrym po:topónimo
 Amchitka po:topónimo
 Ameland po:topónimo
@@ -561,6 +560,7 @@ Bylot po:topónimo [n-grama: Illa Bylot]
 Canton po:topónimo [n-grama: Illa Canton]
 Carney po:topónimo [n-grama: illa Carney]
 Caroline po:topónimo [n-grama: Illa Caroline]
+Carral po:topónimo [n-grama: illa Carral]
 Caviana po:topónimo [n-grama: illa Caviana]
 Charlotte po:topónimo [n-grama: Illa Charlotte]
 Chatham po:topónimo [n-grama: illa Chatham]
@@ -708,6 +708,8 @@ Vancouver po:topónimo [n-grama: illa de Vancouver]
 Vionta po:topónimo [n-grama: Illa de Vionta]
 Wight po:topónimo [n-grama: Illa de Wight]
 Wrangel po:topónimo [n-grama: illa de Wrangel]
+Xoán po:topónimo [n-grama: Illa de Xoán Carlos]
+Carlos po:topónimo [n-grama: Illa de Xoán Carlos]
 Decepción po:topónimo [n-grama: illa Decepción]
 del po:topónimo [n-grama: Illa del Forcón]
 Forcón po:topónimo [n-grama: Illa del Forcón]
@@ -1088,6 +1090,13 @@ Irlanda po:topónimo
 Isabela po:topónimo
 Ischia po:topónimo
 Islay po:topónimo
+Isle po:topónimo [n-grama: Isle à Jean Charles]
+à po:topónimo [n-grama: Isle à Jean Charles]
+Jean po:topónimo [n-grama: Isle à Jean Charles]
+Charles po:topónimo [n-grama: Isle à Jean Charles]
+Isle po:topónimo [n-grama: Isle de Jean Charles]
+Jean po:topónimo [n-grama: Isle de Jean Charles]
+Charles po:topónimo [n-grama: Isle de Jean Charles]
 Islla po:topónimo [n-grama: Islla Ballota]
 Ballota po:topónimo [n-grama: Islla Ballota]
 Islla po:topónimo [n-grama: Islla Borizu]
@@ -1433,6 +1442,7 @@ Nunivak po:topónimo
 Nusa po:topónimo [n-grama: Nusa Tenggara]
 Tenggara po:topónimo [n-grama: Nusa Tenggara]
 Andrés po:topónimo [n-grama: O Arquipélago de San Andrés]
+Con po:topónimo [n-grama: O Con]
 grupo po:topónimo [n-grama: O grupo Gálvez]
 Gálvez po:topónimo [n-grama: O grupo Gálvez]
 Territorio po:topónimo [n-grama: O Territorio da Illa de Nadal]
@@ -1544,6 +1554,7 @@ Pukapuka po:topónimo
 Pukarua po:topónimo
 Pulau po:topónimo [n-grama: Pulau Atauro]
 Atauro po:topónimo [n-grama: Pulau Atauro]
+Púlpito po:topónimo
 Qeqertarsuaq po:topónimo
 Qeshm po:topónimo
 Queixome po:topónimo
@@ -1576,6 +1587,7 @@ Bellona po:topónimo [n-grama: Rennell e Bellona]
 Repi po:topónimo
 Fidxi po:topónimo [n-grama: República das Illas Fidxi]
 Palaus po:topónimo [n-grama: República das Palaus]
+Cuba po:topónimo [n-grama: República de Cuba]
 Kiribati po:topónimo [n-grama: República de Kiribati]
 Madagascar po:topónimo [n-grama: República de Madagascar]
 Nauru po:topónimo [n-grama: República de Nauru]

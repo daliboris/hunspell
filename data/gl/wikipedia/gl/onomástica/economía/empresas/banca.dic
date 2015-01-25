@@ -1,4 +1,5 @@
 BAD po:nome
+Ban po:nome
 Banc po:nome [n-grama: Banc Sabadell]
 Sabadell po:nome [n-grama: Banc Sabadell]
 Bancaja po:nome
@@ -25,6 +26,8 @@ Banco po:nome [n-grama: Banco de Vigo]
 Vigo po:nome [n-grama: Banco de Vigo]
 Banco po:nome [n-grama: Banco do BRICS]
 BRICS po:nome [n-grama: Banco do BRICS]
+Banco po:nome [n-grama: Banco Español de Crédito]
+Crédito po:nome [n-grama: Banco Español de Crédito]
 Banco po:nome [n-grama: Banco Etcheverría]
 Etcheverría po:nome [n-grama: Banco Etcheverría]
 Banco po:nome [n-grama: Banco Gallego]
@@ -50,6 +53,7 @@ Banesco po:nome [n-grama: Banesco Panamá]
 Panamá po:nome [n-grama: Banesco Panamá]
 Banesco po:nome [n-grama: Banesco República Dominicana]
 Dominicana po:nome [n-grama: Banesco República Dominicana]
+Banesto po:nome
 BBK po:nome
 BBVA po:nome
 Bilbao po:nome [n-grama: Bilbao Bizkaia Kutxa]
@@ -86,6 +90,7 @@ Rural po:nome [n-grama: Caixa Rural de Ourense]
 Ourense po:nome [n-grama: Caixa Rural de Ourense]
 Caixa po:nome [n-grama: Caixa Rural Galega]
 Rural po:nome [n-grama: Caixa Rural Galega]
+CaixaBank po:nome
 Caja po:nome [n-grama: Caja de Ahorros de Valencia]
 Ahorros po:nome [n-grama: Caja de Ahorros de Valencia]
 Valencia po:nome [n-grama: Caja de Ahorros de Valencia]
@@ -102,6 +107,7 @@ Lérez po:nome [n-grama: Caja Rural de Lérez]
 Caja po:nome [n-grama: Caja Rural de Orense]
 Rural po:nome [n-grama: Caja Rural de Orense]
 Orense po:nome [n-grama: Caja Rural de Orense]
+Es po:nome
 EVO po:nome [n-grama: EVO Banco]
 Banco po:nome [n-grama: EVO Banco]
 Firstar po:nome [n-grama: Firstar Corporation]
@@ -130,6 +136,7 @@ Group po:nome [n-grama: Swissquote Group Holding S. A.]
 Holding po:nome [n-grama: Swissquote Group Holding S. A.]
 S. po:nome [n-grama: Swissquote Group Holding S. A.]
 A. po:nome [n-grama: Swissquote Group Holding S. A.]
+to po:nome
 Triodos po:nome [n-grama: Triodos Bank]
 Bank po:nome [n-grama: Triodos Bank]
 U.S. po:nome [n-grama: U.S. Bancorp]

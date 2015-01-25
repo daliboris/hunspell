@@ -92,8 +92,7 @@ PGP po:sigla
 PHP po:sigla
 PL\/1 po:sigla
 PNG po:sigla
-Point-to-point po:sigla [n-grama: Point-to-point Protocol]
-Protocol po:sigla [n-grama: Point-to-point Protocol]
+PPP po:sigla
 RADIUS po:sigla
 RLE po:sigla
 SCADA po:sigla

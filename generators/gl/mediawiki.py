@@ -37,13 +37,20 @@ sep = u"(?:[-,;]| e ) *"
 colon = u"(?:[:,] *)?"
 nexo = u"(?:do|en) *"
 
-term = u"(?:\'\'\'\'\' *[^)]*? *\'\'\'\'\'|\'\'\' *[^)]*? *\'\'\'|" \
-    u"\'\' *[^)]*? *\'\'|\{\{ *nihongo *\|.*?\}\}) *"
+# Notes:
+# • “[^')]” used to be “[^)]”. It was changed to avoid issues with
+#   “('''''Guanyem''''' en [[Lingua catalá|catalán]], '''Gañemos''' en
+#   galego)”. Any further change to those strings should try not to produce a
+#   bad parsing of that sentence again. This is related to
+#   “data/gl/wikipedia/gl/onomástica/política/partidos.dic”.
+
+term = u"(?:\'\'\'\'\' *[^')]*? *\'\'\'\'\'|\'\'\' *[^')]*? *\'\'\'|" \
+    u"\'\' *[^')]*? *\'\'|\{\{ *nihongo *\|.*?\}\}) *"
 thisOrThat = u"(?:abreviado *)?{term}(?: *ou *{term})? *".format(term=term)
 language = u"(?:\w+|\[\[[^]|]+\|[^]]+\]\]) *"
 
-termo = u"(?:\'\'\'\'\' *([^)]*?) *\'\'\'\'\'|\'\'\' *([^)]*?) *\'\'\'|" \
-    u"\'\' *([^)]*?) *\'\'|\{\{ *nihongo *\| *(.*?) *\|.*?\}\}) *"
+termo = u"(?:\'\'\'\'\' *([^')]*?) *\'\'\'\'\'|\'\'\' *([^')]*?) *\'\'\'|" \
+    u"\'\' *([^')]*?) *\'\'|\{\{ *nihongo *\| *(.*?) *\|.*?\}\}) *"
 istoOuAquilo = u"(?:abreviado *)?{term}(?: *ou *{term})? *".format(term=termo)
 galego = u"(?:galego|\[\[[^]|]+\| *galego *\]\]) *"
 
@@ -73,7 +80,7 @@ siglasAbap = u"\'\'\'\'\'\w\'\'\'\w*(?:[\w, -]+\'\'\'\w\'\'\'\w*)*\'\'"
 siglasPl1 = u"\'\'\'\w\'\'\'\w*(?:[\w, -]+\'\'\'\w\'\'\'\w*)*"
 
 highlightedPatternStrings = [
-    u"\( *\'\'\' *\[[^ ]+\.ogg +\'\' *[^)]+ *\'\' *\] *\'\'\' *\)",
+    u"\( *\'\'\' *\[[^ ]+\.ogg +\'\' *[^')]+ *\'\' *\] *\'\'\' *\)",
 
     # e.g. https://gl.wikipedia.org/wiki/O_Correcami%C3%B1os
     u"\( *{term}, *(?:.*?, *)*literalmente *{term} *\)".format(term=term),
@@ -82,11 +89,11 @@ highlightedPatternStrings = [
         thisOrThat=istoOuAquilo, sep=sep, friends=friends),
     u"\( *{}\)".format(friends),
     u"\( *{term}{sep}na *actualidade *{term}\)".format(term=termo, sep=sep),
+    u"|".join((siglasWasp, siglasAbap, siglasPl1)),
     u"\( *{term},? *ou *{term}\)".format(term=termo),
     u"\( *{term}{sep}{term}\)".format(term=termo, sep=sep),
     u"\( *(?:{}) *\)".format(u"|".join((siglasWasp, siglasAbap, siglasPl1))),
     u"\( *{}\)".format(termo),
-    u"|".join((siglasWasp, siglasAbap, siglasPl1)),
     u"\'\'\'\'\' *(.*?) *\'\'\'\'\'",
     u"\'\'\' *\{\{ *nihongo *\| *(.*?) *\|.*?\}\} *\'\'\'",
     u"\'\'\' *(.*?) *\'\'\'",
@@ -246,7 +253,7 @@ class MediaWikiGenerator(Generator):
     def content(self):
 
         noCache = self.evaluateNoCacheParameters()
-        cacheManager = CacheManager()
+        cacheManager = CacheManager("hunspell/gl/mediawiki")
         totalEntries = set()
         index = 1
 
@@ -589,7 +596,7 @@ class SiteCache(object):
                 page = response.read()
                 soup = BeautifulSoup(page)
                 self._remoteDumpDate = int(
-                    soup.find_all("tr")[-2].td.a.get_text())
+                    soup.find_all("a")[-2].get_text().rstrip("/"))
             except urllib2.HTTPError:
                 # Most likely “HTTP Error 403: Forbidden”
                 raise MediawikiDumpServerForbidsAccessException()
@@ -1107,7 +1114,7 @@ class FirstSentenceParser(PageContentParser):
 
         foundAMatch = False
 
-        for pattern in highlightedPatterns:
+        for index, pattern in enumerate(highlightedPatterns):
 
             matches = list(pattern.finditer(firstSentence))
 
@@ -1115,8 +1122,12 @@ class FirstSentenceParser(PageContentParser):
                 foundAMatch = True
 
             for match in matches:
-                print pattern.pattern
-                print match.groups()
+                # The following code is left here commented on purpose for
+                # debugging purposes.
+                #print(u"Pattern index: {}".format(index))
+                #print(pattern.pattern)
+                #print(match.group(0))
+                #print(match.groups())
                 for entry in match.groups():
                     if entry is not None:
                         yield entry
@@ -1194,6 +1205,9 @@ class EntryParser(object):
             # Eliminar contido entre parénteses.
             entry = re.sub(parenthesis, u"", entry)
 
+            if self.linkFilter and u"[[" in entry:
+                entry = re.sub(u"\[\[(?:[^]|]+\|)?([^]|]+)\]\]", u"\\1", entry)
+
             if self.doubleApostropheFilter and u"''" in entry:
                 entry = entry.replace(u"''", u"")
 
@@ -1205,9 +1219,6 @@ class EntryParser(object):
             # Nome en galego e no idioma local. Por exemplo: «Bilbao - Bilbo».
             if self.hyphenFilter and u" - " in entry:
                 entry = entry.split(u" - ")[0]
-
-            if self.linkFilter and u"[[" in entry:
-                entry = re.sub(u"\[\[(?:[^]|]+\|)?([^]|]+)\]\]", u"\\1", entry)
 
             if self.quoteFilter and u"\"" in entry:
                 entry = entry.replace(u"\"", u"")
