@@ -113,6 +113,10 @@ aturde atorda     # aturdir → atordar.
 atúrde atórda     # aturdir → atordar.
 aturda atorde     # aturdir → atordar.
 atúrda atórde     # aturdir → atordar.
+
+# aunque → aínda que
+^aunque$ aínda_que
+
 azaball azafall      # azaballar → azafallar.
 azabáll azafáll      # azaballar → azafallar.
 azarapall zarapall      # azarapallar → zarapallar.
@@ -167,6 +171,11 @@ champúrr chapúz     # champurrar → chapuzar.
 ^chaval rapaz               # chaval → rapaz
 ^chavais$ rapaces           # chaval → rapaz
 ^chavales$ rapaces          # chaval → rapaz
+
+# cercanía → achegamento
+^cercanía$ achegamento
+^cercanías$ achegamentos
+
 cerrollo ferrollo     # Erro común.
 choll choi # chollar → choiar
 ci ce      # ciar → cear.
@@ -455,6 +464,11 @@ laric latric      # laricar → latricar.
 laríc latríc      # laricar → latricar.
 les is            # Exemplo: casuales → casuais.
 línea liña        # línea → liña.
+
+# link → ligazón
+^link$ ligazón
+^links$ ligazóns
+
 ll x
 lonxan afastad     # lonxano → afastado.
 lonxano distante     # lonxano → distante.
@@ -638,6 +652,10 @@ retras atras      # retrasar → atrasar.
 retrás atrás      # retrasar → atrasar.
 ^rex rexen                  # rexerar → rexenerar
 
+# router → encamiñador
+^router$ encamiñador
+^routers$ encamiñadores
+
 # satisface → satisfai
 ^satisface satisfai
 ^satisfáce satisfai
@@ -737,6 +755,11 @@ uniformíc unifórm     # uniformizar → uniformar.
 ^vial$ viario   # vial → viario.
 ^viais$ viarias # vial → viario.
 ^viais$ viarios # vial → viario.
+
+# vocablo → vocábulo
+^vocablo$ vocábulo
+^vocablos$ vocábulos
+
 x ll                  # Exemplo: parexa → parella.
 xener xer             # xenerar → xerar.
 xeralic xeneralic     # xeralizar → xeneralizar.
@@ -754,6 +777,7 @@ zamp chap      # zampar → chapar.
 zámp cháp      # zampar → chapar.
 zamp chimp      # zampar → chimpar.
 zámp chímp      # zampar → chimpar.
+
 airado irado # airado2 -> irado
 airada irada # airado2 -> irado
 anexo anello # anexo2 -> anello
